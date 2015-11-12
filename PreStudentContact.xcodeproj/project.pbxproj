@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD66D1C51BF4D13900193B03 /* Etudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1C41BF4D13900193B03 /* Etudiant.swift */; };
+		CD66D1CB1BF4DA8600193B03 /* listeEtudiants.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD66D1CA1BF4DA8600193B03 /* listeEtudiants.plist */; };
+		CD66D1CD1BF4DF6600193B03 /* ToolsInOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */; };
 		CDD451BD1BF4BBF700F76213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */; };
 		CDD451BF1BF4BBF700F76213 /* MainInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD451BE1BF4BBF700F76213 /* MainInputController.swift */; };
 		CDD451C21BF4BBF700F76213 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD451C01BF4BBF700F76213 /* Main.storyboard */; };
@@ -16,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD66D1C41BF4D13900193B03 /* Etudiant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Etudiant.swift; sourceTree = "<group>"; };
+		CD66D1C81BF4D47200193B03 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		CD66D1CA1BF4DA8600193B03 /* listeEtudiants.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = listeEtudiants.plist; sourceTree = "<group>"; };
+		CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsInOut.swift; sourceTree = "<group>"; };
 		CDD451B91BF4BBF700F76213 /* PreStudentContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PreStudentContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDD451BE1BF4BBF700F76213 /* MainInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInputController.swift; sourceTree = "<group>"; };
@@ -37,6 +44,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD66D1C91BF4DA5F00193B03 /* DataList */ = {
+			isa = PBXGroup;
+			children = (
+				CD66D1CA1BF4DA8600193B03 /* listeEtudiants.plist */,
+			);
+			name = DataList;
+			sourceTree = "<group>";
+		};
 		CDD451B01BF4BBF700F76213 = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +71,17 @@
 		CDD451BB1BF4BBF700F76213 /* PreStudentContact */ = {
 			isa = PBXGroup;
 			children = (
+				CD66D1C91BF4DA5F00193B03 /* DataList */,
 				CDD451CE1BF4BC2F00F76213 /* Images */,
 				CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */,
 				CDD451BE1BF4BBF700F76213 /* MainInputController.swift */,
+				CD66D1C41BF4D13900193B03 /* Etudiant.swift */,
+				CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */,
 				CDD451C01BF4BBF700F76213 /* Main.storyboard */,
 				CDD451C31BF4BBF700F76213 /* Assets.xcassets */,
 				CDD451C51BF4BBF700F76213 /* LaunchScreen.storyboard */,
 				CDD451C81BF4BBF700F76213 /* Info.plist */,
+				CD66D1C81BF4D47200193B03 /* MyPlayground.playground */,
 			);
 			path = PreStudentContact;
 			sourceTree = "<group>";
@@ -136,6 +155,7 @@
 				CDD451C71BF4BBF700F76213 /* LaunchScreen.storyboard in Resources */,
 				CDD451C41BF4BBF700F76213 /* Assets.xcassets in Resources */,
 				CDD451C21BF4BBF700F76213 /* Main.storyboard in Resources */,
+				CD66D1CB1BF4DA8600193B03 /* listeEtudiants.plist in Resources */,
 				CDD451D01BF4BC3A00F76213 /* logo_UL.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,6 +169,8 @@
 			files = (
 				CDD451BF1BF4BBF700F76213 /* MainInputController.swift in Sources */,
 				CDD451BD1BF4BBF700F76213 /* AppDelegate.swift in Sources */,
+				CD66D1C51BF4D13900193B03 /* Etudiant.swift in Sources */,
+				CD66D1CD1BF4DF6600193B03 /* ToolsInOut.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

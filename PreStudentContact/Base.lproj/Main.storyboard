@@ -8,7 +8,7 @@
         <!--Main Input Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainInputController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainInputController" customModule="PreStudentContact" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleAspectFit" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt;Restons en contacts..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FGz-j3-fCj">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt;Restons en contact..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FGz-j3-fCj">
                                             <rect key="frame" x="40" y="101" width="331" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
@@ -34,7 +34,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt; Ton projet....." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1g5-jh-vdF">
-                                            <rect key="frame" x="32" y="533" width="331" height="45"/>
+                                            <rect key="frame" x="30" y="519" width="331" height="45"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
@@ -49,40 +49,17 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ta classe:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aZR-WK-aup">
-                                            <rect key="frame" x="57" y="266" width="127" height="27"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ta classe/spécialité:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aZR-WK-aup">
+                                            <rect key="frame" x="58" y="268" width="196" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spécialité:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KD0-dX-7jy">
-                                            <rect key="frame" x="61" y="320" width="127" height="27"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <pickerView contentMode="scaleToFill" id="zre-qB-ny2" userLabel="taClasse">
-                                            <rect key="frame" x="232" y="254" width="435" height="51"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                        </pickerView>
-                                        <pickerView contentMode="scaleToFill" id="8CG-9v-AKI" userLabel="taSpécialité">
-                                            <rect key="frame" x="232" y="313" width="435" height="59"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                        </pickerView>
-                                        <pickerView contentMode="scaleToFill" id="BYW-Et-1gE" userLabel="integreIUT">
-                                            <rect key="frame" x="296" y="580" width="433" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                                            <animations/>
-                                        </pickerView>
-                                        <pickerView contentMode="scaleToFill" id="mDc-df-6hw" userLabel="integreLP">
-                                            <rect key="frame" x="296" y="630" width="433" height="43"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <pickerView tag="1" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" id="BYW-Et-1gE" userLabel="integreIUT">
+                                            <rect key="frame" x="291" y="535" width="433" height="101"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <animations/>
                                         </pickerView>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="s5t-mp-FC5" userLabel="champNom">
@@ -93,21 +70,21 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="1xI-Gk-fdP" userLabel="champPrenom">
-                                            <rect key="frame" x="206" y="379" width="305" height="30"/>
+                                            <rect key="frame" x="206" y="354" width="305" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="fUa-D0-5m7" userLabel="champDept">
-                                            <rect key="frame" x="624" y="381" width="100" height="30"/>
+                                            <rect key="frame" x="624" y="356" width="100" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="6Hu-u2-izf" userLabel="champTel">
-                                            <rect key="frame" x="485" y="497" width="204" height="30"/>
+                                            <rect key="frame" x="485" y="472" width="204" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -121,7 +98,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ta ville" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vaP-JW-fv8" userLabel="labelVille">
-                                            <rect key="frame" x="58" y="383" width="127" height="27"/>
+                                            <rect key="frame" x="58" y="358" width="127" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -129,7 +106,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dept" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3fk-kJ-b5H" userLabel="labelDept">
-                                            <rect key="frame" x="530" y="381" width="79" height="27"/>
+                                            <rect key="frame" x="530" y="356" width="79" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -137,7 +114,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ton email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Jjm-Ws-P3L" userLabel="labelMail">
-                                            <rect key="frame" x="58" y="442" width="94" height="27"/>
+                                            <rect key="frame" x="58" y="417" width="94" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -145,7 +122,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ton numéro de téléphone (facultatif)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DZE-eE-vUf">
-                                            <rect key="frame" x="58" y="498" width="356" height="27"/>
+                                            <rect key="frame" x="58" y="473" width="356" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -153,7 +130,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Intégrer un DUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WMu-Fe-ret">
-                                            <rect key="frame" x="55" y="588" width="156" height="27"/>
+                                            <rect key="frame" x="55" y="572" width="156" height="27"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
@@ -206,12 +183,27 @@
                                             <state key="normal" title="précédant"/>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="x0J-aQ-TCB" userLabel="champEmail">
-                                            <rect key="frame" x="275" y="441" width="349" height="30"/>
+                                            <rect key="frame" x="275" y="416" width="349" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="KFU-gr-YUF">
+                                            <rect key="frame" x="721" y="35" width="22" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                        </button>
+                                        <pickerView contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="zre-qB-ny2" userLabel="taClasse">
+                                            <rect key="frame" x="285" y="237" width="334" height="90"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                        </pickerView>
+                                        <pickerView tag="2" contentMode="scaleToFill" id="mDc-df-6hw" userLabel="integreLP">
+                                            <rect key="frame" x="296" y="612" width="433" height="79"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <animations/>
+                                        </pickerView>
                                     </subviews>
                                     <animations/>
                                 </view>
@@ -222,10 +214,17 @@
                         <animations/>
                         <color key="backgroundColor" red="0.88659866726173242" green="1" blue="0.92454035358247333" alpha="0.77000000000000002" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="myClassePickView" destination="zre-qB-ny2" id="WjT-O6-3TU"/>
+                        <outlet property="myIntegrationLPPickView" destination="mDc-df-6hw" id="yhW-sB-36U"/>
+                        <outlet property="myIntergrationDUTPickView" destination="BYW-Et-1gE" id="xGX-4o-LQ3"/>
+                        <outlet property="myLastNameField" destination="FXZ-PF-5fi" id="Vft-6G-emw"/>
+                        <outlet property="myNameField" destination="s5t-mp-FC5" id="5K8-Wx-Ehy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="378" y="159"/>
+            <point key="canvasLocation" x="212" y="39"/>
         </scene>
     </scenes>
     <resources>
