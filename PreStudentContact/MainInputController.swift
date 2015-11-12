@@ -44,10 +44,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
 
   func updateDisplayWithEtudiant(unEtudiant: Etudiant)
   {
-    
-    
+    myNameField.text = unEtudiant.myName
+    myLastNameField.text = unEtudiant.myLastName
   }
   
+  @IBAction func loadPrevious(sender: UIButton) {
+    myTabEtudians =  recoverTableauEtudiant()
+    updateDisplayWithEtudiant(myTabEtudians.last!)
+  }
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
     if pickerView.tag == 0
@@ -95,6 +99,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       return "---"
   }
   
+  @IBAction func sendData(sender: UIButton) {
+    var etudiantCourant = Etudiant(aName: "Kerautret", aLastName: "Bertrand",
+                                    aClass: "TS", aSpe: "ES", aTown: "Bordeaux")
+    addEtudiant(etudiantCourant)
+  
+  }
   
 }
 

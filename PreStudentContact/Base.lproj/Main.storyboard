@@ -169,6 +169,9 @@
                                             <state key="normal" title="Envoyer">
                                                 <color key="titleColor" red="1" green="0.1303775944614658" blue="0.081467077872376725" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <connections>
+                                                <action selector="sendData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D7J-bi-1xz"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HUK-3m-f7y">
                                             <rect key="frame" x="694" y="709" width="49" height="30"/>
@@ -181,6 +184,9 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <state key="normal" title="précédant"/>
+                                            <connections>
+                                                <action selector="loadPrevious:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TYu-Ut-JAL"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="x0J-aQ-TCB" userLabel="champEmail">
                                             <rect key="frame" x="275" y="416" width="349" height="30"/>
