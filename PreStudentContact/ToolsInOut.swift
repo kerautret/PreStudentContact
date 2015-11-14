@@ -8,10 +8,34 @@
 
 import Foundation
 
-func addEtudiant(unEtudiant: Etudiant){
-  if let path = NSBundle.mainBundle().pathForResource("listeEtudiants", ofType: "plist") {
-    if var listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
 
+let mainListeFileName = "listeEtudiants"
+
+
+
+func exportListCSV() -> NSData? {
+  if let path = NSBundle.mainBundle().pathForResource(mainListeFileName, ofType: "plist") {
+    var strResu = ""
+    if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
+      for (id, etu) in listeEtudiant {
+        strResu += "\(id);"
+        for (_, attribut) in etu {
+          strResu += "\(attribut) "
+        }
+        strResu += "\n"
+      }
+      return strResu.dataUsingEncoding(NSUTF8StringEncoding)
+    }
+  }
+  return nil
+}
+
+
+
+
+func addEtudiant(unEtudiant: Etudiant){
+  if let path = NSBundle.mainBundle().pathForResource(mainListeFileName, ofType: "plist") {
+    if var listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
       var dicoEtu = Dictionary<String, AnyObject > ()
       dicoEtu["name"] = unEtudiant.myName
       dicoEtu["lastName"] = unEtudiant.myLastName
@@ -35,7 +59,7 @@ func addEtudiant(unEtudiant: Etudiant){
 
 func recoverTableauEtudiant() ->[Etudiant] {
   var tabResu = [Etudiant]()
-  if let path = NSBundle.mainBundle().pathForResource("listeEtudiants", ofType: "plist") {
+  if let path = NSBundle.mainBundle().pathForResource(mainListeFileName, ofType: "plist") {
     if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String, AnyObject > {
       for (_, etu) in listeEtudiant {
         let name = etu["name"]! as! String

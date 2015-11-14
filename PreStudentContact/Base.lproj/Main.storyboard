@@ -171,6 +171,7 @@
                                             </state>
                                             <connections>
                                                 <action selector="sendData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D7J-bi-1xz"/>
+                                                <action selector="sendFiles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k9s-gu-g6M"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HUK-3m-f7y">
@@ -199,6 +200,11 @@
                                             <rect key="frame" x="721" y="35" width="22" height="22"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                             <animations/>
+                                            <connections>
+                                                <segue destination="hnp-YR-aVM" kind="popover" popoverAnchorView="KFU-gr-YUF" id="xY4-QG-zM0">
+                                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                </segue>
+                                            </connections>
                                         </button>
                                         <pickerView contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="zre-qB-ny2" userLabel="taClasse">
                                             <rect key="frame" x="285" y="237" width="334" height="90"/>
@@ -230,7 +236,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="212" y="39"/>
+            <point key="canvasLocation" x="230" y="-83"/>
+        </scene>
+        <!--Settings Info Controller-->
+        <scene sceneID="iN7-JS-RFN">
+            <objects>
+                <viewController id="hnp-YR-aVM" customClass="SettingsInfoController" customModule="PreStudentContact" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zL5-T2-Z5b">
+                        <rect key="frame" x="0.0" y="0.0" width="368" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ham-vp-mm3">
+                                <rect key="frame" x="37" y="26" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="Send files"/>
+                                <connections>
+                                    <action selector="sendFiles:" destination="hnp-YR-aVM" eventType="touchUpInside" id="rUY-za-D8o"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forum name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cfq-SY-1UL">
+                                <rect key="frame" x="35" y="100" width="101" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="bEf-af-hhg">
+                                <rect key="frame" x="189" y="97" width="142" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bertrand.kerautret@univ-lorraine.fr" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="blf-gr-92E">
+                                <rect key="frame" x="129" y="26" width="202" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.81599647890000004" green="0.80064492220000005" blue="0.81676136359999996" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="368" height="300"/>
+                    <connections>
+                        <outlet property="myMailField" destination="blf-gr-92E" id="KVA-xc-bdg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xcn-bd-TZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1166" y="-61"/>
         </scene>
     </scenes>
     <resources>

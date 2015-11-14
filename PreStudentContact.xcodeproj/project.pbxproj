@@ -10,6 +10,7 @@
 		CD66D1C51BF4D13900193B03 /* Etudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1C41BF4D13900193B03 /* Etudiant.swift */; };
 		CD66D1CB1BF4DA8600193B03 /* listeEtudiants.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD66D1CA1BF4DA8600193B03 /* listeEtudiants.plist */; };
 		CD66D1CD1BF4DF6600193B03 /* ToolsInOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */; };
+		CD66D1CF1BF777A900193B03 /* SettingsInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */; };
 		CDD451BD1BF4BBF700F76213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */; };
 		CDD451BF1BF4BBF700F76213 /* MainInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD451BE1BF4BBF700F76213 /* MainInputController.swift */; };
 		CDD451C21BF4BBF700F76213 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDD451C01BF4BBF700F76213 /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 		CD66D1C81BF4D47200193B03 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
 		CD66D1CA1BF4DA8600193B03 /* listeEtudiants.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = listeEtudiants.plist; sourceTree = "<group>"; };
 		CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsInOut.swift; sourceTree = "<group>"; };
+		CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInfoController.swift; sourceTree = "<group>"; };
 		CDD451B91BF4BBF700F76213 /* PreStudentContact.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PreStudentContact.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDD451BE1BF4BBF700F76213 /* MainInputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInputController.swift; sourceTree = "<group>"; };
@@ -73,10 +75,11 @@
 			children = (
 				CD66D1C91BF4DA5F00193B03 /* DataList */,
 				CDD451CE1BF4BC2F00F76213 /* Images */,
-				CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */,
 				CDD451BE1BF4BBF700F76213 /* MainInputController.swift */,
+				CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */,
 				CD66D1C41BF4D13900193B03 /* Etudiant.swift */,
 				CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */,
+				CDD451BC1BF4BBF700F76213 /* AppDelegate.swift */,
 				CDD451C01BF4BBF700F76213 /* Main.storyboard */,
 				CDD451C31BF4BBF700F76213 /* Assets.xcassets */,
 				CDD451C51BF4BBF700F76213 /* LaunchScreen.storyboard */,
@@ -168,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDD451BF1BF4BBF700F76213 /* MainInputController.swift in Sources */,
+				CD66D1CF1BF777A900193B03 /* SettingsInfoController.swift in Sources */,
 				CDD451BD1BF4BBF700F76213 /* AppDelegate.swift in Sources */,
 				CD66D1C51BF4D13900193B03 /* Etudiant.swift in Sources */,
 				CD66D1CD1BF4DF6600193B03 /* ToolsInOut.swift in Sources */,

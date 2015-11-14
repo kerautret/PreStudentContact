@@ -10,9 +10,11 @@ import UIKit
 
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-  var myListOfClassesOptions = [["Première", "Seconde", "terminale"], ["S", " L", " ES", "STG"]]
-  var myListOfIntegrationDUT = ["DUT GEII", "DUT INFO", "DUT MMI"]
-  var myListOfIntegrationLP = ["LP A2O", "LP I2M", "LP ISN", "LP ATC/CDG", "LP ATC/TeCAMTV"]
+  var myListOfClassesOptions = [["--------","Première", "Seconde", "terminale"],
+                                ["S", " L", " ES", "STG"]]
+  var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
+  var myListOfIntegrationLP = ["--------", "LP A2O", "LP I2M", "LP ISN",
+                               "LP ATC/CDG", "LP ATC/TeCAMTV"]
   
   var myTabEtudians = [Etudiant]()
 
@@ -42,16 +44,32 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     // Dispose of any resources that can be recreated.
   }
 
-  func updateDisplayWithEtudiant(unEtudiant: Etudiant)
-  {
-    myNameField.text = unEtudiant.myName
-    myLastNameField.text = unEtudiant.myLastName
-  }
   
   @IBAction func loadPrevious(sender: UIButton) {
     myTabEtudians =  recoverTableauEtudiant()
     updateDisplayWithEtudiant(myTabEtudians.last!)
   }
+  
+  
+  @IBAction func sendData(sender: UIButton) {
+    var etudiantCourant = Etudiant(aName: "Kerautret", aLastName: "Bertrand",
+      aClass: "TS", aSpe: "ES", aTown: "Bordeaux")
+    addEtudiant(etudiantCourant)
+    
+  }
+  
+  //-----------------------
+  // Processing display:
+  
+  
+  
+  func updateDisplayWithEtudiant(unEtudiant: Etudiant)
+  {
+    myNameField.text = unEtudiant.myName
+    myLastNameField.text = unEtudiant.myLastName
+  }
+
+  
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
     if pickerView.tag == 0
@@ -99,12 +117,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       return "---"
   }
   
-  @IBAction func sendData(sender: UIButton) {
-    var etudiantCourant = Etudiant(aName: "Kerautret", aLastName: "Bertrand",
-                                    aClass: "TS", aSpe: "ES", aTown: "Bordeaux")
-    addEtudiant(etudiantCourant)
   
-  }
+
+  
+
   
 }
 
