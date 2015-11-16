@@ -163,8 +163,7 @@
                                                 <color key="titleColor" red="1" green="0.1303775944614658" blue="0.081467077872376725" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
-                                                <action selector="sendData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="D7J-bi-1xz"/>
-                                                <action selector="sendFiles:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k9s-gu-g6M"/>
+                                                <action selector="saveData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qrg-HZ-aFI"/>
                                             </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="HUK-3m-f7y">
@@ -172,6 +171,9 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <state key="normal" title="suivant"/>
+                                            <connections>
+                                                <action selector="loadNext:" destination="BYZ-38-t0r" eventType="touchUpInside" id="amR-hu-S1l"/>
+                                            </connections>
                                         </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="u8y-4V-vzW">
                                             <rect key="frame" x="30" y="709" width="70" height="30"/>
@@ -199,21 +201,21 @@
                                                 </segue>
                                             </connections>
                                         </button>
-                                        <pickerView contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="zre-qB-ny2" userLabel="taClasse">
-                                            <rect key="frame" x="285" y="237" width="334" height="90"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <animations/>
-                                        </pickerView>
                                         <pickerView tag="2" contentMode="scaleToFill" id="mDc-df-6hw" userLabel="integreLP">
                                             <rect key="frame" x="296" y="612" width="433" height="79"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                             <animations/>
                                         </pickerView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vII-Tn-tnJ">
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vII-Tn-tnJ">
                                             <rect key="frame" x="27" y="21" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
-                                            <state key="normal" title="edit"/>
+                                            <state key="normal" title="edit">
+                                                <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="edit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7OC-uw-Eu6"/>
+                                            </connections>
                                         </button>
                                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="1xI-Gk-fdP" userLabel="champPrenom">
                                             <rect key="frame" x="206" y="355" width="305" height="30"/>
@@ -222,6 +224,22 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
+                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="eW0-ps-Kho">
+                                            <rect key="frame" x="28" y="54" width="45" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <state key="normal" title="cancel">
+                                                <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="cancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A1h-nB-Cvh"/>
+                                            </connections>
+                                        </button>
+                                        <pickerView contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" id="zre-qB-ny2" userLabel="taClasse">
+                                            <rect key="frame" x="290" y="237" width="334" height="90"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                        </pickerView>
                                     </subviews>
                                     <animations/>
                                 </view>
@@ -233,14 +251,17 @@
                         <color key="backgroundColor" red="0.88659866726173242" green="1" blue="0.92454035358247333" alpha="0.77000000000000002" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
+                        <outlet property="myCancelButton" destination="eW0-ps-Kho" id="FrE-Dx-m94"/>
                         <outlet property="myClassePickView" destination="zre-qB-ny2" id="WjT-O6-3TU"/>
                         <outlet property="myDeptField" destination="fUa-D0-5m7" id="9Hv-6A-9qg"/>
+                        <outlet property="myEditButton" destination="vII-Tn-tnJ" id="RZV-oa-0Lz"/>
                         <outlet property="myEmailField" destination="x0J-aQ-TCB" id="XxI-Ga-Uee"/>
                         <outlet property="myIntegrationLPPickView" destination="mDc-df-6hw" id="yhW-sB-36U"/>
                         <outlet property="myIntergrationDUTPickView" destination="BYW-Et-1gE" id="xGX-4o-LQ3"/>
                         <outlet property="myLastNameField" destination="FXZ-PF-5fi" id="Vft-6G-emw"/>
                         <outlet property="myNameField" destination="s5t-mp-FC5" id="5K8-Wx-Ehy"/>
                         <outlet property="myPhoneField" destination="6Hu-u2-izf" id="9QX-Z6-H11"/>
+                        <outlet property="mySaveButton" destination="bXY-2F-uRa" id="aDp-UD-EPN"/>
                         <outlet property="myTownField" destination="1xI-Gk-fdP" id="WmT-iB-L1S"/>
                     </connections>
                 </viewController>

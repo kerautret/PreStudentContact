@@ -9,7 +9,7 @@
 		<key>lastName</key>
 		<string>Jean</string>
 		<key>classe</key>
-		<string>TP1</string>
+		<string>Première</string>
 		<key>specialite</key>
 		<string>S</string>
 		<key>town</key>
@@ -21,9 +21,32 @@
 		<key>numTel</key>
 		<string>0603032032320</string>
 		<key>integrationDUT</key>
-		<string>non</string>
+		<string>DUT MMI</string>
 		<key>integrationLP</key>
-		<string>I2M</string>
+		<string>LP A2O</string>
+	</dict>
+	<key>IdEtudiant1 - 2</key>
+	<dict>
+		<key>name</key>
+		<string>Robert</string>
+		<key>lastName</key>
+		<string>Bidule</string>
+		<key>classe</key>
+		<string>Seconde</string>
+		<key>specialite</key>
+		<string>ES</string>
+		<key>town</key>
+		<string>Paris</string>
+		<key>dept</key>
+		<string>93</string>
+		<key>email</key>
+		<string>j@j.fr</string>
+		<key>numTel</key>
+		<string>0603032032320</string>
+		<key>integrationDUT</key>
+		<string>DUT INFO</string>
+		<key>integrationLP</key>
+		<string>LP ATC/CDG</string>
 	</dict>
 </dict>
 </plist>
