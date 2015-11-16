@@ -10,14 +10,16 @@ import UIKit
 
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
-  var myListOfClassesOptions = [["--------","Première", "Seconde", "terminale"],
+  var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
                                 ["S", " L", " ES", "STG"]]
   var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
   var myListOfIntegrationLP = ["--------", "LP A2O", "LP I2M", "LP ISN",
                                "LP ATC/CDG", "LP ATC/TeCAMTV"]
   
   var myTabEtudians = [Etudiant]()
-
+  var myIsEditable = true
+  let myColorActive = UIColor.whiteColor()
+  let myColorInActive = UIColor.lightGrayColor()
   
   @IBOutlet var myNameField: UITextField!
   @IBOutlet weak var myLastNameField: UITextField!
@@ -26,7 +28,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myIntergrationDUTPickView: UIPickerView!
   @IBOutlet weak var myIntegrationLPPickView: UIPickerView!
 
+  @IBOutlet weak var myTownField: UITextField!
+  @IBOutlet weak var myEmailField: UITextField!
   
+  @IBOutlet weak var myPhoneField: UITextField!
+  
+  @IBOutlet weak var myDeptField: UITextField!
   override func viewDidLoad() {
     super.viewDidLoad()
     // Recover the tab of all students:
@@ -47,6 +54,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   @IBAction func loadPrevious(sender: UIButton) {
     myTabEtudians =  recoverTableauEtudiant()
+    myIsEditable = false
     updateDisplayWithEtudiant(myTabEtudians.last!)
   }
   
@@ -65,8 +73,26 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   func updateDisplayWithEtudiant(unEtudiant: Etudiant)
   {
+    let colorBg: UIColor = myIsEditable ? myColorActive : myColorInActive
+
     myNameField.text = unEtudiant.myName
     myLastNameField.text = unEtudiant.myLastName
+    myClassePickView.userInteractionEnabled = myIsEditable
+    myIntegrationLPPickView.userInteractionEnabled = myIsEditable
+    myIntergrationDUTPickView.userInteractionEnabled = myIsEditable
+    
+    myLastNameField.enabled = myIsEditable
+    myNameField.enabled = myIsEditable
+    myPhoneField.enabled = myIsEditable
+    myTownField.enabled = myIsEditable
+    myEmailField.enabled = myIsEditable
+    myDeptField.enabled = myIsEditable
+    myLastNameField.backgroundColor = colorBg
+    myNameField.backgroundColor = colorBg
+    myPhoneField.backgroundColor = colorBg
+    myTownField.backgroundColor = colorBg
+    myEmailField.backgroundColor = colorBg
+    myDeptField.backgroundColor = colorBg
   }
 
   
