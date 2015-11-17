@@ -21,6 +21,18 @@ public class Etudiant: NSObject{
   var myDUTProject: String?
   var myLPProject: String?
 
+  init(other: Etudiant ) {
+    myName = other.myName
+    myLastName = other.myLastName
+    myClass = other.myClass
+    mySpe = other.mySpe
+    myTown = other.myTown
+    myDept = other.myDept
+    myTel = other.myTel
+    myEmail = other.myEmail
+    myDUTProject = other.myDUTProject
+    myLPProject = other.myLPProject
+  }
   
   init(aName: String, aLastName: String, aClass: String, aSpe: String, aTown: String)
   {

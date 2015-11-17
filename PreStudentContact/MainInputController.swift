@@ -75,7 +75,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     myEditButton.hidden = false
     myCancelButton.hidden = false
-    mySaveButton.hidden = true
+    mySaveButton.hidden = false
   }
   
   @IBAction func loadNext(sender: AnyObject) {
@@ -111,11 +111,25 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myCurrentStudent?.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
   }
   
+
+  func eraseFields(){
+    myNameField.text = ""
+    myLastNameField.text = ""
+    myTownField.text =  ""
+    myEmailField.text = ""
+    myPhoneField.text =  ""
+    myIntergrationDUTPickView.selectRow(0, inComponent: 0, animated: true)
+    myIntegrationLPPickView.selectRow(0, inComponent: 0, animated: true)
+    myClassePickView.selectRow(0, inComponent: 0, animated: true)
+    myClassePickView.selectRow(0, inComponent: 1, animated: true)
+  }
   
   @IBAction func saveData(sender: UIButton) {
-    var etudiantCourant = Etudiant(aName: "Kerautret", aLastName: "Bertrand",
-      aClass: "Première", aSpe: "ES", aTown: "Bordeaux")
-    addEtudiant(etudiantCourant)
+    updateStudent()
+    addEtudiant(myCurrentStudent!)
+    eraseFields()
+    myTabEtudians.append(Etudiant(other: myCurrentStudent!))
+    updateStudent()
     
   }
   @IBAction func cancel(sender: AnyObject) {
