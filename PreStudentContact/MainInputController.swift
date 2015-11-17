@@ -21,7 +21,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
                     "LP ATC/CDG":4, "LP ATC/TeCAMTV":5]
   
   var myTabEtudians = [Etudiant]()
-  var myIsEditable = true
+  var myIsEditing = true
   let myColorActive = UIColor.whiteColor()
   let myColorInActive = UIColor.lightGrayColor()
   var myCurrentDisplayStudent = 0
@@ -41,7 +41,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var mySaveButton: UIButton!
   @IBOutlet weak var myDeptField: UITextField!
   @IBOutlet weak var myEditButton: UIButton!
+  @IBOutlet weak var myPrecButton: UIButton!
+  @IBOutlet weak var mySuivButton: UIButton!
   
+  @IBOutlet weak var mySaveModifs: UIButton!
   
   @IBOutlet weak var myCancelButton: UIButton!
   override func viewDidLoad() {
@@ -55,7 +58,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIntegrationLPPickView.dataSource = self
     myIntegrationLPPickView.delegate = self
     myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--")
-    updateStudent()
+    updateStudent(myCurrentStudent!)
   }
 
   override func didReceiveMemoryWarning() {
@@ -66,16 +69,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   @IBAction func loadPrevious(sender: UIButton) {
     if myCurrentDisplayStudent == 0 {
-      updateStudent()
+      updateStudent(myCurrentStudent!)
     }
     if myCurrentDisplayStudent != myTabEtudians.count  {
       myCurrentDisplayStudent++
     }
-    myIsEditable = false
+    myIsEditing = false
     updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
-    myEditButton.hidden = false
-    myCancelButton.hidden = false
-    mySaveButton.hidden = false
+    updateInterfaceState()
   }
   
   @IBAction func loadNext(sender: AnyObject) {
@@ -85,30 +86,30 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
 
     if myCurrentDisplayStudent != 1{
       myCurrentDisplayStudent--
-      myIsEditable = false
+      myIsEditing = false
       updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
       myEditButton.hidden = false
       myCancelButton.hidden = false
       mySaveButton.hidden = true
     }else{
       myCurrentDisplayStudent--
-      myIsEditable = true
+      myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)
     }
-
+    updateInterfaceState()
   }
   
-  func updateStudent(){
-    myCurrentStudent?.myName = myNameField.text!
-    myCurrentStudent?.myLastName = myLastNameField.text!
-    myCurrentStudent?.myClass = myListOfClassesOptions[0][myClassePickView.selectedRowInComponent(0)]
-    myCurrentStudent?.mySpe = myListOfClassesOptions[1][myClassePickView.selectedRowInComponent(1)]
-    myCurrentStudent?.myTown = myTownField.text!
-    myCurrentStudent?.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
-    myCurrentStudent?.myEmail = myEmailField.text!
-    myCurrentStudent?.myTel = myPhoneField.text!
-    myCurrentStudent?.myDUTProject = myListOfIntegrationDUT[ myIntergrationDUTPickView.selectedRowInComponent(0) ]
-    myCurrentStudent?.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
+  func updateStudent(aStudent: Etudiant){
+    aStudent.myName = myNameField.text!
+    aStudent.myLastName = myLastNameField.text!
+    aStudent.myClass = myListOfClassesOptions[0][myClassePickView.selectedRowInComponent(0)]
+    aStudent.mySpe = myListOfClassesOptions[1][myClassePickView.selectedRowInComponent(1)]
+    aStudent.myTown = myTownField.text!
+    aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
+    aStudent.myEmail = myEmailField.text!
+    aStudent.myTel = myPhoneField.text!
+    aStudent.myDUTProject = myListOfIntegrationDUT[ myIntergrationDUTPickView.selectedRowInComponent(0) ]
+    aStudent.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
   }
   
 
@@ -125,22 +126,17 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   @IBAction func saveData(sender: UIButton) {
-    updateStudent()
+    updateStudent(myCurrentStudent!)
     addEtudiant(myCurrentStudent!)
     eraseFields()
     myTabEtudians.append(Etudiant(other: myCurrentStudent!))
-    updateStudent()
-    
+    updateStudent(myCurrentStudent!)
   }
   @IBAction func cancel(sender: AnyObject) {
-    myIsEditable = true
     myCurrentDisplayStudent = 0
-    //updateDisplayWithEtudiant(my)
-    myEditButton.hidden = false
-    myCancelButton.hidden = false
-    mySaveButton.hidden = true
-
-    
+    myIsEditing = true
+    updateDisplayWithEtudiant(myCurrentStudent!)
+    updateInterfaceState()
   }
   
   @IBOutlet weak var cancel: UIButton!
@@ -149,9 +145,35 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   
+  func updateInterfaceState(){
+    myClassePickView.userInteractionEnabled = myIsEditing
+    myIntegrationLPPickView.userInteractionEnabled = myIsEditing
+    myIntergrationDUTPickView.userInteractionEnabled = myIsEditing
+    myLastNameField.enabled = myIsEditing
+    myNameField.enabled = myIsEditing
+    myPhoneField.enabled = myIsEditing
+    myTownField.enabled = myIsEditing
+    myEmailField.enabled = myIsEditing
+    myDeptField.enabled = myIsEditing
+    let colorBg: UIColor = myIsEditing ? myColorActive : myColorInActive
+    myLastNameField.backgroundColor = colorBg
+    myNameField.backgroundColor = colorBg
+    myPhoneField.backgroundColor = colorBg
+    myTownField.backgroundColor = colorBg
+    myEmailField.backgroundColor = colorBg
+    myDeptField.backgroundColor = colorBg
+    mySaveButton.hidden = !myIsEditing
+    myEditButton.hidden = myCurrentDisplayStudent == 0
+    myCancelButton.hidden = myCurrentDisplayStudent == 0
+    myPrecButton.hidden = myCurrentDisplayStudent == myTabEtudians.count
+    mySuivButton.hidden = myCurrentDisplayStudent <= 0
+    myEditButton.hidden = myIsEditing
+    mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
+    myCancelButton.hidden = myCurrentDisplayStudent == 0
+  }
+  
   func updateDisplayWithEtudiant(unEtudiant: Etudiant)
   {
-    let colorBg: UIColor = myIsEditable ? myColorActive : myColorInActive
     myNameField.text = unEtudiant.myName
     myLastNameField.text = unEtudiant.myLastName
     myTownField.text = unEtudiant.myTown
@@ -163,22 +185,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIntergrationDUTPickView.selectRow(dicoIndex[unEtudiant.myDUTProject!]!, inComponent: 0, animated: true)
     myIntegrationLPPickView.selectRow(dicoIndex[unEtudiant.myLPProject!]!, inComponent: 0, animated: true)
     
-    myClassePickView.userInteractionEnabled = myIsEditable
-    myIntegrationLPPickView.userInteractionEnabled = myIsEditable
-    myIntergrationDUTPickView.userInteractionEnabled = myIsEditable
-    
-    myLastNameField.enabled = myIsEditable
-    myNameField.enabled = myIsEditable
-    myPhoneField.enabled = myIsEditable
-    myTownField.enabled = myIsEditable
-    myEmailField.enabled = myIsEditable
-    myDeptField.enabled = myIsEditable
-    myLastNameField.backgroundColor = colorBg
-    myNameField.backgroundColor = colorBg
-    myPhoneField.backgroundColor = colorBg
-    myTownField.backgroundColor = colorBg
-    myEmailField.backgroundColor = colorBg
-    myDeptField.backgroundColor = colorBg
+    updateInterfaceState()
   }
 
   
@@ -231,12 +238,32 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   @IBAction func edit(sender: AnyObject) {
+    myIsEditing = true
+    updateInterfaceState()
     
-    
+  }
+  
+  @IBAction func saveModifs(sender: AnyObject){
+    myIsEditing = false
+    updateStudent(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
+    updateInterfaceState()
   }
 
   
-
-  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
