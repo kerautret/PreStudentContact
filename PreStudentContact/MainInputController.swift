@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
                                 ["S", "L", "ES", "STG"]]
@@ -59,6 +59,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIntegrationLPPickView.delegate = self
     myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--")
     updateStudent(myCurrentStudent!)
+    myNameField.delegate = self
   }
 
   override func didReceiveMemoryWarning() {
@@ -249,6 +250,54 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateInterfaceState()
   }
 
+  func textFieldDidBeginEditing(textField : UITextField){
+    
+    
+  }
+  
+  func textFieldShouldBeginEditing(){
+    
+  }
+  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification, object: nil)
+    return true
+  }
+  
+
+  func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
+    self.view.endEditing(true)
+    return true
+  }
+  
+  
+  func keyboardDidShow()
+  {
+    if UIDevice.currentDevice().orientation.isLandscape {
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+      UIView.setAnimationDuration(0.2)
+      self.view.transform = CGAffineTransformMakeTranslation(0, -40)
+      UIView.commitAnimations()
+      
+    }
+  }
+  
+  
+  
+  func keyboardDidHide()
+  {
+    if UIDevice.currentDevice().orientation.isLandscape {
+
+    UIView.beginAnimations("registerScroll", context: nil)
+    UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+    UIView.setAnimationDuration(0.2)
+    self.view.transform = CGAffineTransformMakeTranslation(0, 0)
+    UIView.commitAnimations()
+
+    }
+  }
+  
   
 }
 
