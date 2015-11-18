@@ -134,9 +134,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateStudent(myCurrentStudent!)
   }
   @IBAction func cancel(sender: AnyObject) {
-    myCurrentDisplayStudent = 0
-    myIsEditing = true
-    updateDisplayWithEtudiant(myCurrentStudent!)
+    myIsEditing = false
+    updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     updateInterfaceState()
   }
   
@@ -163,14 +162,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTownField.backgroundColor = colorBg
     myEmailField.backgroundColor = colorBg
     myDeptField.backgroundColor = colorBg
-    mySaveButton.hidden = !myIsEditing
+    mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0
     myEditButton.hidden = myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0
     myPrecButton.hidden = myCurrentDisplayStudent == myTabEtudians.count
     mySuivButton.hidden = myCurrentDisplayStudent <= 0
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
-    myCancelButton.hidden = myCurrentDisplayStudent == 0
+    myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
   }
   
   func updateDisplayWithEtudiant(unEtudiant: Etudiant)
@@ -282,7 +281,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       
     }
   }
-  
   
   
   func keyboardDidHide()

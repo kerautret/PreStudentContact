@@ -165,10 +165,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QLd-qX-L9p">
-                                        <rect key="frame" x="35" y="886" width="70" height="30"/>
+                                        <rect key="frame" x="35" y="886" width="71" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <animations/>
-                                        <state key="normal" title="précédant"/>
+                                        <state key="normal" title="précédent"/>
                                         <connections>
                                             <action selector="loadPrevious:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e4v-7g-Uqv"/>
                                         </connections>
@@ -225,6 +225,9 @@
                                         <state key="normal" title="save">
                                             <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="saveModifs:" destination="BYZ-38-t0r" eventType="touchUpInside" id="606-RG-P07"/>
+                                        </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pQF-bM-Meq">
                                         <rect key="frame" x="20" y="54" width="45" height="30"/>
