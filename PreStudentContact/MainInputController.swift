@@ -27,7 +27,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myCurrentDisplayStudent = 0
   var myIsInHistory = false
   var myCurrentStudent: Etudiant?
- 
+  var myEmailExport : String?
+  var myForumName: String = "ForumNoName"
   @IBOutlet var myNameField: UITextField!
   @IBOutlet weak var myLastNameField: UITextField!
   
@@ -47,10 +48,16 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var mySaveModifs: UIButton!
   
   @IBOutlet weak var myCancelButton: UIButton!
+ 
+  
+  @IBOutlet weak var myForumLabel: UILabel!
+  
+  
+  
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     // Recover the tab of all students:
-    myTabEtudians = recoverTableauEtudiant()
     myClassePickView.dataSource = self
     myClassePickView.delegate = self
     myIntergrationDUTPickView.delegate = self
@@ -60,7 +67,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--")
     updateStudent(myCurrentStudent!)
     myNameField.delegate = self
+    let sharedDefault = NSUserDefaults.standardUserDefaults()
+    myForumName = sharedDefault.objectForKey("FORUM_NAME") as! String
+    myForumLabel.text = myForumName
+    myTabEtudians = recoverTableauEtudiant(myForumName)
+    updateInterfaceState()
+    
+   
   }
+  
 
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -126,13 +141,23 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myClassePickView.selectRow(0, inComponent: 1, animated: true)
   }
   
+  func reloadListStudent(){
+    myTabEtudians = recoverTableauEtudiant(myForumName)
+    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--")
+    updateStudent(myCurrentStudent!)
+    updateInterfaceState()
+
+  }
+  
   @IBAction func saveData(sender: UIButton) {
     updateStudent(myCurrentStudent!)
-    addEtudiant(myCurrentStudent!)
+    addEtudiant(myCurrentStudent!, forum: myForumName)
     eraseFields()
     myTabEtudians.append(Etudiant(other: myCurrentStudent!))
     updateStudent(myCurrentStudent!)
   }
+  
+  
   @IBAction func cancel(sender: AnyObject) {
     myIsEditing = false
     updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
@@ -165,8 +190,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0
     myEditButton.hidden = myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0
-    myPrecButton.hidden = myCurrentDisplayStudent == myTabEtudians.count
-    mySuivButton.hidden = myCurrentDisplayStudent <= 0
+    myPrecButton.hidden = myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0
+    mySuivButton.hidden = myCurrentDisplayStudent <= 0 || myTabEtudians.count == 0
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
@@ -250,7 +275,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
 
   func textFieldDidBeginEditing(textField : UITextField){
-    
     
   }
   

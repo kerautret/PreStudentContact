@@ -9,14 +9,45 @@
 import Foundation
 
 
-let mainListeFileName = "listeEtudiants"
+func getFileURL(fileName: String) -> NSURL? {
+  let manager = NSFileManager.defaultManager()
+  do{
+    let dirURL =  try manager.URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
+    return dirURL.URLByAppendingPathComponent(fileName)
+
+  } catch {
+    print("error reading..")
+    return nil
+  }
+}
+
+func getCurrentName(forumName: String) -> String{
+  let date = NSDateFormatter()
+  date.dateFormat = "dd_MM_yyyy"
+  let res =  "\(forumName)_\(date.stringFromDate(NSDate()))"
+  
+  let sharedDefault = NSUserDefaults.standardUserDefaults()
+  if var listFile = sharedDefault.objectForKey("ARRAY_SAVE") as? Array<String> {
+    if !listFile.contains(res) {
+      listFile.append(res)
+      sharedDefault.setObject(listFile, forKey: "ARRAY_SAVE")
+    }
+  }
+
+  return res
+}
 
 
+func exportListCSV(forumName: String) -> NSData? {
+  let exportName = getCurrentName(forumName)
+  print("export: \(exportName)")
+  var strResu: String = ""
+  var path: String = "\(getCurrentName(forumName)).plist"
 
-func exportListCSV() -> NSData? {
-  if let path = NSBundle.mainBundle().pathForResource(mainListeFileName, ofType: "plist") {
-    var strResu = ""
-    if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
+  path = getFileURL(path)!.path!
+  print("path:::\(path)")
+
+  if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
       for (id, etu) in listeEtudiant {
         strResu += "\(id);"
         for (_, attribut) in etu {
@@ -26,15 +57,18 @@ func exportListCSV() -> NSData? {
       }
       return strResu.dataUsingEncoding(NSUTF8StringEncoding)
     }
-  }
+  
   return nil
 }
 
 
 
 
-func addEtudiant(unEtudiant: Etudiant){
-  if let path = NSBundle.mainBundle().pathForResource(mainListeFileName, ofType: "plist") {
+func addEtudiant(unEtudiant: Etudiant, forum: String){
+  var path: String = "\(getCurrentName(forum)).plist"
+  path = getFileURL(path)!.path!
+  print("path:::\(path)")
+
     if var listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
       var dicoEtu = Dictionary<String, AnyObject > ()
       dicoEtu["name"] = unEtudiant.myName
@@ -51,16 +85,20 @@ func addEtudiant(unEtudiant: Etudiant){
       listeEtudiant["\(unEtudiant.hash)"] = dicoEtu
       (listeEtudiant as NSDictionary).writeToFile(path, atomically: true)
     }
-  }
+  
     
 }
   
 
 
-func recoverTableauEtudiant() ->[Etudiant] {
+func recoverTableauEtudiant(forum: String) ->[Etudiant] {
   var tabResu = [Etudiant]()
-  if let path = NSBundle.mainBundle().pathForResource(mainListeFileName, ofType: "plist") {
-    if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String, AnyObject > {
+ 
+  var path: String = "\(getCurrentName(forum)).plist"
+  
+  path = getFileURL(path)!.path!
+  print("path:::\(path)")
+  if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String, AnyObject > {
       for (_, etu) in listeEtudiant {
         let name = etu["name"]! as! String
         let lastName = etu["lastName"]! as! String
@@ -90,7 +128,7 @@ func recoverTableauEtudiant() ->[Etudiant] {
         tabResu.append(etudiant)
       }
     }
-  }
+  
   return tabResu
   
 }

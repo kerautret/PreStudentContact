@@ -261,6 +261,7 @@
                         <outlet property="myDeptField" destination="h2T-Dq-mcc" id="sEZ-y3-Yrl"/>
                         <outlet property="myEditButton" destination="lzy-Bb-L4c" id="wiz-IE-1lm"/>
                         <outlet property="myEmailField" destination="Czq-jH-ayE" id="fUY-pr-0Bq"/>
+                        <outlet property="myForumLabel" destination="75U-E2-bTf" id="M3e-xN-kxM"/>
                         <outlet property="myIntegrationLPPickView" destination="v7F-FE-VFT" id="jaB-FJ-Mdx"/>
                         <outlet property="myIntergrationDUTPickView" destination="uwL-yJ-w3d" id="sc0-xl-5OO"/>
                         <outlet property="myLastNameField" destination="r9A-VI-4Kg" id="3No-hF-JhO"/>
@@ -302,15 +303,24 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="bEf-af-hhg">
-                                <rect key="frame" x="189" y="97" width="142" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bertrand.kerautret@univ-lorraine.fr" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="blf-gr-92E">
+                                <rect key="frame" x="129" y="26" width="202" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="bertrand.kerautret@univ-lorraine.fr" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="blf-gr-92E">
-                                <rect key="frame" x="129" y="26" width="202" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lN5-ia-SoN">
+                                <rect key="frame" x="160" y="177" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="OK"/>
+                                <connections>
+                                    <action selector="done:" destination="hnp-YR-aVM" eventType="touchUpInside" id="I1H-OW-gT8"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="bEf-af-hhg">
+                                <rect key="frame" x="181" y="97" width="142" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -325,6 +335,7 @@
                     <size key="freeformSize" width="368" height="300"/>
                     <connections>
                         <outlet property="myMailField" destination="blf-gr-92E" id="KVA-xc-bdg"/>
+                        <outlet property="myNameForumLabel" destination="bEf-af-hhg" id="TOw-IH-C2G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xcn-bd-TZ5" userLabel="First Responder" sceneMemberID="firstResponder"/>

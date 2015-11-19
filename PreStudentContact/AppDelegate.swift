@@ -16,6 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    let sharedDefault = NSUserDefaults.standardUserDefaults()
+    if sharedDefault.objectForKey("FORUM_NAME") == nil {
+      sharedDefault.setObject("ForumNoName", forKey: "FORUM_NAME")
+    }
+    if sharedDefault.objectForKey("MAIL_DEST") == nil {
+      sharedDefault.setObject("delphine.george@univ-lorraine.fr", forKey: "MAIL_DEST")
+    }
+    if sharedDefault.objectForKey("ARRAY_SAVE") == nil {
+      let dico = Array<String>()
+      sharedDefault.setObject(dico, forKey: "ARRAY_SAVE")
+    }
+
     return true
   }
 
