@@ -64,13 +64,14 @@ func exportListCSV(forumName: String) -> NSData? {
   var strResu = ""
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
       for (id, etu) in listeEtudiant {
-        strResu += "\"\(id)\" "
+        strResu += "\(id)"
         for (_, attribut) in etu {
-          strResu += " , \"\(attribut)\" "
+          strResu += ",\(attribut)"
         }
         strResu += "\n"
       }
-      return strResu.dataUsingEncoding(NSUTF32StringEncoding)
+      strResu.dataUsingEncoding(NSUTF8StringEncoding)?.writeToFile("\(getPath(internFileSave)).csv", atomically: true)
+      return strResu.dataUsingEncoding(NSUTF8StringEncoding)
     }
   
   return nil

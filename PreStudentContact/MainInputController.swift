@@ -8,6 +8,23 @@
 
 import UIKit
 
+
+extension String{
+  func cleanPonctuation() -> String {
+    var newString = self.stringByReplacingOccurrencesOfString(",", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    newString = newString.stringByReplacingOccurrencesOfString("'", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    newString = newString.stringByReplacingOccurrencesOfString("\"", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    newString = newString.stringByReplacingOccurrencesOfString("$", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    newString = newString.stringByReplacingOccurrencesOfString("&", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    newString = newString.stringByReplacingOccurrencesOfString(";", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+    return newString
+  }
+  
+  
+}
+
+
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
@@ -122,14 +139,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   func updateStudent(aStudent: Etudiant){
-    aStudent.myName = myNameField.text!
-    aStudent.myLastName = myLastNameField.text!
+    aStudent.myName = myNameField.text!.cleanPonctuation()
+    aStudent.myLastName = myLastNameField.text!.cleanPonctuation()
     aStudent.myClass = myListOfClassesOptions[0][myClassePickView.selectedRowInComponent(0)]
     aStudent.mySpe = myListOfClassesOptions[1][myClassePickView.selectedRowInComponent(1)]
-    aStudent.myTown = myTownField.text!
+    aStudent.myTown = myTownField.text!.cleanPonctuation()
     aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
-    aStudent.myEmail = myEmailField.text!
-    aStudent.myTel = myPhoneField.text!
+    aStudent.myEmail = myEmailField.text!.cleanPonctuation()
+    aStudent.myTel = myPhoneField.text!.cleanPonctuation()
     aStudent.myDUTProject = myListOfIntegrationDUT[ myIntergrationDUTPickView.selectedRowInComponent(0) ]
     aStudent.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
     aStudent.myDateInscription = myDate!

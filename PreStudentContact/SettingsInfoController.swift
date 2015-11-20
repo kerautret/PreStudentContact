@@ -59,7 +59,8 @@ class SettingsInfoController: UIViewController, MFMailComposeViewControllerDeleg
     
     let data: NSData? = exportListCSV(myNameForumLabel.text!)
     if data != nil {
-      mailComposerVC.addAttachmentData(data!, mimeType: "csv", fileName: "listEtudiant.csv")
+      let d = (self.presentingViewController as! MainInputController).myDate
+      mailComposerVC.addAttachmentData(data!, mimeType: "csv", fileName: "listEtudiant_\(d).csv")
     }
     return mailComposerVC
   }
@@ -69,7 +70,7 @@ class SettingsInfoController: UIViewController, MFMailComposeViewControllerDeleg
     let sendMailErrorAlert = UIAlertController(title: "Could Not Send Email",
       message: "Your device could not send e-mail.  Please check e-mail configuration and try again.",
       preferredStyle: UIAlertControllerStyle.Alert )
-    self.presentViewController(sendMailErrorAlert, animated: true, completion: nil)
+     self.presentViewController(sendMailErrorAlert, animated: true, completion: nil)
     
   }
 
