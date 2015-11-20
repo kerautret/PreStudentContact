@@ -82,17 +82,15 @@ class SettingsInfoController: UIViewController, MFMailComposeViewControllerDeleg
   override func viewWillDisappear(animated: Bool) {
     let sharedDefault = NSUserDefaults.standardUserDefaults()
     sharedDefault.setObject(myNameForumLabel.text, forKey: "FORUM_NAME")
+    sharedDefault.setObject(myMailField.text, forKey: "MAIL_DEST")
+
     (self.presentingViewController as! MainInputController).myForumLabel.text = myNameForumLabel.text!
-    if (self.presentingViewController as! MainInputController).myForumName != myNameForumLabel.text!{
-     (self.presentingViewController as! MainInputController).reloadListStudent()
-    }
+    (self.presentingViewController as! MainInputController).myForumName = myNameForumLabel.text!
   }
   
   
   @IBAction func done(sender: AnyObject) {
     self.dismissViewControllerAnimated(true, completion: nil)
-    
-    
   }
   
   

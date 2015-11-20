@@ -9,16 +9,16 @@
 import UIKit
 
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
-
+  
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
-                                ["S", "L", "ES", "STG"]]
+    ["S", "L", "ES", "STG"]]
   var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
   var myListOfIntegrationLP = ["--------", "LP A2O", "LP I2M", "LP ISN",
-                               "LP ATC/CDG", "LP ATC/TeCAMTV"]
-
+    "LP ATC/CDG", "LP ATC/TeCAMTV"]
+  
   var dicoIndex = ["--------":0,"Première": 1, "Seconde": 2, "Terminale": 3,"S":0, "L":1, "ES":2,
-                   "STG":3, "DUT GEII":1, "DUT INFO":2, "DUT MMI":3,"LP A2O":1, "LP I2M":2, "LP ISN":3,
-                    "LP ATC/CDG":4, "LP ATC/TeCAMTV":5]
+    "STG":3, "DUT GEII":1, "DUT INFO":2, "DUT MMI":3,"LP A2O":1, "LP I2M":2, "LP ISN":3,
+    "LP ATC/CDG":4, "LP ATC/TeCAMTV":5]
   
   var myTabEtudians = [Etudiant]()
   var myIsEditing = true
@@ -29,13 +29,18 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myCurrentStudent: Etudiant?
   var myEmailExport : String?
   var myForumName: String = "ForumNoName"
+  var myDate: String?
+  
   @IBOutlet var myNameField: UITextField!
   @IBOutlet weak var myLastNameField: UITextField!
   
   @IBOutlet weak var myClassePickView: UIPickerView!
   @IBOutlet weak var myIntergrationDUTPickView: UIPickerView!
   @IBOutlet weak var myIntegrationLPPickView: UIPickerView!
-
+  
+  @IBOutlet weak var myInscriptionDateLabel: UILabel!
+  @IBOutlet weak var myForumLabel: UILabel!
+  
   @IBOutlet weak var myTownField: UITextField!
   @IBOutlet weak var myEmailField: UITextField!
   @IBOutlet weak var myPhoneField: UITextField!
@@ -44,19 +49,19 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myEditButton: UIButton!
   @IBOutlet weak var myPrecButton: UIButton!
   @IBOutlet weak var mySuivButton: UIButton!
-  
   @IBOutlet weak var mySaveModifs: UIButton!
-  
   @IBOutlet weak var myCancelButton: UIButton!
- 
   
-  @IBOutlet weak var myForumLabel: UILabel!
   
   
   
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let date = NSDateFormatter()
+    date.dateFormat = "dd_MM_yyyy"
+    myDate =  "\(date.stringFromDate(NSDate()))"
+    
     // Recover the tab of all students:
     myClassePickView.dataSource = self
     myClassePickView.delegate = self
@@ -64,24 +69,25 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIntergrationDUTPickView.dataSource = self
     myIntegrationLPPickView.dataSource = self
     myIntegrationLPPickView.delegate = self
-    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--")
+    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--",
+                                aForumInscription: myForumName, aDateInscription: myDate!)
     updateStudent(myCurrentStudent!)
     myNameField.delegate = self
     let sharedDefault = NSUserDefaults.standardUserDefaults()
     myForumName = sharedDefault.objectForKey("FORUM_NAME") as! String
     myForumLabel.text = myForumName
     myTabEtudians = recoverTableauEtudiant(myForumName)
+    myInscriptionDateLabel.text = myDate
     updateInterfaceState()
     
-   
   }
   
-
+  
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
+  
   
   @IBAction func loadPrevious(sender: UIButton) {
     if myCurrentDisplayStudent == 0 {
@@ -99,7 +105,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     if myCurrentDisplayStudent == 0 {
       return
     }
-
+    
     if myCurrentDisplayStudent != 1{
       myCurrentDisplayStudent--
       myIsEditing = false
@@ -126,9 +132,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myTel = myPhoneField.text!
     aStudent.myDUTProject = myListOfIntegrationDUT[ myIntergrationDUTPickView.selectedRowInComponent(0) ]
     aStudent.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
+    aStudent.myDateInscription = myDate!
+    aStudent.myForumInscription = myForumName
   }
   
-
+  
   func eraseFields(){
     myNameField.text = ""
     myLastNameField.text = ""
@@ -143,15 +151,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   func reloadListStudent(){
     myTabEtudians = recoverTableauEtudiant(myForumName)
-    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--")
+    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--", aForumInscription:  myForumName, aDateInscription: myDate!)
     updateStudent(myCurrentStudent!)
     updateInterfaceState()
-
+    
   }
   
   @IBAction func saveData(sender: UIButton) {
     updateStudent(myCurrentStudent!)
-    addEtudiant(myCurrentStudent!, forum: myForumName)
+    addEtudiant(myCurrentStudent!)
     eraseFields()
     myTabEtudians.append(Etudiant(other: myCurrentStudent!))
     updateStudent(myCurrentStudent!)
@@ -195,24 +203,25 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
+  
   }
   
-  func updateDisplayWithEtudiant(unEtudiant: Etudiant)
-  {
+  func updateDisplayWithEtudiant(unEtudiant: Etudiant){
     myNameField.text = unEtudiant.myName
     myLastNameField.text = unEtudiant.myLastName
     myTownField.text = unEtudiant.myTown
-    myDeptField.text = "\(unEtudiant.myDept)"
+    myDeptField.text = unEtudiant.myDept == nil ? "---" : "\(unEtudiant.myDept!)"
     myEmailField.text = unEtudiant.myEmail
     myPhoneField.text = unEtudiant.myTel
     myClassePickView.selectRow(dicoIndex[unEtudiant.myClass]!, inComponent: 0, animated: true)
     myClassePickView.selectRow(dicoIndex[unEtudiant.mySpe]!, inComponent: 1, animated: true)
     myIntergrationDUTPickView.selectRow(dicoIndex[unEtudiant.myDUTProject!]!, inComponent: 0, animated: true)
     myIntegrationLPPickView.selectRow(dicoIndex[unEtudiant.myLPProject!]!, inComponent: 0, animated: true)
-    
+    myForumLabel.text = unEtudiant.myForumInscription
+    myInscriptionDateLabel.text = unEtudiant.myDateInscription
     updateInterfaceState()
   }
-
+  
   
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
@@ -273,7 +282,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateStudent(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     updateInterfaceState()
   }
-
+  
   func textFieldDidBeginEditing(textField : UITextField){
     
   }
@@ -286,7 +295,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     return true
   }
   
-
+  
   func textFieldShouldEndEditing(textField: UITextField) -> Bool {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
     self.view.endEditing(true)
@@ -310,13 +319,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func keyboardDidHide()
   {
     if UIDevice.currentDevice().orientation.isLandscape {
-
-    UIView.beginAnimations("registerScroll", context: nil)
-    UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
-    UIView.setAnimationDuration(0.2)
-    self.view.transform = CGAffineTransformMakeTranslation(0, 0)
-    UIView.commitAnimations()
-
+      
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+      UIView.setAnimationDuration(0.2)
+      self.view.transform = CGAffineTransformMakeTranslation(0, 0)
+      UIView.commitAnimations()
+      
     }
   }
   

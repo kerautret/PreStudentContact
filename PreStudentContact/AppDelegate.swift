@@ -17,8 +17,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
     let sharedDefault = NSUserDefaults.standardUserDefaults()
+    if checkExistSavingFile() {
+      print("FILE exist no creation")
+    }else
+    {
+      print("FILE no exist creation")
+    }
     if sharedDefault.objectForKey("FORUM_NAME") == nil {
-      sharedDefault.setObject("ForumNoName", forKey: "FORUM_NAME")
+      sharedDefault.setObject("ForumNoName", forKey: "FORUM_NAME")     
     }
     if sharedDefault.objectForKey("MAIL_DEST") == nil {
       sharedDefault.setObject("delphine.george@univ-lorraine.fr", forKey: "MAIL_DEST")
