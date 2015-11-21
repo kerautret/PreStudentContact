@@ -23,7 +23,7 @@
 		<key>integrationDUT</key>
 		<string>DUT MMI</string>
 		<key>integrationLP</key>
-		<string>LP A2O</string>
+		<string>LP A2I</string>
 		<key>inscriptionDate</key>
 		<string>01/01/2001</string>
 		<key>forumName</key>

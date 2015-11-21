@@ -30,7 +30,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
     ["S", "L", "ES", "STG"]]
   var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
-  var myListOfIntegrationLP = ["--------", "LP A2O", "LP I2M", "LP ISN",
+  var myListOfIntegrationLP = ["--------", "LP A2I", "LP I2M", "LP ISN",
     "LP ATC/CDG", "LP ATC/TeCAMTV"]
   
   var dicoIndex = ["--------":0,"Première": 1, "Seconde": 2, "Terminale": 3,"S":0, "L":1, "ES":2,
