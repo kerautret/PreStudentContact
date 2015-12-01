@@ -22,7 +22,8 @@ public class Etudiant: NSObject{
   var myLPProject: String?
   var myForumInscription: String
   var myDateInscription: String
-
+  var mySpecialite: String?
+  
   init(other: Etudiant ) {
     myName = other.myName
     myLastName = other.myLastName
@@ -36,10 +37,11 @@ public class Etudiant: NSObject{
     myLPProject = other.myLPProject
     myForumInscription = other.myForumInscription
     myDateInscription = other.myDateInscription
+    mySpecialite = other.mySpecialite
   }
   
   init(aName: String, aLastName: String, aClass: String, aSpe: String, aTown: String,
-    aForumInscription: String, aDateInscription: String)
+      aForumInscription: String, aDateInscription: String)
   {
     myName = aName
     myLastName = aLastName

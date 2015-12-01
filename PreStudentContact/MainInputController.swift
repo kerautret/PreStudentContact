@@ -21,21 +21,16 @@ extension String{
     return newString
   }
   
-  
 }
 
 
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
-    ["S", "L", "ES", "STG"]]
+    ["S","ES", "L", "STI","STI2D","STI2A", "STAV", "STG", "STT", "STI","STMG", "PRO", "DAEU", "BAC étranger"]]
   var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
   var myListOfIntegrationLP = ["--------", "LP A2I", "LP I2M", "LP ISN",
     "LP ATC/CDG", "LP ATC/TeCAMTV"]
-  
-  var dicoIndex = ["--------":0,"Première": 1, "Seconde": 2, "Terminale": 3,"S":0, "L":1, "ES":2,
-    "STG":3, "DUT GEII":1, "DUT INFO":2, "DUT MMI":3,"LP A2O":1, "LP I2M":2, "LP ISN":3,
-    "LP ATC/CDG":4, "LP ATC/TeCAMTV":5]
   
   var myTabEtudians = [Etudiant]()
   var myIsEditing = true
@@ -50,6 +45,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   @IBOutlet var myNameField: UITextField!
   @IBOutlet weak var myLastNameField: UITextField!
+  @IBOutlet weak var mySpecialiteField: UITextField!
   
   @IBOutlet weak var myClassePickView: UIPickerView!
   @IBOutlet weak var myIntergrationDUTPickView: UIPickerView!
@@ -70,8 +66,34 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myCancelButton: UIButton!
   
   
-  
-  
+  func getIndex(aName: String)-> Int?{
+    //searching index
+    for list in  myListOfClassesOptions {
+      var pos = 0
+      for n in list {
+        pos++
+        if n == aName {
+          return pos
+        }
+      }
+    }
+    var pos = 0
+    for n in myListOfIntegrationDUT {
+      if n == aName {
+        return pos
+      }
+      pos++
+    }
+    pos = 0
+    for n in myListOfIntegrationLP {
+      if n == aName {
+        return pos
+      }
+      pos++
+    }
+ 
+    return nil
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -151,6 +173,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
     aStudent.myDateInscription = myDate!
     aStudent.myForumInscription = myForumName
+    aStudent.mySpecialite = mySpecialiteField.text
   }
   
   
@@ -205,6 +228,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTownField.enabled = myIsEditing
     myEmailField.enabled = myIsEditing
     myDeptField.enabled = myIsEditing
+    mySpecialiteField.enabled = myIsEditing
     let colorBg: UIColor = myIsEditing ? myColorActive : myColorInActive
     myLastNameField.backgroundColor = colorBg
     myNameField.backgroundColor = colorBg
@@ -212,6 +236,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTownField.backgroundColor = colorBg
     myEmailField.backgroundColor = colorBg
     myDeptField.backgroundColor = colorBg
+    mySpecialiteField.backgroundColor = colorBg
     mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0
     myEditButton.hidden = myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0
@@ -230,12 +255,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDeptField.text = unEtudiant.myDept == nil ? "---" : "\(unEtudiant.myDept!)"
     myEmailField.text = unEtudiant.myEmail
     myPhoneField.text = unEtudiant.myTel
-    myClassePickView.selectRow(dicoIndex[unEtudiant.myClass]!, inComponent: 0, animated: true)
-    myClassePickView.selectRow(dicoIndex[unEtudiant.mySpe]!, inComponent: 1, animated: true)
-    myIntergrationDUTPickView.selectRow(dicoIndex[unEtudiant.myDUTProject!]!, inComponent: 0, animated: true)
-    myIntegrationLPPickView.selectRow(dicoIndex[unEtudiant.myLPProject!]!, inComponent: 0, animated: true)
+    myClassePickView.selectRow(getIndex(unEtudiant.myClass)!, inComponent: 0, animated: true)
+    myClassePickView.selectRow(getIndex(unEtudiant.mySpe)!, inComponent: 1, animated: true)
+    myIntergrationDUTPickView.selectRow(getIndex(unEtudiant.myDUTProject!)!, inComponent: 0, animated: true)
+    myIntegrationLPPickView.selectRow(getIndex(unEtudiant.myLPProject!)!, inComponent: 0, animated: true)
     myForumLabel.text = unEtudiant.myForumInscription
     myInscriptionDateLabel.text = unEtudiant.myDateInscription
+    mySpecialiteField.text = unEtudiant.mySpecialite
     updateInterfaceState()
   }
   
@@ -336,7 +362,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func keyboardDidHide()
   {
     if UIDevice.currentDevice().orientation.isLandscape {
-      
       UIView.beginAnimations("registerScroll", context: nil)
       UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
       UIView.setAnimationDuration(0.2)
