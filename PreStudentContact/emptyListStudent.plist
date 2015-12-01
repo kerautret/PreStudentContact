@@ -21,9 +21,15 @@
 		<key>numTel</key>
 		<string>test@test.com</string>
 		<key>integrationDUT</key>
-		<string>DUT MMI</string>
+		<array>
+			<string>DUT INFO</string>
+			<string>DUT MMI</string>
+		</array>
 		<key>integrationLP</key>
-		<string>LP A2O</string>
+		<array>
+			<string>LP ATC/CDG</string>
+			<string>LP ATC/TECAMTV</string>
+		</array>
 		<key>inscriptionDate</key>
 		<string>01/01/2001</string>
 		<key>forumName</key>

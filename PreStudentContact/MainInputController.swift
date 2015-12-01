@@ -28,8 +28,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
     ["--------","S","ES", "L", "STI","STI2D","STI2A", "STAV", "STG", "STT", "STI","STMG", "PRO", "DAEU", "BAC étranger"]]
   var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
-  var myListOfIntegrationLP = ["--------", "LP A2I", "LP I2M", "LP ISN",
-    "LP ATC/CDG", "LP ATC/TeCAMTV"]
+  var myListOfIntegrationLP = ["--------", "LP A2I", "LP I2M", "LP ISN","LP ATC/CDG", "LP ATC/TeCAMTV"]
   
   let myKeyboardShift = CGFloat(-70.0)
   var myTabEtudians = [Etudiant]()
@@ -49,8 +48,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myOptionField: UITextField!
   
   @IBOutlet weak var myClassePickView: UIPickerView!
-  @IBOutlet weak var myIntergrationDUTPickView: UIPickerView!
-  @IBOutlet weak var myIntegrationLPPickView: UIPickerView!
   
   @IBOutlet weak var myInscriptionDateLabel: UILabel!
   @IBOutlet weak var myForumLabel: UILabel!
@@ -66,6 +63,27 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var mySaveModifs: UIButton!
   @IBOutlet weak var myCancelButton: UIButton!
   
+  
+  @IBOutlet weak var myDUTInfoButton: UIButton!
+  @IBOutlet weak var myDUTGeiiButton: UIButton!
+  @IBOutlet weak var myDUTMiiButton: UIButton!
+  
+  @IBOutlet weak var myLPIsnButton: UIButton!
+  @IBOutlet weak var myLPI2mButton: UIButton!
+  @IBOutlet weak var myLPA2iButton: UIButton!
+  @IBOutlet weak var myLPAtcTecamButton: UIButton!
+  @IBOutlet weak var myLPAtcCdgButton: UIButton!
+
+  
+  var myIsDUTInfoSel: Bool = false
+  var myIsDUTGeiiSel: Bool = false
+  var myIsDUTMiiSel: Bool = false
+  var myIsLPIsnSel: Bool = false
+  var myIsLPI2mSel: Bool = false
+  var myIsLPA2iSel: Bool = false
+  var myIsLPAtcTecamSel: Bool = false
+  var myIsLPAtcCdgSel: Bool = false
+
   
   func getIndex(aName: String)-> Int?{
     //searching index
@@ -105,14 +123,24 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     // Recover the tab of all students:
     myClassePickView.dataSource = self
     myClassePickView.delegate = self
-    myIntergrationDUTPickView.delegate = self
-    myIntergrationDUTPickView.dataSource = self
-    myIntegrationLPPickView.dataSource = self
-    myIntegrationLPPickView.delegate = self
+//    myIntergrationDUTPickView.delegate = self
+//    myIntergrationDUTPickView.dataSource = self
+//    myIntegrationLPPickView.dataSource = self
+//    myIntegrationLPPickView.delegate = self
     myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--",
                                 aForumInscription: myForumName, aDateInscription: myDate!)
+    myCurrentStudent?.myLPProject = [String]()
+    myCurrentStudent?.myDUTProject = [String]()
+    
     updateStudent(myCurrentStudent!)
     myNameField.delegate = self
+    myLastNameField.delegate = self
+    myOptionField.delegate = self
+    myTownField.delegate = self
+    myPhoneField.delegate = self
+    myDeptField.delegate = self
+    myEmailField.delegate = self
+    
     let sharedDefault = NSUserDefaults.standardUserDefaults()
     myForumName = sharedDefault.objectForKey("FORUM_NAME") as! String
     myForumLabel.text = myForumName
@@ -154,6 +182,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       myCancelButton.hidden = false
       mySaveButton.hidden = true
     }else{
+      print("eq 1....")
       myCurrentDisplayStudent--
       myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)
@@ -170,11 +199,38 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
     aStudent.myEmail = myEmailField.text!.cleanPonctuation()
     aStudent.myTel = myPhoneField.text!.cleanPonctuation()
-    aStudent.myDUTProject = myListOfIntegrationDUT[ myIntergrationDUTPickView.selectedRowInComponent(0) ]
-    aStudent.myLPProject = myListOfIntegrationLP[ myIntegrationLPPickView.selectedRowInComponent(0) ]
+    aStudent.myDUTProject?.removeAll()
+    aStudent.myLPProject?.removeAll()
+    
+    if myIsDUTInfoSel {
+      aStudent.myDUTProject?.append("DUT INFO")
+    }
+    if myIsDUTGeiiSel {
+      aStudent.myDUTProject?.append("DUT GEII")
+    }
+    if myIsDUTMiiSel {
+      aStudent.myDUTProject?.append("DUT MMI")
+    }
+    if myIsLPIsnSel {
+      aStudent.myLPProject?.append("LP ISN")
+    }
+    if myIsLPI2mSel {
+      aStudent.myLPProject?.append("LP I2M")
+    }
+    if myIsLPA2iSel {
+      aStudent.myLPProject?.append("LP A2I")
+    }
+    if myIsLPAtcCdgSel {
+      aStudent.myLPProject?.append("LP ATC/CDG")
+    }
+    if myIsLPAtcTecamSel {
+      aStudent.myLPProject?.append("LP ATC/TECAMTV")
+    }
+    
     aStudent.myDateInscription = myDate!
     aStudent.myForumInscription = myForumName
     aStudent.myOption = myOptionField.text
+    
   }
   
   
@@ -184,19 +240,30 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTownField.text =  ""
     myEmailField.text = ""
     myPhoneField.text =  ""
-    myIntergrationDUTPickView.selectRow(0, inComponent: 0, animated: true)
-    myIntegrationLPPickView.selectRow(0, inComponent: 0, animated: true)
+    myOptionField.text = ""
+    myIsLPAtcTecamSel = false
+    myIsLPAtcCdgSel = false
+    myIsLPI2mSel = false
+    myIsLPIsnSel = false
+    myIsLPA2iSel = false
+    myIsDUTMiiSel = false
+    myIsDUTInfoSel = false
+    myIsDUTGeiiSel = false
+    updateOrientationButtonState()
     myClassePickView.selectRow(0, inComponent: 0, animated: true)
     myClassePickView.selectRow(0, inComponent: 1, animated: true)
   }
   
-  func reloadListStudent(){
-    myTabEtudians = recoverTableauEtudiant(myForumName)
-    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--", aForumInscription:  myForumName, aDateInscription: myDate!)
-    updateStudent(myCurrentStudent!)
-    updateInterfaceState()
-    
-  }
+//  func reloadListStudent(){
+//    myTabEtudians = recoverTableauEtudiant(myForumName)
+//    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--", aForumInscription:  myForumName, aDateInscription: myDate!)
+//    myCurrentStudent?.myLPProject = [String]()
+//    myCurrentStudent?.myDUTProject = [String]()
+//    
+//    updateStudent(myCurrentStudent!)
+//    updateInterfaceState()
+//    
+//  }
   
   @IBAction func saveData(sender: UIButton) {
     updateStudent(myCurrentStudent!)
@@ -220,9 +287,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func updateInterfaceState(){
+    updateOrientationButtonState()
     myClassePickView.userInteractionEnabled = myIsEditing
-    myIntegrationLPPickView.userInteractionEnabled = myIsEditing
-    myIntergrationDUTPickView.userInteractionEnabled = myIsEditing
     myLastNameField.enabled = myIsEditing
     myNameField.enabled = myIsEditing
     myPhoneField.enabled = myIsEditing
@@ -230,6 +296,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEmailField.enabled = myIsEditing
     myDeptField.enabled = myIsEditing
     myOptionField.enabled = myIsEditing
+    myDUTMiiButton.enabled = myIsEditing
+    myDUTInfoButton.enabled = myIsEditing
+    myDUTGeiiButton.enabled = myIsEditing
+    myLPIsnButton.enabled = myIsEditing
+    myLPA2iButton.enabled = myIsEditing
+    myLPAtcCdgButton.enabled = myIsEditing
+    myLPAtcTecamButton.enabled = myIsEditing
+    myLPI2mButton.enabled = myIsEditing
+    
     let colorBg: UIColor = myIsEditing ? myColorActive : myColorInActive
     myLastNameField.backgroundColor = colorBg
     myNameField.backgroundColor = colorBg
@@ -246,7 +321,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
-  
   }
   
   func updateDisplayWithEtudiant(unEtudiant: Etudiant){
@@ -258,17 +332,24 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myPhoneField.text = unEtudiant.myTel
     let indexClass: Int? = getIndex(unEtudiant.myClass)
     let indexSpe: Int? = getIndex(unEtudiant.mySpe)
-    let indexDUTproj: Int? = getIndex(unEtudiant.myDUTProject!)
-    let indexLPproj: Int? = getIndex(unEtudiant.myLPProject!)
+    myIsDUTMiiSel = unEtudiant.myDUTProject!.contains("DUT MMI")
+    myIsDUTGeiiSel = unEtudiant.myDUTProject!.contains("DUT GEII")
+    myIsDUTInfoSel = unEtudiant.myDUTProject!.contains("DUT INFO")
+    
+    myIsLPA2iSel = unEtudiant.myLPProject!.contains("LP A2I")
+    myIsLPI2mSel = unEtudiant.myLPProject!.contains("LP I2M")
+    myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP ISN")
+    myIsLPAtcCdgSel = unEtudiant.myLPProject!.contains("LP ATC/CDG")
+    myIsLPAtcTecamSel = unEtudiant.myLPProject!.contains("LP ATC/TECAMTV")
+
     
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
-    myIntergrationDUTPickView.selectRow(indexDUTproj != nil ? indexDUTproj!: 0 , inComponent: 0, animated: true)
-    myIntegrationLPPickView.selectRow(indexLPproj != nil ? indexLPproj!: 0, inComponent: 0, animated: true)
     myForumLabel.text = unEtudiant.myForumInscription
     myInscriptionDateLabel.text = unEtudiant.myDateInscription
     myOptionField.text = unEtudiant.myOption
     updateInterfaceState()
+    updateOrientationButtonState()
   }
   
   
@@ -376,6 +457,69 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       myInterfaceIsShifted = false
     }
   }
+  
+  @IBAction func clickLPISN(sender: AnyObject) {
+    myIsLPIsnSel = !myIsLPIsnSel
+    updateOrientationButtonState()
+  }
+
+  @IBAction func clickLPI2M(sender: AnyObject) {
+    myIsLPI2mSel = !myIsLPI2mSel
+    updateOrientationButtonState()
+  }
+  
+  @IBAction func clickLPA2I(sender: AnyObject) {
+    myIsLPA2iSel = !myIsLPA2iSel
+    updateOrientationButtonState()
+
+  }
+  
+  
+  @IBAction func clickLPATCCDG(sender: AnyObject) {
+    myIsLPAtcCdgSel = !myIsLPAtcCdgSel
+    updateOrientationButtonState()
+  }
+  
+  @IBAction func clickTACTECAMTV(sender: AnyObject) {
+    myIsLPAtcTecamSel = !myIsLPAtcTecamSel
+    updateOrientationButtonState()
+  }
+  
+  @IBAction func clickDUTINFO(sender: AnyObject) {
+    myIsDUTInfoSel = !myIsDUTInfoSel
+    updateOrientationButtonState()
+
+  }
+  
+  @IBAction func clickDUTGEII(sender: AnyObject) {
+    myIsDUTGeiiSel = !myIsDUTGeiiSel
+    updateOrientationButtonState()
+
+  }
+  
+  @IBAction func clickDUTMMI(sender: AnyObject) {
+    myIsDUTMiiSel = !myIsDUTMiiSel
+    updateOrientationButtonState()
+
+  }
+  
+  
+  func updateOrientationButtonState(){
+    let colorSelected = UIColor.redColor()
+    let colorUnSelected = UIColor.grayColor()
+    
+    myLPIsnButton.setTitleColor( myIsLPIsnSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myLPI2mButton.setTitleColor( myIsLPI2mSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myLPA2iButton.setTitleColor( myIsLPA2iSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myLPAtcCdgButton.setTitleColor( myIsLPAtcCdgSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myLPAtcTecamButton.setTitleColor(myIsLPAtcTecamSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    
+    myDUTInfoButton.setTitleColor(myIsDUTInfoSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myDUTGeiiButton.setTitleColor(myIsDUTGeiiSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myDUTMiiButton.setTitleColor(myIsDUTMiiSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    
+  }
+  
   
   
 }

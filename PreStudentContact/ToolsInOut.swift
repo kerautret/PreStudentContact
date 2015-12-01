@@ -125,8 +125,8 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         let town = etu["town"]! as! String
         let dept = etu["dept"]! as? Int
         let email = etu["email"] as? String
-        let integrationDUT = etu["integrationDUT"] as? String
-        let integrationLP = etu["integrationLP"] as? String
+        let integrationDUT = etu["integrationDUT"] as? [String]
+        let integrationLP = etu["integrationLP"] as? [String]
         let inscriptionDate = etu["inscriptionDate"] as? String
         let forumName = etu["forumName"] as? String
         let option = etu["option"] as? String

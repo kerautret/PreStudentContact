@@ -18,8 +18,8 @@ public class Etudiant: NSObject{
   var myDept: Int?
   var myTel: String?
   var myEmail: String?
-  var myDUTProject: String?
-  var myLPProject: String?
+  var myDUTProject: [String]?
+  var myLPProject: [String]?
   var myForumInscription: String
   var myDateInscription: String
   var myOption: String?

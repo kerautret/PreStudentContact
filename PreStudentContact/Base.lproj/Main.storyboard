@@ -54,11 +54,6 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <pickerView tag="1" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" id="uwL-yJ-w3d" userLabel="integreIUT">
-                                        <rect key="frame" x="241" y="660" width="433" height="101"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <animations/>
-                                    </pickerView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="eoH-h5-aTZ" userLabel="champNom">
                                         <rect key="frame" x="199" y="192" width="432" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -198,14 +193,9 @@
                                             </segue>
                                         </connections>
                                     </button>
-                                    <pickerView tag="2" contentMode="scaleToFill" id="v7F-FE-VFT" userLabel="integreLP">
-                                        <rect key="frame" x="240" y="753" width="433" height="79"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <animations/>
-                                    </pickerView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lzy-Bb-L4c">
-                                        <rect key="frame" x="27" y="21" width="30" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="458" y="127" width="30" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <animations/>
                                         <state key="normal" title="edit">
                                             <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -227,8 +217,8 @@
                                         <animations/>
                                     </pickerView>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aui-Pr-viO">
-                                        <rect key="frame" x="26" y="81" width="32" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="397" y="127" width="32" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <animations/>
                                         <state key="normal" title="save">
                                             <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -238,8 +228,8 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pQF-bM-Meq">
-                                        <rect key="frame" x="20" y="54" width="45" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <rect key="frame" x="533" y="127" width="45" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <animations/>
                                         <state key="normal" title="cancel">
                                             <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -248,14 +238,6 @@
                                             <action selector="cancel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EeQ-uI-k01"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt;Restons en contact..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pv0-71-XwE">
-                                        <rect key="frame" x="41" y="119" width="331" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
-                                        <color key="textColor" red="0.6523264527" green="0.31280516260000002" blue="0.66124131939999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="date inscription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6jv-zY-wpD">
                                         <rect key="frame" x="624" y="142" width="119" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -271,6 +253,102 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zc7-XZ-QZm">
+                                        <rect key="frame" x="290" y="695" width="70" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="DUT INFO">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickDUTINFO:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hqs-ND-J7m"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="POo-nd-prD">
+                                        <rect key="frame" x="417" y="696" width="63" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="DUT GEII">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickDUTGEII:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U8H-Tx-DGZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hvs-YV-NaL">
+                                        <rect key="frame" x="594" y="695" width="65" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="DUT MMI">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickDUTMMI:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ht3-BY-8qR"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pb8-as-CiW">
+                                        <rect key="frame" x="435" y="779" width="45" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="LP A2I">
+                                            <color key="titleColor" red="0.72508285979999998" green="0.72508285979999998" blue="0.72508285979999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickLPA2I:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XW7-nV-SPH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="y0o-fD-5rT">
+                                        <rect key="frame" x="621" y="780" width="125" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="LP ATC/TECAMTV">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickTACTECAMTV:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Uap-8E-ktM"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="aiw-aF-JA8">
+                                        <rect key="frame" x="341" y="780" width="48" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="LP I2M">
+                                            <color key="titleColor" red="0.72508285979999998" green="0.72508285979999998" blue="0.72508285979999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickLPI2M:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hRc-0u-Vc7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="JFa-5u-69C">
+                                        <rect key="frame" x="261" y="780" width="46" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="LP ISN">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickLPISN:" destination="BYZ-38-t0r" eventType="touchUpInside" id="T5X-Of-TRQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rZK-3K-PM3">
+                                        <rect key="frame" x="520" y="780" width="87" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="LP ATC/CDG">
+                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="clickLPATCCDG:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xf6-V0-dHF"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt;Restons en contact..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pv0-71-XwE">
+                                        <rect key="frame" x="35" y="119" width="331" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="26"/>
+                                        <color key="textColor" red="0.6523264527" green="0.31280516260000002" blue="0.66124131939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.88942155934343425" green="0.88942155934343425" blue="0.88942155934343425" alpha="1" colorSpace="calibratedRGB"/>
@@ -281,13 +359,19 @@
                     <connections>
                         <outlet property="myCancelButton" destination="pQF-bM-Meq" id="wgN-JX-sJB"/>
                         <outlet property="myClassePickView" destination="GVh-gW-swl" id="7gm-TP-bpH"/>
+                        <outlet property="myDUTGeiiButton" destination="POo-nd-prD" id="SRP-Zq-OuF"/>
+                        <outlet property="myDUTInfoButton" destination="Zc7-XZ-QZm" id="skg-Nh-t1P"/>
+                        <outlet property="myDUTMiiButton" destination="hvs-YV-NaL" id="KYA-0Z-IZX"/>
                         <outlet property="myDeptField" destination="h2T-Dq-mcc" id="sEZ-y3-Yrl"/>
                         <outlet property="myEditButton" destination="lzy-Bb-L4c" id="wiz-IE-1lm"/>
                         <outlet property="myEmailField" destination="Czq-jH-ayE" id="fUY-pr-0Bq"/>
                         <outlet property="myForumLabel" destination="75U-E2-bTf" id="M3e-xN-kxM"/>
                         <outlet property="myInscriptionDateLabel" destination="6jv-zY-wpD" id="5d6-ZI-uC5"/>
-                        <outlet property="myIntegrationLPPickView" destination="v7F-FE-VFT" id="jaB-FJ-Mdx"/>
-                        <outlet property="myIntergrationDUTPickView" destination="uwL-yJ-w3d" id="sc0-xl-5OO"/>
+                        <outlet property="myLPA2iButton" destination="pb8-as-CiW" id="Gge-hs-isv"/>
+                        <outlet property="myLPAtcCdgButton" destination="rZK-3K-PM3" id="nll-J6-o2G"/>
+                        <outlet property="myLPAtcTecamButton" destination="y0o-fD-5rT" id="owO-pe-O5E"/>
+                        <outlet property="myLPI2mButton" destination="aiw-aF-JA8" id="5nl-NB-xWg"/>
+                        <outlet property="myLPIsnButton" destination="JFa-5u-69C" id="9Nh-ee-qmk"/>
                         <outlet property="myLastNameField" destination="r9A-VI-4Kg" id="3No-hF-JhO"/>
                         <outlet property="myNameField" destination="eoH-h5-aTZ" id="ckB-62-ZmB"/>
                         <outlet property="myOptionField" destination="cO2-hZ-dao" id="pCG-cT-ZN4"/>
@@ -301,7 +385,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="14" y="-177"/>
+            <point key="canvasLocation" x="6" y="-175"/>
         </scene>
         <!--Settings Info Controller-->
         <scene sceneID="iN7-JS-RFN">
