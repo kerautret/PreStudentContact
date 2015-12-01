@@ -290,11 +290,11 @@
                         <outlet property="myIntergrationDUTPickView" destination="uwL-yJ-w3d" id="sc0-xl-5OO"/>
                         <outlet property="myLastNameField" destination="r9A-VI-4Kg" id="3No-hF-JhO"/>
                         <outlet property="myNameField" destination="eoH-h5-aTZ" id="ckB-62-ZmB"/>
+                        <outlet property="myOptionField" destination="cO2-hZ-dao" id="pCG-cT-ZN4"/>
                         <outlet property="myPhoneField" destination="vwS-tH-a14" id="jxH-yx-6XC"/>
                         <outlet property="myPrecButton" destination="QLd-qX-L9p" id="Cpv-jt-Fjy"/>
                         <outlet property="mySaveButton" destination="fZT-qK-IFg" id="sDn-r8-89S"/>
                         <outlet property="mySaveModifs" destination="aui-Pr-viO" id="WQE-jc-mpE"/>
-                        <outlet property="mySpecialiteField" destination="cO2-hZ-dao" id="4FX-DI-vg3"/>
                         <outlet property="mySuivButton" destination="Yum-Oi-hPS" id="9PM-ak-5Ii"/>
                         <outlet property="myTownField" destination="EC3-dy-kcL" id="SKq-q6-AcK"/>
                     </connections>

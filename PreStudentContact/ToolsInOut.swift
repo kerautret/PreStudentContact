@@ -94,6 +94,7 @@ func addEtudiant(unEtudiant: Etudiant){
       dicoEtu["lastName"] = unEtudiant.myLastName
       dicoEtu["classe"] = unEtudiant.myClass
       dicoEtu["specialite"] = unEtudiant.mySpe
+      dicoEtu["option"] = unEtudiant.myOption
       dicoEtu["town"] = unEtudiant.myTown
       dicoEtu["dept"] = unEtudiant.myDept
       dicoEtu["email"] = unEtudiant.myEmail
@@ -128,6 +129,7 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         let integrationLP = etu["integrationLP"] as? String
         let inscriptionDate = etu["inscriptionDate"] as? String
         let forumName = etu["forumName"] as? String
+        let option = etu["option"] as? String
         let etudiant = Etudiant(aName: name, aLastName: lastName, aClass: classe, aSpe: specialite, aTown: town, aForumInscription: forumName!, aDateInscription: inscriptionDate!)
         
         if email != nil
@@ -144,6 +146,9 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         }
         if integrationLP != nil  {
           etudiant.myLPProject   = integrationLP
+        }
+        if option != nil {
+          etudiant.myOption = option
         }
         tabResu.append(etudiant)
       }
