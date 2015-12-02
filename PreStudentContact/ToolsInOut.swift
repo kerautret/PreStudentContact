@@ -61,12 +61,47 @@ func getCurrentForumName(forumName: String) -> String{
 
 func exportListCSV(forumName: String) -> NSData? {
   let path: String = "\(getPath(internFileSave)).plist"
-  var strResu = ""
+  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,date inscription,forum\n"
+  let Listkey = ["name","lastName","classe","specialite",
+              "option","town","dept","email","numTel","integrationDUT","integrationLP","inscriptionDate","forumName" ]
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
       for (id, etu) in listeEtudiant {
         strResu += "\(id)"
-        for (_, attribut) in etu {
-          strResu += ",\(attribut)"
+        for key in Listkey {
+          if key  == "integrationDUT" {
+            if (etu[key] as! [String]).contains("DUT GEII"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+            if (etu[key] as! [String]).contains("DUT MMI"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+            if (etu[key] as! [String]).contains("DUT INFO"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+          }
+          else if key  == "integrationLP" {
+            if (etu[key] as! [String]).contains("LP I2M"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+            if (etu[key] as! [String]).contains("LP A2I"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+            if (etu[key] as! [String]).contains("LP ATC/CDG"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+            if (etu[key] as! [String]).contains("LP ATC/TECAMTV"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+            if (etu[key] as! [String]).contains("LP A2I"){
+              strResu += ",oui"
+            }else {strResu += ",non"}
+          }else{
+            if etu[key] != nil {
+              strResu += ",\(etu[key]!)"
+            }else{
+              strResu += ",--"
+            }
+          }
         }
         strResu += "\n"
       }

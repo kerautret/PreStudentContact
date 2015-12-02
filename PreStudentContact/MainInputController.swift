@@ -123,10 +123,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     // Recover the tab of all students:
     myClassePickView.dataSource = self
     myClassePickView.delegate = self
-//    myIntergrationDUTPickView.delegate = self
-//    myIntergrationDUTPickView.dataSource = self
-//    myIntegrationLPPickView.dataSource = self
-//    myIntegrationLPPickView.delegate = self
     myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--",
                                 aForumInscription: myForumName, aDateInscription: myDate!)
     myCurrentStudent?.myLPProject = [String]()
@@ -254,16 +250,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myClassePickView.selectRow(0, inComponent: 1, animated: true)
   }
   
-//  func reloadListStudent(){
-//    myTabEtudians = recoverTableauEtudiant(myForumName)
-//    myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--", aForumInscription:  myForumName, aDateInscription: myDate!)
-//    myCurrentStudent?.myLPProject = [String]()
-//    myCurrentStudent?.myDUTProject = [String]()
-//    
-//    updateStudent(myCurrentStudent!)
-//    updateInterfaceState()
-//    
-//  }
   
   @IBAction func saveData(sender: UIButton) {
     updateStudent(myCurrentStudent!)
@@ -471,9 +457,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBAction func clickLPA2I(sender: AnyObject) {
     myIsLPA2iSel = !myIsLPA2iSel
     updateOrientationButtonState()
-
   }
-  
   
   @IBAction func clickLPATCCDG(sender: AnyObject) {
     myIsLPAtcCdgSel = !myIsLPAtcCdgSel
@@ -520,14 +504,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
   }
   
-  
-  
 }
-
-
-
-
-
 
 
 
