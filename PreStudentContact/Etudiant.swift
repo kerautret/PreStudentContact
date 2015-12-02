@@ -18,13 +18,19 @@ public class Etudiant: NSObject{
   var myDept: Int?
   var myTel: String?
   var myEmail: String?
-  var myDUTProject: String?
-  var myLPProject: String?
+  var myDUTProject: [String]?
+  var myLPProject: [String]?
   var myForumInscription: String
   var myDateInscription: String
   var myOption: String?
+  var myCreationDate: String
+  var myHeureCreation: String
   
   init(other: Etudiant ) {
+    myCreationDate = "\(NSDate().timeIntervalSince1970)"
+    let datef = NSDateFormatter()
+    datef.dateFormat = "hh:ss"
+    myHeureCreation = "\(datef.stringFromDate(NSDate()))"
     myName = other.myName
     myLastName = other.myLastName
     myClass = other.myClass
@@ -43,6 +49,11 @@ public class Etudiant: NSObject{
   init(aName: String, aLastName: String, aClass: String, aSpe: String, aTown: String,
       aForumInscription: String, aDateInscription: String)
   {
+    let datef = NSDateFormatter()
+    datef.dateFormat = "hh_ss"
+    myHeureCreation = "\(datef.stringFromDate(NSDate()))"
+    
+    myCreationDate = "\(NSDate().timeIntervalSince1970)"
     myName = aName
     myLastName = aLastName
     myClass = aClass

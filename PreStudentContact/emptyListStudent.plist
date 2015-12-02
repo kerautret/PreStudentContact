@@ -4,30 +4,40 @@
 <dict>
 	<key>IdEtudiantTest</key>
 	<dict>
+		<key>dateCreation</key>
+		<string>0.0</string>
+		<key>heureCreation</key>
+		<string>00:00</string>
 		<key>name</key>
-		<string>NomTest</string>
+		<string>Name</string>
 		<key>lastName</key>
-		<string>PrenomTest</string>
+		<string>LastName</string>
 		<key>classe</key>
-		<string>Première</string>
+		<string>Classe</string>
 		<key>specialite</key>
-		<string>S</string>
+		<string>Specialite</string>
 		<key>town</key>
-		<string>VilleTest</string>
+		<string>Ville</string>
 		<key>dept</key>
-		<string>3232</string>
+		<string>Dept</string>
 		<key>email</key>
-		<string>j@j.fr</string>
+		<string>email</string>
 		<key>numTel</key>
-		<string>test@test.com</string>
+		<string>Num Tel</string>
 		<key>integrationDUT</key>
-		<string>DUT MMI</string>
+		<array>
+			<string>DUT INFO</string>
+			<string>DUT MMI</string>
+		</array>
 		<key>integrationLP</key>
-		<string>LP A2O</string>
+		<array>
+			<string>LP ATC/CDG</string>
+			<string>LP ATC/TECAMTV</string>
+		</array>
 		<key>inscriptionDate</key>
-		<string>01/01/2001</string>
+		<string>DateInscription</string>
 		<key>forumName</key>
-		<string>superForum</string>
+		<string>NomForum</string>
 	</dict>
 </dict>
 </plist>
