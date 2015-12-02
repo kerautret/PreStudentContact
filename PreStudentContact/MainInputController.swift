@@ -361,7 +361,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-    print("selected")
+    updateInterfaceState()
   }
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
@@ -415,10 +415,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func textFieldShouldBeginEditing(){
     
   }
-  func pickerChanged(){
-    print ("chenged")
-  }
-  
+ 
   func textFieldDidEndEditing(textField: UITextField) {
     updateInterfaceState()
   }
