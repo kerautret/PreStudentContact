@@ -42,7 +42,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myForumName: String = "ForumNoName"
   var myDate: String?
   var myDateM1: String?
-
+  var myHistoryMode: Bool = false
   var myInterfaceIsShifted: Bool = false
   
   @IBOutlet var myNameField: UITextField!
@@ -152,11 +152,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     let sharedDefault = NSUserDefaults.standardUserDefaults()
     myForumName = sharedDefault.objectForKey("FORUM_NAME") as! String
-    myForumLabel.text = myForumName
     myTabEtudians = recoverTableauEtudiant(myForumName)
     myInscriptionDateLabel.text = myDate
     updateInterfaceState()
     updateDisplayWithEtudiant(myCurrentStudent!)
+    myForumLabel.text = myForumName
+
   }
   
   
@@ -316,8 +317,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0
     myEditButton.hidden = myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0
-    myPrecButton.hidden = myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0
-    mySuivButton.hidden = myCurrentDisplayStudent <= 0 || myTabEtudians.count == 0
+    myPrecButton.hidden =  myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0 || !myHistoryMode
+    mySuivButton.hidden = myCurrentDisplayStudent <= 0 || myTabEtudians.count == 0 || !myHistoryMode
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
@@ -426,7 +427,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   func keyboardDidShow()
   {
-    if UIDevice.currentDevice().orientation.isLandscape {
+    if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
       UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
       UIView.setAnimationDuration(0.2)
@@ -494,18 +495,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func updateOrientationButtonState(){
-    let colorSelected = UIColor.redColor()
-    let colorUnSelected = UIColor.grayColor()
-    
-    myLPIsnButton.setTitleColor( myIsLPIsnSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    myLPI2mButton.setTitleColor( myIsLPI2mSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    myLPA2iButton.setTitleColor( myIsLPA2iSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    myLPAtcCdgButton.setTitleColor( myIsLPAtcCdgSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    myLPAtcTecamButton.setTitleColor(myIsLPAtcTecamSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    
-    myDUTInfoButton.setTitleColor(myIsDUTInfoSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    myDUTGeiiButton.setTitleColor(myIsDUTGeiiSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    myDUTMiiButton.setTitleColor(myIsDUTMiiSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
+    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myLPI2mButton.setImage(UIImage(named: myIsLPI2mSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myLPA2iButton.setImage(UIImage(named: myIsLPA2iSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myLPAtcCdgButton.setImage(UIImage(named: myIsLPAtcCdgSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myLPAtcTecamButton.setImage(UIImage(named: myIsLPAtcTecamSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myDUTInfoButton.setImage(UIImage(named: myIsDUTInfoSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myDUTGeiiButton.setImage(UIImage(named: myIsDUTGeiiSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myDUTMiiButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
   }
   
   
@@ -524,6 +522,16 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   
+  @IBAction func changeMode(sender: AnyObject) {
+    myHistoryMode = !myHistoryMode
+    if !myHistoryMode {
+      myCurrentDisplayStudent = 0
+      myIsEditing = true
+      updateDisplayWithEtudiant(myCurrentStudent!)
+
+    }
+    updateInterfaceState()
+  }
   
 }
 

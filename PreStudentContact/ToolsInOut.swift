@@ -183,6 +183,7 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         let specialite = etu["specialite"]! as! String
         let town = etu["town"]! as! String
         let dept = etu["dept"]! as? Int
+        let numTel = etu["numTel"]! as? String
         let email = etu["email"] as? String
         let integrationDUT = etu["integrationDUT"] as? [String]
         let integrationLP = etu["integrationLP"] as? [String]
@@ -206,6 +207,9 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         }
         if integrationLP != nil  {
           etudiant.myLPProject   = integrationLP
+        }
+        if numTel != nil {
+          etudiant.myTel = numTel
         }
         if option != nil {
           etudiant.myOption = option

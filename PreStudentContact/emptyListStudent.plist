@@ -1,43 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>IdEtudiantTest</key>
-	<dict>
-		<key>dateCreation</key>
-		<string>0.0</string>
-		<key>heureCreation</key>
-		<string>00:00</string>
-		<key>name</key>
-		<string>Name</string>
-		<key>lastName</key>
-		<string>LastName</string>
-		<key>classe</key>
-		<string>Classe</string>
-		<key>specialite</key>
-		<string>Specialite</string>
-		<key>town</key>
-		<string>Ville</string>
-		<key>dept</key>
-		<string>Dept</string>
-		<key>email</key>
-		<string>email</string>
-		<key>numTel</key>
-		<string>Num Tel</string>
-		<key>integrationDUT</key>
-		<array>
-			<string>DUT INFO</string>
-			<string>DUT MMI</string>
-		</array>
-		<key>integrationLP</key>
-		<array>
-			<string>LP ATC/CDG</string>
-			<string>LP ATC/TECAMTV</string>
-		</array>
-		<key>inscriptionDate</key>
-		<string>DateInscription</string>
-		<key>forumName</key>
-		<string>NomForum</string>
-	</dict>
-</dict>
+<dict/>
 </plist>
