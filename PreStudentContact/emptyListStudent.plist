@@ -4,6 +4,10 @@
 <dict>
 	<key>IdEtudiantTest</key>
 	<dict>
+		<key>dateCreation</key>
+		<string>0.0</string>
+		<key>heureCreation</key>
+		<string>00:00</string>
 		<key>name</key>
 		<string>Name</string>
 		<key>lastName</key>

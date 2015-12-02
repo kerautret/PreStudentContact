@@ -41,6 +41,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myEmailExport : String?
   var myForumName: String = "ForumNoName"
   var myDate: String?
+  var myDateM1: String?
+
   var myInterfaceIsShifted: Bool = false
   
   @IBOutlet var myNameField: UITextField!
@@ -48,9 +50,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myOptionField: UITextField!
   
   @IBOutlet weak var myClassePickView: UIPickerView!
+  @IBOutlet weak var myHeureCreation: UILabel!
   
   @IBOutlet weak var myInscriptionDateLabel: UILabel!
   @IBOutlet weak var myForumLabel: UILabel!
+  @IBOutlet weak var myIdStudent: UILabel!
+  @IBOutlet weak var myTotalSaved: UILabel!
+  @IBOutlet weak var myTotalSavedDay: UILabel!
+  @IBOutlet weak var myTotalSaveDayM1: UILabel!
   
   @IBOutlet weak var myTownField: UITextField!
   @IBOutlet weak var myEmailField: UITextField!
@@ -73,7 +80,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myLPA2iButton: UIButton!
   @IBOutlet weak var myLPAtcTecamButton: UIButton!
   @IBOutlet weak var myLPAtcCdgButton: UIButton!
-
   
   var myIsDUTInfoSel: Bool = false
   var myIsDUTGeiiSel: Bool = false
@@ -83,7 +89,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myIsLPA2iSel: Bool = false
   var myIsLPAtcTecamSel: Bool = false
   var myIsLPAtcCdgSel: Bool = false
-
   
   func getIndex(aName: String)-> Int?{
     //searching index
@@ -116,9 +121,17 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let date = NSDateFormatter()
-    date.dateFormat = "dd_MM_yyyy"
-    myDate =  "\(date.stringFromDate(NSDate()))"
+    
+    let dateFormater = NSDateFormatter()
+    dateFormater.dateFormat = "dd_MM_yyyy"
+
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+    let dateM1 = calendar?.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: NSDate(), options: NSCalendarOptions())
+    
+    myDate =  "\(dateFormater.stringFromDate(NSDate()))"
+    myDateM1 =  "\(dateFormater.stringFromDate(dateM1!))"
+    
+
     
     // Recover the tab of all students:
     myClassePickView.dataSource = self
@@ -143,7 +156,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTabEtudians = recoverTableauEtudiant(myForumName)
     myInscriptionDateLabel.text = myDate
     updateInterfaceState()
-    
+    updateDisplayWithEtudiant(myCurrentStudent!)
   }
   
   
@@ -178,7 +191,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       myCancelButton.hidden = false
       mySaveButton.hidden = true
     }else{
-      print("eq 1....")
       myCurrentDisplayStudent--
       myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)
@@ -255,8 +267,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateStudent(myCurrentStudent!)
     addEtudiant(myCurrentStudent!)
     eraseFields()
+    myCurrentStudent = Etudiant(other: myCurrentStudent!)
     myTabEtudians.append(Etudiant(other: myCurrentStudent!))
     updateStudent(myCurrentStudent!)
+    updateDisplayWithEtudiant(myCurrentStudent!)
   }
   
   
@@ -316,6 +330,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDeptField.text = unEtudiant.myDept == nil ? "---" : "\(unEtudiant.myDept!)"
     myEmailField.text = unEtudiant.myEmail
     myPhoneField.text = unEtudiant.myTel
+    myIdStudent.text = unEtudiant.myCreationDate
+    myHeureCreation.text = unEtudiant.myHeureCreation
+    myTotalSaved.text = "\(myTabEtudians.count)"
+    myTotalSavedDay.text = "\(getNumberStudentToday().0)"
+    myTotalSaveDayM1.text = "\(getNumberStudentToday().1)"
     let indexClass: Int? = getIndex(unEtudiant.myClass)
     let indexSpe: Int? = getIndex(unEtudiant.mySpe)
     myIsDUTMiiSel = unEtudiant.myDUTProject!.contains("DUT MMI")
@@ -334,6 +353,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myForumLabel.text = unEtudiant.myForumInscription
     myInscriptionDateLabel.text = unEtudiant.myDateInscription
     myOptionField.text = unEtudiant.myOption
+    
     updateInterfaceState()
     updateOrientationButtonState()
   }
@@ -357,14 +377,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       {
         return myListOfClassesOptions[component].count
       }
-      else if pickerView.tag == 1
-      {
-        return myListOfIntegrationDUT.count
-      }
-      else if pickerView.tag == 2
-      {
-        return myListOfIntegrationLP.count
-      }
       return 0
   }
   
@@ -374,14 +386,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       if pickerView.tag == 0
       {
         return myListOfClassesOptions[component][row]
-      }
-      if pickerView.tag == 1
-      {
-        return myListOfIntegrationDUT[row]
-      }
-      if pickerView.tag == 2
-      {
-        return myListOfIntegrationLP[row]
       }
       return "---"
   }
@@ -397,6 +401,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsEditing = false
     updateStudent(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     updateInterfaceState()
+    saveListEtud(myTabEtudians)
   }
   
   func textFieldDidBeginEditing(textField : UITextField){
@@ -501,18 +506,25 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDUTInfoButton.setTitleColor(myIsDUTInfoSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
     myDUTGeiiButton.setTitleColor(myIsDUTGeiiSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
     myDUTMiiButton.setTitleColor(myIsDUTMiiSel ? colorSelected: colorUnSelected, forState: UIControlState.Normal)
-    
   }
   
+  
+  func getNumberStudentToday() -> (Int, Int) {
+    var resu: (Int, Int) = (0, 0)
+    for etu in myTabEtudians {
+      if etu.myDateInscription == myDate {
+        resu.0++
+      }
+      if etu.myDateInscription == myDateM1 {
+        resu.1++
+      }
+    }
+    return resu
+  }
+  
+  
+  
+  
 }
-
-
-
-
-
-
-
-
-
 
 

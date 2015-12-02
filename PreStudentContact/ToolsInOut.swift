@@ -19,7 +19,6 @@ func getPath(fileName: String) -> String{
 
 
 
-
 func checkExistSavingFile() -> Bool {
   let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
   let path = paths.stringByAppendingString("/\(internFileSave).plist")
@@ -39,9 +38,6 @@ func checkExistSavingFile() -> Bool {
 }
 
 
-
-
-
 func getCurrentForumName(forumName: String) -> String{
   let date = NSDateFormatter()
   date.dateFormat = "dd_MM_yyyy"
@@ -54,7 +50,6 @@ func getCurrentForumName(forumName: String) -> String{
       sharedDefault.setObject(listFile, forKey: "ARRAY_SAVE")
     }
   }
-
   return res
 }
 
@@ -113,6 +108,31 @@ func exportListCSV(forumName: String) -> NSData? {
 }
 
 
+func saveListEtud(tabEtu: [Etudiant]){
+  var path: String = "\(internFileSave).plist"
+  path = getPath(path)
+  print("path::: save\(path)")
+  var listeEtudiant = Dictionary<String,  Dictionary<String, AnyObject > >()
+  for unEtudiant in tabEtu {
+    var dicoEtu = Dictionary<String, AnyObject > ()
+    dicoEtu["name"] = unEtudiant.myName
+    dicoEtu["lastName"] = unEtudiant.myLastName
+    dicoEtu["classe"] = unEtudiant.myClass
+    dicoEtu["specialite"] = unEtudiant.mySpe
+    dicoEtu["option"] = unEtudiant.myOption
+    dicoEtu["town"] = unEtudiant.myTown
+    dicoEtu["dept"] = unEtudiant.myDept
+    dicoEtu["email"] = unEtudiant.myEmail
+    dicoEtu["numTel"] = unEtudiant.myTel
+    dicoEtu["integrationDUT"] = unEtudiant.myDUTProject
+    dicoEtu["integrationLP"] = unEtudiant.myLPProject
+    dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
+    dicoEtu["forumName"] = unEtudiant.myForumInscription
+    dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
+    listeEtudiant["\(unEtudiant.myCreationDate)"] = dicoEtu
+    (listeEtudiant as NSDictionary).writeToFile(path, atomically: true)
+  }
+}
 
 
 func addEtudiant(unEtudiant: Etudiant){
@@ -124,26 +144,28 @@ func addEtudiant(unEtudiant: Etudiant){
   if listeEtudiant == nil {
     listeEtudiant = Dictionary<String,  Dictionary<String, AnyObject > >()
   }
-      var dicoEtu = Dictionary<String, AnyObject > ()
-      dicoEtu["name"] = unEtudiant.myName
-      dicoEtu["lastName"] = unEtudiant.myLastName
-      dicoEtu["classe"] = unEtudiant.myClass
-      dicoEtu["specialite"] = unEtudiant.mySpe
-      dicoEtu["option"] = unEtudiant.myOption
-      dicoEtu["town"] = unEtudiant.myTown
-      dicoEtu["dept"] = unEtudiant.myDept
-      dicoEtu["email"] = unEtudiant.myEmail
-      dicoEtu["numTel"] = unEtudiant.myTel
-      dicoEtu["integrationDUT"] = unEtudiant.myDUTProject
-      dicoEtu["integrationLP"] = unEtudiant.myLPProject
-      dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
-      dicoEtu["forumName"] = unEtudiant.myForumInscription
 
-      listeEtudiant!["\(unEtudiant.hash)"] = dicoEtu
-      (listeEtudiant! as NSDictionary).writeToFile(path, atomically: true)
-    
+  var dicoEtu = Dictionary<String, AnyObject > ()
+  dicoEtu["name"] = unEtudiant.myName
+  dicoEtu["lastName"] = unEtudiant.myLastName
+  dicoEtu["classe"] = unEtudiant.myClass
+  dicoEtu["specialite"] = unEtudiant.mySpe
+  dicoEtu["option"] = unEtudiant.myOption
+  dicoEtu["town"] = unEtudiant.myTown
+  dicoEtu["dept"] = unEtudiant.myDept
+  dicoEtu["email"] = unEtudiant.myEmail
+  dicoEtu["numTel"] = unEtudiant.myTel
+  dicoEtu["integrationDUT"] = unEtudiant.myDUTProject
+  dicoEtu["integrationLP"] = unEtudiant.myLPProject
+  dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
+  dicoEtu["forumName"] = unEtudiant.myForumInscription
+  dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
+  listeEtudiant!["\(unEtudiant.myCreationDate)"] = dicoEtu
+  (listeEtudiant! as NSDictionary).writeToFile(path, atomically: true)
 }
-  
+
+
+
 
 
 func recoverTableauEtudiant(forum: String) ->[Etudiant] {
@@ -152,7 +174,9 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
   
   print("path:::\(path)")
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String, AnyObject > {
-      for (_, etu) in listeEtudiant {
+    let sortedListe = listeEtudiant.sort { Double($0.0) < Double($1.0) }
+
+    for (key, etu) in sortedListe {
         let name = etu["name"]! as! String
         let lastName = etu["lastName"]! as! String
         let classe = etu["classe"]! as! String
@@ -164,9 +188,10 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         let integrationLP = etu["integrationLP"] as? [String]
         let inscriptionDate = etu["inscriptionDate"] as? String
         let forumName = etu["forumName"] as? String
+        let heureCreation = etu["heureCreation"] as? String
         let option = etu["option"] as? String
         let etudiant = Etudiant(aName: name, aLastName: lastName, aClass: classe, aSpe: specialite, aTown: town, aForumInscription: forumName!, aDateInscription: inscriptionDate!)
-        
+        etudiant.myCreationDate = key
         if email != nil
         {
           etudiant.myEmail = email
@@ -185,7 +210,10 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         if option != nil {
           etudiant.myOption = option
         }
-        tabResu.append(etudiant)
+      if heureCreation != nil {
+        etudiant.myHeureCreation = heureCreation!
+      }
+      tabResu.append(etudiant)
       }
     }
   
