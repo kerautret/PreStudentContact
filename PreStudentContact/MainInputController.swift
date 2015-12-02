@@ -205,7 +205,9 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myClass = myListOfClassesOptions[0][myClassePickView.selectedRowInComponent(0)]
     aStudent.mySpe = myListOfClassesOptions[1][myClassePickView.selectedRowInComponent(1)]
     aStudent.myTown = myTownField.text!.cleanPonctuation()
-    aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
+    if myDeptField.text != ""{
+      aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
+    }
     aStudent.myEmail = myEmailField.text!.cleanPonctuation()
     aStudent.myTel = myPhoneField.text!.cleanPonctuation()
     aStudent.myDUTProject?.removeAll()
@@ -314,11 +316,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEmailField.backgroundColor = colorBg
     myDeptField.backgroundColor = colorBg
     myOptionField.backgroundColor = colorBg
-    mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0
+    mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0 || myHistoryMode || !checkOKSaving()
     myEditButton.hidden = myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0
     myPrecButton.hidden =  myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0 || !myHistoryMode
-    mySuivButton.hidden = myCurrentDisplayStudent <= 0 || myTabEtudians.count == 0 || !myHistoryMode
+    mySuivButton.hidden = myCurrentDisplayStudent <= 1 || myTabEtudians.count == 1 || !myHistoryMode
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
@@ -328,7 +330,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myNameField.text = unEtudiant.myName
     myLastNameField.text = unEtudiant.myLastName
     myTownField.text = unEtudiant.myTown
-    myDeptField.text = unEtudiant.myDept == nil ? "---" : "\(unEtudiant.myDept!)"
+    myDeptField.text = unEtudiant.myDept == nil ? "" : "\(unEtudiant.myDept!)"
     myEmailField.text = unEtudiant.myEmail
     myPhoneField.text = unEtudiant.myTel
     myIdStudent.text = unEtudiant.myCreationDate
@@ -347,7 +349,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP ISN")
     myIsLPAtcCdgSel = unEtudiant.myLPProject!.contains("LP ATC/CDG")
     myIsLPAtcTecamSel = unEtudiant.myLPProject!.contains("LP ATC/TECAMTV")
-
     
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
@@ -359,7 +360,9 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateOrientationButtonState()
   }
   
-  
+  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    print("selected")
+  }
   
   func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
     if pickerView.tag == 0
@@ -412,8 +415,17 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func textFieldShouldBeginEditing(){
     
   }
+  func pickerChanged(){
+    print ("chenged")
+  }
+  
+  func textFieldDidEndEditing(textField: UITextField) {
+    updateInterfaceState()
+  }
+  
   func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow", name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow",
+      name: UIKeyboardDidShowNotification, object: nil)
     return true
   }
   
@@ -528,11 +540,29 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       myCurrentDisplayStudent = 0
       myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)
+    }else{
+      updateStudent(myCurrentStudent!)
+      myCurrentDisplayStudent = 1
+      myIsEditing = false
+      updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
 
     }
     updateInterfaceState()
   }
   
+  
+  func checkOKSaving() -> Bool{
+    return myNameField.text != "" && myLastNameField.text != "" && myTownField != "" && myClassePickView.selectedRowInComponent(0) != 0 && myClassePickView.selectedRowInComponent(1) != 0;
+  }
+  
 }
+
+
+
+
+
+
+
+
 
 
