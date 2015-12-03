@@ -71,6 +71,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   @IBOutlet weak var myDeleteButton: UIButton!
   
+  @IBOutlet weak var myHistoryButton: UIButton!
   @IBOutlet weak var myDUTInfoButton: UIButton!
   @IBOutlet weak var myDUTGeiiButton: UIButton!
   @IBOutlet weak var myDUTMiiButton: UIButton!
@@ -519,9 +520,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   @IBAction func changeMode(sender: AnyObject) {
+    
     if myTabEtudians.count >= 1 {
-    myHistoryMode = !myHistoryMode
-    if !myHistoryMode {
+      myHistoryMode = !myHistoryMode
+      myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , forState: UIControlState.Normal)
+      if !myHistoryMode {
       myCurrentDisplayStudent = 0
       myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)

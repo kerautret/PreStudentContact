@@ -328,7 +328,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" id="Fv6-FA-Lnn">
-                                        <rect key="frame" x="85" y="965" width="598" height="31"/>
+                                        <rect key="frame" x="66" y="965" width="598" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="idStudent" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bSJ-yA-0q3">
@@ -399,15 +399,6 @@
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2oe-JN-Vea">
-                                        <rect key="frame" x="689" y="965" width="71" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <animations/>
-                                        <state key="normal" title="history"/>
-                                        <connections>
-                                            <action selector="changeMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KrR-8y-6rT"/>
-                                        </connections>
-                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DUT INFO" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WT0-4P-h2P">
                                         <rect key="frame" x="287" y="699" width="78" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -505,6 +496,15 @@
                                             <action selector="deleteSudent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8qQ-53-628"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2oe-JN-Vea">
+                                        <rect key="frame" x="664" y="965" width="96" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="history"/>
+                                        <connections>
+                                            <action selector="changeMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KrR-8y-6rT"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.88942155934343425" green="0.88942155934343425" blue="0.88942155934343425" alpha="1" colorSpace="calibratedRGB"/>
@@ -524,6 +524,7 @@
                         <outlet property="myEmailField" destination="Czq-jH-ayE" id="fUY-pr-0Bq"/>
                         <outlet property="myForumLabel" destination="75U-E2-bTf" id="M3e-xN-kxM"/>
                         <outlet property="myHeureCreation" destination="aXd-WH-c33" id="lfu-oh-MaD"/>
+                        <outlet property="myHistoryButton" destination="2oe-JN-Vea" id="Rih-iN-QQn"/>
                         <outlet property="myIdStudent" destination="bSJ-yA-0q3" id="Q8H-Jl-Y8b"/>
                         <outlet property="myInscriptionDateLabel" destination="6jv-zY-wpD" id="5d6-ZI-uC5"/>
                         <outlet property="myLPA2iButton" destination="pb8-as-CiW" id="Gge-hs-isv"/>
