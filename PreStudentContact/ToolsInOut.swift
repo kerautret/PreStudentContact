@@ -130,8 +130,9 @@ func saveListEtud(tabEtu: [Etudiant]){
     dicoEtu["forumName"] = unEtudiant.myForumInscription
     dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
     listeEtudiant["\(unEtudiant.myCreationDate)"] = dicoEtu
-    (listeEtudiant as NSDictionary).writeToFile(path, atomically: true)
   }
+  (listeEtudiant as NSDictionary).writeToFile(path, atomically: true)
+
 }
 
 

@@ -94,5 +94,10 @@ class SettingsInfoController: UIViewController, MFMailComposeViewControllerDeleg
     self.dismissViewControllerAnimated(true, completion: nil)
   }
   
+  @IBAction func deleteAll(sender: AnyObject) {
+    self.dismissViewControllerAnimated(true, completion: nil)
+    (self.presentingViewController as! MainInputController).deleteAll()
+    
+  }
   
 }

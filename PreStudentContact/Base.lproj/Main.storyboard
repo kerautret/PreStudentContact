@@ -494,6 +494,17 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="03F-Pg-j5l">
+                                        <rect key="frame" x="534" y="89" width="43" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <animations/>
+                                        <state key="normal" title="delete">
+                                            <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="deleteSudent:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8qQ-53-628"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.88942155934343425" green="0.88942155934343425" blue="0.88942155934343425" alpha="1" colorSpace="calibratedRGB"/>
@@ -507,6 +518,7 @@
                         <outlet property="myDUTGeiiButton" destination="POo-nd-prD" id="SRP-Zq-OuF"/>
                         <outlet property="myDUTInfoButton" destination="Zc7-XZ-QZm" id="skg-Nh-t1P"/>
                         <outlet property="myDUTMiiButton" destination="hvs-YV-NaL" id="KYA-0Z-IZX"/>
+                        <outlet property="myDeleteButton" destination="03F-Pg-j5l" id="olK-i1-ZUZ"/>
                         <outlet property="myDeptField" destination="h2T-Dq-mcc" id="sEZ-y3-Yrl"/>
                         <outlet property="myEditButton" destination="lzy-Bb-L4c" id="wiz-IE-1lm"/>
                         <outlet property="myEmailField" destination="Czq-jH-ayE" id="fUY-pr-0Bq"/>
@@ -585,6 +597,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="gXt-Fv-TE8">
+                                <rect key="frame" x="269" y="177" width="62" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="delete all">
+                                    <color key="titleColor" red="1" green="0.1303775945" blue="0.081467077870000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteAll:" destination="hnp-YR-aVM" eventType="touchUpInside" id="oF0-u4-2o5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.80710576907501097" green="1" blue="0.98785826272724675" alpha="1" colorSpace="calibratedRGB"/>

@@ -56,18 +56,20 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myTotalSaved: UILabel!
   @IBOutlet weak var myTotalSavedDay: UILabel!
   @IBOutlet weak var myTotalSaveDayM1: UILabel!
-  
   @IBOutlet weak var myTownField: UITextField!
   @IBOutlet weak var myEmailField: UITextField!
   @IBOutlet weak var myPhoneField: UITextField!
   @IBOutlet weak var mySaveButton: UIButton!
   @IBOutlet weak var myDeptField: UITextField!
+  var myPasswordTextField: UITextField?
+
   @IBOutlet weak var myEditButton: UIButton!
   @IBOutlet weak var myPrecButton: UIButton!
   @IBOutlet weak var mySuivButton: UIButton!
   @IBOutlet weak var mySaveModifs: UIButton!
   @IBOutlet weak var myCancelButton: UIButton!
   
+  @IBOutlet weak var myDeleteButton: UIButton!
   
   @IBOutlet weak var myDUTInfoButton: UIButton!
   @IBOutlet weak var myDUTGeiiButton: UIButton!
@@ -302,12 +304,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myOptionField.backgroundColor = colorBg
     mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0 || myHistoryMode || !checkOKSaving()
     myEditButton.hidden = myCurrentDisplayStudent == 0
-    myCancelButton.hidden = myCurrentDisplayStudent == 0
+
     myPrecButton.hidden =  myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0 || !myHistoryMode
     mySuivButton.hidden = myCurrentDisplayStudent <= 1 || myTabEtudians.count == 1 || !myHistoryMode
     myEditButton.hidden = myIsEditing
     mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
+    myDeleteButton.hidden =  myCurrentDisplayStudent == 0 || !myIsEditing
   }
   
   func updateDisplayWithEtudiant(unEtudiant: Etudiant){
@@ -520,7 +523,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       myCurrentDisplayStudent = 0
       myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)
-    }else{
+    }else if myTabEtudians.count != 0{
       updateStudent(myCurrentStudent!)
       myCurrentDisplayStudent = 1
       myIsEditing = false
@@ -534,6 +537,55 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func checkOKSaving() -> Bool{
     return myNameField.text != "" && myLastNameField.text != "" && myTownField != "" && myClassePickView.selectedRowInComponent(0) != 0 && myClassePickView.selectedRowInComponent(1) != 0;
   }
+  
+  
+  
+  @IBAction func deleteSudent(sender: AnyObject){
+      let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.Alert)
+      alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+        textField.placeholder = "Password"
+        textField.secureTextEntry = true
+        self.myPasswordTextField = textField
+      })
+      presentViewController(alert, animated: true, completion: nil)
+      alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: tryDeleteCurrentStudent))
+      alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+  }
+  
+  func deleteAll(){
+    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.Alert)
+    alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+      textField.placeholder = "Password"
+      textField.secureTextEntry = true
+      self.myPasswordTextField = textField
+    })
+    presentViewController(alert, animated: true, completion: nil)
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: tryDelete))
+    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+  }
+  
+  func tryDelete(alert: UIAlertAction!){
+    print("field::::\(myPasswordTextField!.text)")
+    if myPasswordTextField!.text == "Forum2015" {
+      myTabEtudians.removeAll()
+      saveListEtud(myTabEtudians)
+      updateInterfaceState()
+      updateDisplayWithEtudiant(myCurrentStudent!)
+    }
+  }
+  
+  func tryDeleteCurrentStudent(alert: UIAlertAction!){
+    print("field::::\(myPasswordTextField!.text)")
+    if myPasswordTextField!.text == "Forum2015" {
+      myTabEtudians.removeAtIndex(myTabEtudians.count - myCurrentDisplayStudent)
+      saveListEtud(myTabEtudians)
+      myIsEditing = false
+      updateInterfaceState()
+      updateDisplayWithEtudiant(myCurrentStudent!)
+    }
+    
+  }
+
   
 }
 
