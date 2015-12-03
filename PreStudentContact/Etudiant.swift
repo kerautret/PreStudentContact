@@ -25,6 +25,7 @@ public class Etudiant: NSObject{
   var myOption: String?
   var myCreationDate: String
   var myHeureCreation: String
+  var myNewsLetter: Bool = false
   
   init(other: Etudiant ) {
     myCreationDate = "\(NSDate().timeIntervalSince1970)"
@@ -44,6 +45,7 @@ public class Etudiant: NSObject{
     myForumInscription = other.myForumInscription
     myDateInscription = other.myDateInscription
     myOption = other.myOption
+    myNewsLetter = other.myNewsLetter
   }
   
   init(aName: String, aLastName: String, aClass: String, aSpe: String, aTown: String,
@@ -52,7 +54,6 @@ public class Etudiant: NSObject{
     let datef = NSDateFormatter()
     datef.dateFormat = "hh_ss"
     myHeureCreation = "\(datef.stringFromDate(NSDate()))"
-    
     myCreationDate = "\(NSDate().timeIntervalSince1970)"
     myName = aName
     myLastName = aLastName

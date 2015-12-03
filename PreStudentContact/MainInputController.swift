@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 
 extension String{
@@ -25,6 +26,7 @@ extension String{
 
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   
+  var myPasswordDelete = "Forum2015"
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
     ["--------","S","ES", "L", "STI","STI2D","STI2A", "STAV", "STG", "STT", "STI","STMG", "PRO", "DAEU", "BAC étranger"]]
   
@@ -42,6 +44,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myDateM1: String?
   var myHistoryMode: Bool = false
   var myInterfaceIsShifted: Bool = false
+  
   
   @IBOutlet var myNameField: UITextField!
   @IBOutlet weak var myLastNameField: UITextField!
@@ -82,6 +85,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myLPAtcTecamButton: UIButton!
   @IBOutlet weak var myLPAtcCdgButton: UIButton!
   
+  @IBOutlet weak var myNewsLetterButton: UIButton!
+  
   var myIsDUTInfoSel: Bool = false
   var myIsDUTGeiiSel: Bool = false
   var myIsDUTMiiSel: Bool = false
@@ -90,6 +95,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myIsLPA2iSel: Bool = false
   var myIsLPAtcTecamSel: Bool = false
   var myIsLPAtcCdgSel: Bool = false
+  var myIsNewLetterSel: Bool = true
   
   func getIndex(aName: String)-> Int?{
     //searching index
@@ -108,6 +114,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let tapReco = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
+    self.view.addGestureRecognizer(tapReco)
     
     let dateFormater = NSDateFormatter()
     dateFormater.dateFormat = "dd_MM_yyyy"
@@ -118,7 +126,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDate =  "\(dateFormater.stringFromDate(NSDate()))"
     myDateM1 =  "\(dateFormater.stringFromDate(dateM1!))"
     
-
+    
     
     // Recover the tab of all students:
     myClassePickView.dataSource = self
@@ -224,7 +232,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     if myIsLPAtcTecamSel {
       aStudent.myLPProject?.append("LP ATC/TECAMTV")
     }
-    
+    aStudent.myNewsLetter = myIsNewLetterSel
     aStudent.myDateInscription = myDate!
     aStudent.myForumInscription = myForumName
     aStudent.myOption = myOptionField.text
@@ -248,6 +256,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsDUTMiiSel = false
     myIsDUTInfoSel = false
     myIsDUTGeiiSel = false
+    myIsNewLetterSel = true
     updateOrientationButtonState()
     myClassePickView.selectRow(0, inComponent: 0, animated: true)
     myClassePickView.selectRow(0, inComponent: 1, animated: true)
@@ -294,6 +303,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myLPA2iButton.enabled = myIsEditing
     myLPAtcCdgButton.enabled = myIsEditing
     myLPAtcTecamButton.enabled = myIsEditing
+    myNewsLetterButton.enabled = myIsEditing
     myLPI2mButton.enabled = myIsEditing
     
     let colorBg: UIColor = myIsEditing ? myColorActive : myColorInActive
@@ -338,7 +348,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP ISN")
     myIsLPAtcCdgSel = unEtudiant.myLPProject!.contains("LP ATC/CDG")
     myIsLPAtcTecamSel = unEtudiant.myLPProject!.contains("LP ATC/TECAMTV")
-    
+    myIsNewLetterSel = unEtudiant.myNewsLetter
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
     myForumLabel.text = unEtudiant.myForumInscription
@@ -406,6 +416,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
  
   func textFieldDidEndEditing(textField: UITextField) {
     updateInterfaceState()
+    textField.resignFirstResponder()
   }
   
   func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
@@ -487,7 +498,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBAction func clickDUTMMI(sender: AnyObject) {
     myIsDUTMiiSel = !myIsDUTMiiSel
     updateOrientationButtonState()
-
+  }
+  
+  @IBAction func clickNewsLetter(sender: AnyObject) {
+    myIsNewLetterSel = !myIsNewLetterSel
+    updateOrientationButtonState()
   }
   
   
@@ -501,6 +516,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDUTInfoButton.setImage(UIImage(named: myIsDUTInfoSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
     myDUTGeiiButton.setImage(UIImage(named: myIsDUTGeiiSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
     myDUTMiiButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myNewsLetterButton.setImage(UIImage(named: myIsNewLetterSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
   }
   
   
@@ -520,7 +536,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   @IBAction func changeMode(sender: AnyObject) {
-    
     if myTabEtudians.count >= 1 {
       myHistoryMode = !myHistoryMode
       myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , forState: UIControlState.Normal)
@@ -571,8 +586,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   func tryDelete(alert: UIAlertAction!){
-    print("field::::\(myPasswordTextField!.text)")
-    if myPasswordTextField!.text == "Forum2015" {
+    if myPasswordTextField!.text == myPasswordDelete {
       myTabEtudians.removeAll()
       saveListEtud(myTabEtudians)
       updateInterfaceState()
@@ -581,13 +595,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   func tryDeleteCurrentStudent(alert: UIAlertAction!){
-    print("field::::\(myPasswordTextField!.text)")
-    if myPasswordTextField!.text == "Forum2015" {
+    if myPasswordTextField!.text == myPasswordDelete {
       if myTabEtudians.count == 1 {
         myTabEtudians.removeAtIndex(myTabEtudians.count - myCurrentDisplayStudent)
         myCurrentDisplayStudent = 0
         myIsEditing = true
         myHistoryMode = false
+        myHistoryButton.setTitle("history" , forState: UIControlState.Normal)
+
         updateDisplayWithEtudiant(myCurrentStudent!)
         updateInterfaceState()
         return
@@ -605,7 +620,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
   }
 
-  
+  func dismissKeyboard(){
+    myNameField.resignFirstResponder()
+    myLastNameField.resignFirstResponder()
+    myOptionField.resignFirstResponder()
+    myTownField.resignFirstResponder()
+    myEmailField.resignFirstResponder()
+    myDeptField.resignFirstResponder()
+    myPhoneField.resignFirstResponder()
+  }
 }
 
 

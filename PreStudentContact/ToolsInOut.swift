@@ -56,14 +56,21 @@ func getCurrentForumName(forumName: String) -> String{
 
 func exportListCSV(forumName: String) -> NSData? {
   let path: String = "\(getPath(internFileSave)).plist"
-  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,date inscription,forum\n"
+  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,date inscription,forum,news letter\n"
   let Listkey = ["name","lastName","classe","specialite",
-              "option","town","dept","email","numTel","integrationDUT","integrationLP","inscriptionDate","forumName" ]
+              "option","town","dept","email","numTel","integrationDUT","integrationLP","inscriptionDate","forumName", "NewsLetter" ]
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
       for (id, etu) in listeEtudiant {
         strResu += "\(id)"
         for key in Listkey {
-          if key  == "integrationDUT" {
+          if key == "NewsLetter" {
+           if etu[key] as! Bool {
+            strResu += ",NewsLetter"
+           }else{
+            strResu += ",--"
+           }
+            
+          }else if key  == "integrationDUT" {
             if (etu[key] as! [String]).contains("DUT GEII"){
               strResu += ",DUT GEII"
             }else {strResu += ",--"}
@@ -129,6 +136,8 @@ func saveListEtud(tabEtu: [Etudiant]){
     dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
     dicoEtu["forumName"] = unEtudiant.myForumInscription
     dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
+    dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter
+
     listeEtudiant["\(unEtudiant.myCreationDate)"] = dicoEtu
   }
   (listeEtudiant as NSDictionary).writeToFile(path, atomically: true)
@@ -161,6 +170,8 @@ func addEtudiant(unEtudiant: Etudiant){
   dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
   dicoEtu["forumName"] = unEtudiant.myForumInscription
   dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
+  dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter
+
   listeEtudiant!["\(unEtudiant.myCreationDate)"] = dicoEtu
   (listeEtudiant! as NSDictionary).writeToFile(path, atomically: true)
 }
@@ -192,6 +203,7 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         let forumName = etu["forumName"] as? String
         let heureCreation = etu["heureCreation"] as? String
         let option = etu["option"] as? String
+        let newsLetter = etu["NewsLetter"] as? Bool
         let etudiant = Etudiant(aName: name, aLastName: lastName, aClass: classe, aSpe: specialite, aTown: town, aForumInscription: forumName!, aDateInscription: inscriptionDate!)
         etudiant.myCreationDate = key
         if email != nil
@@ -215,6 +227,9 @@ func recoverTableauEtudiant(forum: String) ->[Etudiant] {
         if option != nil {
           etudiant.myOption = option
         }
+      if newsLetter != nil {
+          etudiant.myNewsLetter = newsLetter!
+      }
       if heureCreation != nil {
         etudiant.myHeureCreation = heureCreation!
       }
