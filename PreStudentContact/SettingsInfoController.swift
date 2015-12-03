@@ -59,7 +59,7 @@ class SettingsInfoController: UIViewController, MFMailComposeViewControllerDeleg
     
     let data: NSData? = exportListCSV(myNameForumLabel.text!)
     if data != nil {
-      let d = (self.presentingViewController as! MainInputController).myDate
+      let d = (self.presentingViewController as! MainInputController).myDate!
       mailComposerVC.addAttachmentData(data!, mimeType: "csv", fileName: "listEtudiant_\(d).csv")
     }
     return mailComposerVC
