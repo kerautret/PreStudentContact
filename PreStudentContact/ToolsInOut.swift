@@ -65,31 +65,31 @@ func exportListCSV(forumName: String) -> NSData? {
         for key in Listkey {
           if key  == "integrationDUT" {
             if (etu[key] as! [String]).contains("DUT GEII"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",DUT GEII"
+            }else {strResu += ",--"}
             if (etu[key] as! [String]).contains("DUT MMI"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",DUT MMI"
+            }else {strResu += ",--"}
             if (etu[key] as! [String]).contains("DUT INFO"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",DUT INFO"
+            }else {strResu += ",--"}
           }
           else if key  == "integrationLP" {
             if (etu[key] as! [String]).contains("LP I2M"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",LP I2M"
+            }else {strResu += ",--"}
             if (etu[key] as! [String]).contains("LP A2I"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",LP A2I"
+            }else {strResu += ",--"}
             if (etu[key] as! [String]).contains("LP ATC/CDG"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",LP ATC/CDG"
+            }else {strResu += ",--"}
             if (etu[key] as! [String]).contains("LP ATC/TECAMTV"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",LP ATC/TECAMTV"
+            }else {strResu += ",--"}
             if (etu[key] as! [String]).contains("LP A2I"){
-              strResu += ",oui"
-            }else {strResu += ",non"}
+              strResu += ",LP A2I"
+            }else {strResu += ",--"}
           }else{
             if etu[key] != nil {
               strResu += ",\(etu[key]!)"

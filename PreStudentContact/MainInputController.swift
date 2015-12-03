@@ -27,8 +27,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
     ["--------","S","ES", "L", "STI","STI2D","STI2A", "STAV", "STG", "STT", "STI","STMG", "PRO", "DAEU", "BAC étranger"]]
-  var myListOfIntegrationDUT = ["--------", "DUT GEII", "DUT INFO", "DUT MMI"]
-  var myListOfIntegrationLP = ["--------", "LP A2I", "LP I2M", "LP ISN","LP ATC/CDG", "LP ATC/TeCAMTV"]
   
   let myKeyboardShift = CGFloat(-70.0)
   var myTabEtudians = [Etudiant]()
@@ -101,21 +99,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
         pos++
       }
     }
-    var pos = 0
-    for n in myListOfIntegrationDUT {
-      if n == aName {
-        return pos
-      }
-      pos++
-    }
-    pos = 0
-    for n in myListOfIntegrationLP {
-      if n == aName {
-        return pos
-      }
-      pos++
-    }
- 
+
     return nil
   }
   
@@ -398,7 +382,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBAction func edit(sender: AnyObject) {
     myIsEditing = true
     updateInterfaceState()
-    
   }
   
   @IBAction func saveModifs(sender: AnyObject){
