@@ -238,6 +238,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEmailField.text = ""
     myPhoneField.text =  ""
     myOptionField.text = ""
+    myDeptField.text = ""
     myIsLPAtcTecamSel = false
     myIsLPAtcCdgSel = false
     myIsLPI2mSel = false
@@ -518,6 +519,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   @IBAction func changeMode(sender: AnyObject) {
+    if myTabEtudians.count >= 1 {
     myHistoryMode = !myHistoryMode
     if !myHistoryMode {
       myCurrentDisplayStudent = 0
@@ -531,10 +533,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
 
     }
     updateInterfaceState()
+    }
   }
   
   
-  func checkOKSaving() -> Bool{
+  func checkOKSaving() -> Bool {
     return myNameField.text != "" && myLastNameField.text != "" && myTownField != "" && myClassePickView.selectedRowInComponent(0) != 0 && myClassePickView.selectedRowInComponent(1) != 0;
   }
   
@@ -577,21 +580,30 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func tryDeleteCurrentStudent(alert: UIAlertAction!){
     print("field::::\(myPasswordTextField!.text)")
     if myPasswordTextField!.text == "Forum2015" {
+      if myTabEtudians.count == 1 {
+        myTabEtudians.removeAtIndex(myTabEtudians.count - myCurrentDisplayStudent)
+        myCurrentDisplayStudent = 0
+        myIsEditing = true
+        myHistoryMode = false
+        updateDisplayWithEtudiant(myCurrentStudent!)
+        updateInterfaceState()
+        return
+      }
+
       myTabEtudians.removeAtIndex(myTabEtudians.count - myCurrentDisplayStudent)
+      if myCurrentDisplayStudent != 1 {
+        myCurrentDisplayStudent = myCurrentDisplayStudent - 1
+      }
       saveListEtud(myTabEtudians)
       myIsEditing = false
       updateInterfaceState()
-      updateDisplayWithEtudiant(myCurrentStudent!)
+      updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent])
     }
     
   }
 
   
 }
-
-
-
-
 
 
 
