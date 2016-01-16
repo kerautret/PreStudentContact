@@ -120,16 +120,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     super.viewDidLoad()
     let tapReco = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
     self.view.addGestureRecognizer(tapReco)
-    
-    let dateFormater = NSDateFormatter()
-    dateFormater.dateFormat = "dd_MM_yyyy"
-
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-    let dateM1 = calendar?.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: NSDate(), options: NSCalendarOptions())
-    
-    myDate =  "\(dateFormater.stringFromDate(NSDate()))"
-    myDateM1 =  "\(dateFormater.stringFromDate(dateM1!))"
-    
+    loadDate()
     
     
     // Recover the tab of all students:
@@ -158,7 +149,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myForumLabel.text = myForumName
 
   }
-  
+ 
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
@@ -196,6 +187,20 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       updateDisplayWithEtudiant(myCurrentStudent!)
     }
     updateInterfaceState()
+  }
+  
+  
+  func loadDate(){
+    let dateFormater = NSDateFormatter()
+    dateFormater.dateFormat = "dd_MM_yyyy"
+    
+    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
+    let dateM1 = calendar?.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: NSDate(), options: NSCalendarOptions())
+    
+    myDate =  "\(dateFormater.stringFromDate(NSDate()))"
+    myDateM1 =  "\(dateFormater.stringFromDate(dateM1!))"
+    
+
   }
   
   func updateStudent(aStudent: Etudiant){
@@ -335,13 +340,20 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTotalSavedDay.text = "\(getNumberStudentToday().0)"
     myTotalSaveDayM1.text = "\(getNumberStudentToday().1)"
     let score = getScore()
-    myScoreLabelInfo.text = "INFO: \(score.0)"
-    myScoreLabelGEII.text = "GEII: \(score.1)"
-    myScoreLabelMMI.text = "MMI: \(score.2)"
+    myScoreLabelInfo.text = "INFO: \(score.0) (\(score.3))"
+    myScoreLabelGEII.text = "GEII: \(score.1) (\(score.4))"
+    myScoreLabelMMI.text = "MMI: \(score.2) (\(score.5))"
     myScoreLabelInfo.textColor = score.0 >= score.1 && score.0 >= score.2 ? UIColor.blueColor() : UIColor.grayColor()
     myScoreLabelGEII.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blueColor() : UIColor.grayColor()
   
     myScoreLabelMMI.textColor = score.2 >= score.0 && score.2 >= score.1 ? UIColor.blueColor() : UIColor.grayColor()
+
+    
+    myScoreLabelInfo.textColor = score.3 >= score.4 && score.3 >= score.5 ? UIColor.blueColor() : UIColor.grayColor()
+    myScoreLabelGEII.textColor = score.4 >= score.3 && score.4 >= score.5 ? UIColor.blueColor() : UIColor.grayColor()
+    
+    myScoreLabelMMI.textColor = score.5 >= score.3 && score.5 >= score.4 ? UIColor.blueColor() : UIColor.grayColor()
+
   }
   
 
@@ -650,11 +662,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
-  func getScore() -> (Int, Int, Int)
+  func getScore() -> (Int, Int, Int, Int, Int, Int)
   {
-    var res = (0,0,0)
+    var res = (0,0,0,0, 0, 0)
     for etu in myTabEtudians {
-      if etu.myDateInscription == myDate {
+      if etu.myDateInscription == myDate || etu.myDateInscription == myDateM1 {
       var isInfo = false
       isInfo = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT INFO")
       isInfo = isInfo || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP ISN") ||
@@ -668,9 +680,17 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       isMmi = isMmi || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP ATC/TECAMTV") ||
                                                    etu.myLPProject!.contains("LP ATC/CDG")))
     
-      res.0 += isInfo ? 1 : 0
-      res.1 += isGeii ? 1 : 0
-      res.2 += isMmi ? 1 : 0
+        if etu.myDateInscription == myDate {
+          res.0 += isInfo ? 1 : 0
+          res.1 += isGeii ? 1 : 0
+          res.2 += isMmi ? 1 : 0
+          
+        }else {
+          res.3 += isInfo ? 1 : 0
+          res.4 += isGeii ? 1 : 0
+          res.5 += isMmi ? 1 : 0
+          
+        }
       }
     }
     return res
