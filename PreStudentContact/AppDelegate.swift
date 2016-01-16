@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       let dico = Array<String>()
       sharedDefault.setObject(dico, forKey: "ARRAY_SAVE")
     }
-
+    application.idleTimerDisabled = true;
     return true
   }
 

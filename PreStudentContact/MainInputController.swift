@@ -576,10 +576,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func deleteAll(){
     let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.Alert)
     alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-      textField.placeholder = "Password"
-      textField.secureTextEntry = true
-      self.myPasswordTextField = textField
-    })
+    textField.placeholder = "Password"
+    textField.secureTextEntry = true
+    self.myPasswordTextField = textField
+  })
     presentViewController(alert, animated: true, completion: nil)
     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: tryDelete))
     alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
