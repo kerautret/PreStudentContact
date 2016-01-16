@@ -59,6 +59,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myTotalSaved: UILabel!
   @IBOutlet weak var myTotalSavedDay: UILabel!
   @IBOutlet weak var myTotalSaveDayM1: UILabel!
+  @IBOutlet weak var myScoreLabelInfo: UILabel!
+  @IBOutlet weak var myScoreLabelGEII: UILabel!
+  @IBOutlet weak var myScoreLabelMMI: UILabel!
+  
   @IBOutlet weak var myTownField: UITextField!
   @IBOutlet weak var myEmailField: UITextField!
   @IBOutlet weak var myPhoneField: UITextField!
@@ -288,6 +292,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   func updateInterfaceState(){
     updateOrientationButtonState()
+    updateScore()
     myClassePickView.userInteractionEnabled = myIsEditing
     myLastNameField.enabled = myIsEditing
     myNameField.enabled = myIsEditing
@@ -325,6 +330,22 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDeleteButton.hidden =  myCurrentDisplayStudent == 0 || !myIsEditing
   }
   
+  
+  func updateScore(){
+    myTotalSavedDay.text = "\(getNumberStudentToday().0)"
+    myTotalSaveDayM1.text = "\(getNumberStudentToday().1)"
+    let score = getScore()
+    myScoreLabelInfo.text = "INFO: \(score.0)"
+    myScoreLabelGEII.text = "GEII: \(score.1)"
+    myScoreLabelMMI.text = "MMI: \(score.2)"
+    myScoreLabelInfo.textColor = score.0 >= score.1 && score.0 >= score.2 ? UIColor.blueColor() : UIColor.grayColor()
+    myScoreLabelGEII.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blueColor() : UIColor.grayColor()
+  
+    myScoreLabelMMI.textColor = score.2 >= score.0 && score.2 >= score.1 ? UIColor.blueColor() : UIColor.grayColor()
+  }
+  
+
+  
   func updateDisplayWithEtudiant(unEtudiant: Etudiant){
     myNameField.text = unEtudiant.myName
     myLastNameField.text = unEtudiant.myLastName
@@ -335,8 +356,6 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIdStudent.text = unEtudiant.myCreationDate
     myHeureCreation.text = unEtudiant.myHeureCreation
     myTotalSaved.text = "\(myTabEtudians.count)"
-    myTotalSavedDay.text = "\(getNumberStudentToday().0)"
-    myTotalSaveDayM1.text = "\(getNumberStudentToday().1)"
     let indexClass: Int? = getIndex(unEtudiant.myClass)
     let indexSpe: Int? = getIndex(unEtudiant.mySpe)
     myIsDUTMiiSel = unEtudiant.myDUTProject!.contains("DUT MMI")
@@ -629,6 +648,35 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDeptField.resignFirstResponder()
     myPhoneField.resignFirstResponder()
   }
+  
+  
+  func getScore() -> (Int, Int, Int)
+  {
+    var res = (0,0,0)
+    for etu in myTabEtudians {
+      if etu.myDateInscription == myDate {
+      var isInfo = false
+      isInfo = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT INFO")
+      isInfo = isInfo || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP ISN") ||
+                                                      etu.myLPProject!.contains("LP I2M")))
+      var isGeii = false
+      isGeii = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT GEII")
+      isGeii = isGeii || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP A2I")))
+      
+      var isMmi = false
+      isMmi = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT MMI")
+      isMmi = isMmi || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP ATC/TECAMTV") ||
+                                                   etu.myLPProject!.contains("LP ATC/CDG")))
+    
+      res.0 += isInfo ? 1 : 0
+      res.1 += isGeii ? 1 : 0
+      res.2 += isMmi ? 1 : 0
+      }
+    }
+    return res
+  }
+
+  
 }
 
 
