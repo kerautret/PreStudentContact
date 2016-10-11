@@ -7,28 +7,39 @@
 //
 
 import Foundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 
 
 let internFileSave = "listeEtudiant"
 
-func getPath(fileName: String) -> String{
-  let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-  return paths.stringByAppendingString("/\(fileName)")
+func getPath(_ fileName: String) -> String{
+  let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+  return paths + "/\(fileName)"
 }
 
 
 
 func checkExistSavingFile() -> Bool {
-  let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-  let path = paths.stringByAppendingString("/\(internFileSave).plist")
-  let fileManager = NSFileManager.defaultManager()
-  if (!(fileManager.fileExistsAtPath(path)))
+  let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+  let path = paths + "/\(internFileSave).plist"
+  let fileManager = FileManager.default
+  if (!(fileManager.fileExists(atPath: path)))
   {
-    let bundle : NSString = NSBundle.mainBundle().pathForResource("emptyListStudent", ofType: "plist")!
+    let bundle : NSString = Bundle.main.path(forResource: "emptyListStudent", ofType: "plist")! as NSString
     do{
       print("copy file...\(path)")
-      try fileManager.copyItemAtPath(bundle as String, toPath: path)
+      try fileManager.copyItem(atPath: bundle as String, toPath: path)
     }catch let error as NSError {
       print("error file...\(error.description)")
     }
@@ -38,23 +49,23 @@ func checkExistSavingFile() -> Bool {
 }
 
 
-func getCurrentForumName(forumName: String) -> String{
-  let date = NSDateFormatter()
+func getCurrentForumName(_ forumName: String) -> String{
+  let date = DateFormatter()
   date.dateFormat = "dd_MM_yyyy"
-  let res =  "\(forumName)_\(date.stringFromDate(NSDate()))"
+  let res =  "\(forumName)_\(date.string(from: Date()))"
   
-  let sharedDefault = NSUserDefaults.standardUserDefaults()
-  if var listFile = sharedDefault.objectForKey("ARRAY_SAVE") as? Array<String> {
+  let sharedDefault = UserDefaults.standard
+  if var listFile = sharedDefault.object(forKey: "ARRAY_SAVE") as? Array<String> {
     if !listFile.contains(res) {
       listFile.append(res)
-      sharedDefault.setObject(listFile, forKey: "ARRAY_SAVE")
+      sharedDefault.set(listFile, forKey: "ARRAY_SAVE")
     }
   }
   return res
 }
 
 
-func exportListCSV(forumName: String) -> NSData? {
+func exportListCSV(_ forumName: String) -> Data? {
   let path: String = "\(getPath(internFileSave)).plist"
   var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,date inscription,forum,news letter\n"
   let Listkey = ["name","lastName","classe","specialite",
@@ -107,45 +118,45 @@ func exportListCSV(forumName: String) -> NSData? {
         }
         strResu += "\n"
       }
-      strResu.dataUsingEncoding(NSUTF8StringEncoding)?.writeToFile("\(getPath(internFileSave)).csv", atomically: true)
-      return strResu.dataUsingEncoding(NSUTF8StringEncoding)
+      try? strResu.data(using: String.Encoding.utf8)?.write(to: URL(fileURLWithPath: "\(getPath(internFileSave)).csv"), options: [.atomic])
+      return strResu.data(using: String.Encoding.utf8)
     }
   
   return nil
 }
 
 
-func saveListEtud(tabEtu: [Etudiant]){
+func saveListEtud(_ tabEtu: [Etudiant]){
   var path: String = "\(internFileSave).plist"
   path = getPath(path)
   print("path::: save\(path)")
   var listeEtudiant = Dictionary<String,  Dictionary<String, AnyObject > >()
   for unEtudiant in tabEtu {
     var dicoEtu = Dictionary<String, AnyObject > ()
-    dicoEtu["name"] = unEtudiant.myName
-    dicoEtu["lastName"] = unEtudiant.myLastName
-    dicoEtu["classe"] = unEtudiant.myClass
-    dicoEtu["specialite"] = unEtudiant.mySpe
-    dicoEtu["option"] = unEtudiant.myOption
-    dicoEtu["town"] = unEtudiant.myTown
-    dicoEtu["dept"] = unEtudiant.myDept
-    dicoEtu["email"] = unEtudiant.myEmail
-    dicoEtu["numTel"] = unEtudiant.myTel
-    dicoEtu["integrationDUT"] = unEtudiant.myDUTProject
-    dicoEtu["integrationLP"] = unEtudiant.myLPProject
-    dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
-    dicoEtu["forumName"] = unEtudiant.myForumInscription
-    dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
-    dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter
+    dicoEtu["name"] = unEtudiant.myName as AnyObject?
+    dicoEtu["lastName"] = unEtudiant.myLastName as AnyObject?
+    dicoEtu["classe"] = unEtudiant.myClass as AnyObject?
+    dicoEtu["specialite"] = unEtudiant.mySpe as AnyObject?
+    dicoEtu["option"] = unEtudiant.myOption as AnyObject?
+    dicoEtu["town"] = unEtudiant.myTown as AnyObject?
+    dicoEtu["dept"] = unEtudiant.myDept as AnyObject?
+    dicoEtu["email"] = unEtudiant.myEmail as AnyObject?
+    dicoEtu["numTel"] = unEtudiant.myTel as AnyObject?
+    dicoEtu["integrationDUT"] = unEtudiant.myDUTProject as AnyObject?
+    dicoEtu["integrationLP"] = unEtudiant.myLPProject as AnyObject?
+    dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription as AnyObject?
+    dicoEtu["forumName"] = unEtudiant.myForumInscription as AnyObject?
+    dicoEtu["heureCreation"] = unEtudiant.myHeureCreation as AnyObject?
+    dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter as AnyObject?
 
     listeEtudiant["\(unEtudiant.myCreationDate)"] = dicoEtu
   }
-  (listeEtudiant as NSDictionary).writeToFile(path, atomically: true)
+  (listeEtudiant as NSDictionary).write(toFile: path, atomically: true)
 
 }
 
 
-func addEtudiant(unEtudiant: Etudiant){
+func addEtudiant(_ unEtudiant: Etudiant){
   var path: String = "\(internFileSave).plist"
   path = getPath(path)
   print("path::: save\(path)")
@@ -156,37 +167,37 @@ func addEtudiant(unEtudiant: Etudiant){
   }
 
   var dicoEtu = Dictionary<String, AnyObject > ()
-  dicoEtu["name"] = unEtudiant.myName
-  dicoEtu["lastName"] = unEtudiant.myLastName
-  dicoEtu["classe"] = unEtudiant.myClass
-  dicoEtu["specialite"] = unEtudiant.mySpe
-  dicoEtu["option"] = unEtudiant.myOption
-  dicoEtu["town"] = unEtudiant.myTown
-  dicoEtu["dept"] = unEtudiant.myDept
-  dicoEtu["email"] = unEtudiant.myEmail
-  dicoEtu["numTel"] = unEtudiant.myTel
-  dicoEtu["integrationDUT"] = unEtudiant.myDUTProject
-  dicoEtu["integrationLP"] = unEtudiant.myLPProject
-  dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription
-  dicoEtu["forumName"] = unEtudiant.myForumInscription
-  dicoEtu["heureCreation"] = unEtudiant.myHeureCreation
-  dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter
+  dicoEtu["name"] = unEtudiant.myName as AnyObject?
+  dicoEtu["lastName"] = unEtudiant.myLastName as AnyObject?
+  dicoEtu["classe"] = unEtudiant.myClass as AnyObject?
+  dicoEtu["specialite"] = unEtudiant.mySpe as AnyObject?
+  dicoEtu["option"] = unEtudiant.myOption as AnyObject?
+  dicoEtu["town"] = unEtudiant.myTown as AnyObject?
+  dicoEtu["dept"] = unEtudiant.myDept as AnyObject?
+  dicoEtu["email"] = unEtudiant.myEmail as AnyObject?
+  dicoEtu["numTel"] = unEtudiant.myTel as AnyObject?
+  dicoEtu["integrationDUT"] = unEtudiant.myDUTProject as AnyObject?
+  dicoEtu["integrationLP"] = unEtudiant.myLPProject as AnyObject?
+  dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription as AnyObject?
+  dicoEtu["forumName"] = unEtudiant.myForumInscription as AnyObject?
+  dicoEtu["heureCreation"] = unEtudiant.myHeureCreation as AnyObject?
+  dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter as AnyObject?
 
   listeEtudiant!["\(unEtudiant.myCreationDate)"] = dicoEtu
-  (listeEtudiant! as NSDictionary).writeToFile(path, atomically: true)
+  (listeEtudiant! as NSDictionary).write(toFile: path, atomically: true)
 }
 
 
 
 
 
-func recoverTableauEtudiant(forum: String) ->[Etudiant] {
+func recoverTableauEtudiant(_ forum: String) ->[Etudiant] {
   var tabResu = [Etudiant]()
   let path: String = "\(getPath(internFileSave)).plist"
   
   print("path:::\(path)")
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String, AnyObject > {
-    let sortedListe = listeEtudiant.sort { Double($0.0) < Double($1.0) }
+    let sortedListe = listeEtudiant.sorted { Double($0.0) < Double($1.0) }
 
     for (key, etu) in sortedListe {
         let name = etu["name"]! as! String

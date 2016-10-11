@@ -12,12 +12,12 @@ import Foundation
 
 extension String{
   func cleanPonctuation() -> String {
-    var newString = self.stringByReplacingOccurrencesOfString(",", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    newString = newString.stringByReplacingOccurrencesOfString("'", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    newString = newString.stringByReplacingOccurrencesOfString("\"", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    newString = newString.stringByReplacingOccurrencesOfString("$", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    newString = newString.stringByReplacingOccurrencesOfString("&", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-    newString = newString.stringByReplacingOccurrencesOfString(";", withString: " ", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    var newString = self.replacingOccurrences(of: ",", with: " ", options: NSString.CompareOptions.literal, range: nil)
+    newString = newString.replacingOccurrences(of: "'", with: " ", options: NSString.CompareOptions.literal, range: nil)
+    newString = newString.replacingOccurrences(of: "\"", with: " ", options: NSString.CompareOptions.literal, range: nil)
+    newString = newString.replacingOccurrences(of: "$", with: " ", options: NSString.CompareOptions.literal, range: nil)
+    newString = newString.replacingOccurrences(of: "&", with: " ", options: NSString.CompareOptions.literal, range: nil)
+    newString = newString.replacingOccurrences(of: ";", with: " ", options: NSString.CompareOptions.literal, range: nil)
     return newString
   }
   
@@ -33,8 +33,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   let myKeyboardShift = CGFloat(-70.0)
   var myTabEtudians = [Etudiant]()
   var myIsEditing = true
-  let myColorActive = UIColor.whiteColor()
-  let myColorInActive = UIColor.lightGrayColor()
+  let myColorActive = UIColor.white
+  let myColorInActive = UIColor.lightGray
   var myCurrentDisplayStudent = 0
   var myIsInHistory = false
   var myCurrentStudent: Etudiant?
@@ -101,7 +101,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myIsLPAtcCdgSel: Bool = false
   var myIsNewLetterSel: Bool = true
   
-  func getIndex(aName: String)-> Int?{
+  func getIndex(_ aName: String)-> Int?{
     //searching index
     for list in  myListOfClassesOptions {
       var pos = 0
@@ -109,7 +109,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
         if n == aName {
           return pos
         }
-        pos++
+        pos += 1
       }
     }
     
@@ -118,7 +118,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let tapReco = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
+    let tapReco = UITapGestureRecognizer(target: self, action: #selector(MainInputController.dismissKeyboard))
     self.view.addGestureRecognizer(tapReco)
     loadDate()
     
@@ -140,8 +140,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDeptField.delegate = self
     myEmailField.delegate = self
     
-    let sharedDefault = NSUserDefaults.standardUserDefaults()
-    myForumName = sharedDefault.objectForKey("FORUM_NAME") as! String
+    let sharedDefault = UserDefaults.standard
+    myForumName = sharedDefault.object(forKey: "FORUM_NAME") as! String
     myTabEtudians = recoverTableauEtudiant(myForumName)
     myInscriptionDateLabel.text = myDate
     updateInterfaceState()
@@ -157,32 +157,32 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
-  @IBAction func loadPrevious(sender: UIButton) {
+  @IBAction func loadPrevious(_ sender: UIButton) {
     if myCurrentDisplayStudent == 0 {
       updateStudent(myCurrentStudent!)
     }
     if myCurrentDisplayStudent != myTabEtudians.count  {
-      myCurrentDisplayStudent++
+      myCurrentDisplayStudent += 1
     }
     myIsEditing = false
     updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     updateInterfaceState()
   }
   
-  @IBAction func loadNext(sender: AnyObject) {
+  @IBAction func loadNext(_ sender: AnyObject) {
     if myCurrentDisplayStudent == 0 {
       return
     }
     
     if myCurrentDisplayStudent != 1{
-      myCurrentDisplayStudent--
+      myCurrentDisplayStudent -= 1
       myIsEditing = false
       updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
-      myEditButton.hidden = false
-      myCancelButton.hidden = false
-      mySaveButton.hidden = true
+      myEditButton.isHidden = false
+      myCancelButton.isHidden = false
+      mySaveButton.isHidden = true
     }else{
-      myCurrentDisplayStudent--
+      myCurrentDisplayStudent -= 1
       myIsEditing = true
       updateDisplayWithEtudiant(myCurrentStudent!)
     }
@@ -191,23 +191,23 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func loadDate(){
-    let dateFormater = NSDateFormatter()
+    let dateFormater = DateFormatter()
     dateFormater.dateFormat = "dd_MM_yyyy"
     
-    let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
-    let dateM1 = calendar?.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: NSDate(), options: NSCalendarOptions())
+    let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+    let dateM1 = (calendar as NSCalendar?)?.date(byAdding: NSCalendar.Unit.day, value: -1, to: Date(), options: NSCalendar.Options())
     
-    myDate =  "\(dateFormater.stringFromDate(NSDate()))"
-    myDateM1 =  "\(dateFormater.stringFromDate(dateM1!))"
+    myDate =  "\(dateFormater.string(from: Date()))"
+    myDateM1 =  "\(dateFormater.string(from: dateM1!))"
     
     
   }
   
-  func updateStudent(aStudent: Etudiant){
+  func updateStudent(_ aStudent: Etudiant){
     aStudent.myName = myNameField.text!.cleanPonctuation()
     aStudent.myLastName = myLastNameField.text!.cleanPonctuation()
-    aStudent.myClass = myListOfClassesOptions[0][myClassePickView.selectedRowInComponent(0)]
-    aStudent.mySpe = myListOfClassesOptions[1][myClassePickView.selectedRowInComponent(1)]
+    aStudent.myClass = myListOfClassesOptions[0][myClassePickView.selectedRow(inComponent: 0)]
+    aStudent.mySpe = myListOfClassesOptions[1][myClassePickView.selectedRow(inComponent: 1)]
     aStudent.myTown = myTownField.text!.cleanPonctuation()
     if myDeptField.text != ""{
       aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
@@ -272,7 +272,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
-  @IBAction func saveData(sender: UIButton) {
+  @IBAction func saveData(_ sender: UIButton) {
     updateStudent(myCurrentStudent!)
     addEtudiant(myCurrentStudent!)
     eraseFields()
@@ -283,7 +283,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
-  @IBAction func cancel(sender: AnyObject) {
+  @IBAction func cancel(_ sender: AnyObject) {
     myIsEditing = false
     updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     updateInterfaceState()
@@ -298,23 +298,23 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func updateInterfaceState(){
     updateOrientationButtonState()
     updateScore()
-    myClassePickView.userInteractionEnabled = myIsEditing
-    myLastNameField.enabled = myIsEditing
-    myNameField.enabled = myIsEditing
-    myPhoneField.enabled = myIsEditing
-    myTownField.enabled = myIsEditing
-    myEmailField.enabled = myIsEditing
-    myDeptField.enabled = myIsEditing
-    myOptionField.enabled = myIsEditing
-    myDUTMiiButton.enabled = myIsEditing
-    myDUTInfoButton.enabled = myIsEditing
-    myDUTGeiiButton.enabled = myIsEditing
-    myLPIsnButton.enabled = myIsEditing
-    myLPA2iButton.enabled = myIsEditing
-    myLPAtcCdgButton.enabled = myIsEditing
-    myLPAtcTecamButton.enabled = myIsEditing
-    myNewsLetterButton.enabled = myIsEditing
-    myLPI2mButton.enabled = myIsEditing
+    myClassePickView.isUserInteractionEnabled = myIsEditing
+    myLastNameField.isEnabled = myIsEditing
+    myNameField.isEnabled = myIsEditing
+    myPhoneField.isEnabled = myIsEditing
+    myTownField.isEnabled = myIsEditing
+    myEmailField.isEnabled = myIsEditing
+    myDeptField.isEnabled = myIsEditing
+    myOptionField.isEnabled = myIsEditing
+    myDUTMiiButton.isEnabled = myIsEditing
+    myDUTInfoButton.isEnabled = myIsEditing
+    myDUTGeiiButton.isEnabled = myIsEditing
+    myLPIsnButton.isEnabled = myIsEditing
+    myLPA2iButton.isEnabled = myIsEditing
+    myLPAtcCdgButton.isEnabled = myIsEditing
+    myLPAtcTecamButton.isEnabled = myIsEditing
+    myNewsLetterButton.isEnabled = myIsEditing
+    myLPI2mButton.isEnabled = myIsEditing
     
     let colorBg: UIColor = myIsEditing ? myColorActive : myColorInActive
     myLastNameField.backgroundColor = colorBg
@@ -324,15 +324,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEmailField.backgroundColor = colorBg
     myDeptField.backgroundColor = colorBg
     myOptionField.backgroundColor = colorBg
-    mySaveButton.hidden = !myIsEditing || myCurrentDisplayStudent != 0 || myHistoryMode || !checkOKSaving()
-    myEditButton.hidden = myCurrentDisplayStudent == 0
+    mySaveButton.isHidden = !myIsEditing || myCurrentDisplayStudent != 0 || myHistoryMode || !checkOKSaving()
+    myEditButton.isHidden = myCurrentDisplayStudent == 0
     
-    myPrecButton.hidden =  myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0 || !myHistoryMode
-    mySuivButton.hidden = myCurrentDisplayStudent <= 1 || myTabEtudians.count == 1 || !myHistoryMode
-    myEditButton.hidden = myIsEditing
-    mySaveModifs.hidden = !myIsEditing || myCurrentDisplayStudent == 0
-    myCancelButton.hidden = myCurrentDisplayStudent == 0 || !myIsEditing
-    myDeleteButton.hidden =  myCurrentDisplayStudent == 0 || !myIsEditing
+    myPrecButton.isHidden =  myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0 || !myHistoryMode
+    mySuivButton.isHidden = myCurrentDisplayStudent <= 1 || myTabEtudians.count == 1 || !myHistoryMode
+    myEditButton.isHidden = myIsEditing
+    mySaveModifs.isHidden = !myIsEditing || myCurrentDisplayStudent == 0
+    myCancelButton.isHidden = myCurrentDisplayStudent == 0 || !myIsEditing
+    myDeleteButton.isHidden =  myCurrentDisplayStudent == 0 || !myIsEditing
   }
   
   
@@ -343,22 +343,22 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myScoreLabelInfo.text = "INFO: \(score.0) (\(score.3))"
     myScoreLabelGEII.text = "GEII: \(score.1) (\(score.4))"
     myScoreLabelMMI.text = "MMI: \(score.2) (\(score.5))"
-    myScoreLabelInfo.textColor = score.0 >= score.1 && score.0 >= score.2 ? UIColor.blueColor() : UIColor.grayColor()
-    myScoreLabelGEII.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blueColor() : UIColor.grayColor()
+    myScoreLabelInfo.textColor = score.0 >= score.1 && score.0 >= score.2 ? UIColor.blue : UIColor.gray
+    myScoreLabelGEII.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blue : UIColor.gray
     
-    myScoreLabelMMI.textColor = score.2 >= score.0 && score.2 >= score.1 ? UIColor.blueColor() : UIColor.grayColor()
+    myScoreLabelMMI.textColor = score.2 >= score.0 && score.2 >= score.1 ? UIColor.blue : UIColor.gray
     
     
-    myScoreLabelInfo.textColor = score.3 >= score.4 && score.3 >= score.5 ? UIColor.blueColor() : UIColor.grayColor()
-    myScoreLabelGEII.textColor = score.4 >= score.3 && score.4 >= score.5 ? UIColor.blueColor() : UIColor.grayColor()
+    myScoreLabelInfo.textColor = score.3 >= score.4 && score.3 >= score.5 ? UIColor.blue : UIColor.gray
+    myScoreLabelGEII.textColor = score.4 >= score.3 && score.4 >= score.5 ? UIColor.blue : UIColor.gray
     
-    myScoreLabelMMI.textColor = score.5 >= score.3 && score.5 >= score.4 ? UIColor.blueColor() : UIColor.grayColor()
+    myScoreLabelMMI.textColor = score.5 >= score.3 && score.5 >= score.4 ? UIColor.blue : UIColor.gray
     
   }
   
   
   
-  func updateDisplayWithEtudiant(unEtudiant: Etudiant){
+  func updateDisplayWithEtudiant(_ unEtudiant: Etudiant){
     myNameField.text = unEtudiant.myName
     myLastNameField.text = unEtudiant.myLastName
     myTownField.text = unEtudiant.myTown
@@ -390,11 +390,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateOrientationButtonState()
   }
   
-  func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+  func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
     updateInterfaceState()
   }
   
-  func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+  func numberOfComponents(in pickerView: UIPickerView) -> Int{
     if pickerView.tag == 0
     {
       return 2
@@ -405,7 +405,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
   }
   
-  func pickerView(pickerView: UIPickerView,
+  func pickerView(_ pickerView: UIPickerView,
     numberOfRowsInComponent component: Int) -> Int{
       if pickerView.tag == 0
       {
@@ -414,7 +414,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       return 0
   }
   
-  func pickerView(pickerView: UIPickerView,
+  func pickerView(_ pickerView: UIPickerView,
     titleForRow row: Int,
     forComponent component: Int) -> String?{
       if pickerView.tag == 0
@@ -425,19 +425,19 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
-  @IBAction func edit(sender: AnyObject) {
+  @IBAction func edit(_ sender: AnyObject) {
     myIsEditing = true
     updateInterfaceState()
   }
   
-  @IBAction func saveModifs(sender: AnyObject){
+  @IBAction func saveModifs(_ sender: AnyObject){
     myIsEditing = false
     updateStudent(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
     updateInterfaceState()
     saveListEtud(myTabEtudians)
   }
   
-  func textFieldDidBeginEditing(textField : UITextField){
+  func textFieldDidBeginEditing(_ textField : UITextField){
     
   }
   
@@ -445,20 +445,20 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
   }
   
-  func textFieldDidEndEditing(textField: UITextField) {
+  func textFieldDidEndEditing(_ textField: UITextField) {
     updateInterfaceState()
     textField.resignFirstResponder()
   }
   
-  func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidShow",
-      name: UIKeyboardDidShowNotification, object: nil)
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidShow),
+      name: NSNotification.Name.UIKeyboardDidShow, object: nil)
     return true
   }
   
   
-  func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardDidHide", name: UIKeyboardDidHideNotification, object: nil)
+  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     self.view.endEditing(true)
     return true
   }
@@ -466,11 +466,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   func keyboardDidShow()
   {
-    if UIApplication.sharedApplication().statusBarOrientation.isLandscape {
+    if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.2)
-      self.view.transform = CGAffineTransformMakeTranslation(0, myKeyboardShift)
+      self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardShift)
       UIView.commitAnimations()
       myInterfaceIsShifted = true
     }
@@ -481,73 +481,73 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   {
     if myInterfaceIsShifted {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.EaseInOut)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.2)
-      self.view.transform = CGAffineTransformMakeTranslation(0, 0)
+      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
       UIView.commitAnimations()
       myInterfaceIsShifted = false
     }
   }
   
-  @IBAction func clickLPISN(sender: AnyObject) {
+  @IBAction func clickLPISN(_ sender: AnyObject) {
     myIsLPIsnSel = !myIsLPIsnSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickLPI2M(sender: AnyObject) {
+  @IBAction func clickLPI2M(_ sender: AnyObject) {
     myIsLPI2mSel = !myIsLPI2mSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickLPA2I(sender: AnyObject) {
+  @IBAction func clickLPA2I(_ sender: AnyObject) {
     myIsLPA2iSel = !myIsLPA2iSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickLPATCCDG(sender: AnyObject) {
+  @IBAction func clickLPATCCDG(_ sender: AnyObject) {
     myIsLPAtcCdgSel = !myIsLPAtcCdgSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickTACTECAMTV(sender: AnyObject) {
+  @IBAction func clickTACTECAMTV(_ sender: AnyObject) {
     myIsLPAtcTecamSel = !myIsLPAtcTecamSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickDUTINFO(sender: AnyObject) {
+  @IBAction func clickDUTINFO(_ sender: AnyObject) {
     myIsDUTInfoSel = !myIsDUTInfoSel
     updateOrientationButtonState()
     
   }
   
-  @IBAction func clickDUTGEII(sender: AnyObject) {
+  @IBAction func clickDUTGEII(_ sender: AnyObject) {
     myIsDUTGeiiSel = !myIsDUTGeiiSel
     updateOrientationButtonState()
     
   }
   
-  @IBAction func clickDUTMMI(sender: AnyObject) {
+  @IBAction func clickDUTMMI(_ sender: AnyObject) {
     myIsDUTMiiSel = !myIsDUTMiiSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickNewsLetter(sender: AnyObject) {
+  @IBAction func clickNewsLetter(_ sender: AnyObject) {
     myIsNewLetterSel = !myIsNewLetterSel
     updateOrientationButtonState()
   }
   
   
   func updateOrientationButtonState(){
-    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myLPI2mButton.setImage(UIImage(named: myIsLPI2mSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myLPA2iButton.setImage(UIImage(named: myIsLPA2iSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myLPAtcCdgButton.setImage(UIImage(named: myIsLPAtcCdgSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myLPAtcTecamButton.setImage(UIImage(named: myIsLPAtcTecamSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myDUTInfoButton.setImage(UIImage(named: myIsDUTInfoSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myDUTGeiiButton.setImage(UIImage(named: myIsDUTGeiiSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myDUTMiiButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
-    myNewsLetterButton.setImage(UIImage(named: myIsNewLetterSel ? "checked.png" : "unChecked.png"), forState: UIControlState.Normal)
+    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myLPI2mButton.setImage(UIImage(named: myIsLPI2mSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myLPA2iButton.setImage(UIImage(named: myIsLPA2iSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myLPAtcCdgButton.setImage(UIImage(named: myIsLPAtcCdgSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myLPAtcTecamButton.setImage(UIImage(named: myIsLPAtcTecamSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUTInfoButton.setImage(UIImage(named: myIsDUTInfoSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUTGeiiButton.setImage(UIImage(named: myIsDUTGeiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUTMiiButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myNewsLetterButton.setImage(UIImage(named: myIsNewLetterSel ? "checked.png" : "unChecked.png"), for: UIControlState())
   }
   
   
@@ -555,10 +555,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     var resu: (Int, Int) = (0, 0)
     for etu in myTabEtudians {
       if etu.myDateInscription == myDate {
-        resu.0++
+        resu.0 += 1
       }
       if etu.myDateInscription == myDateM1 {
-        resu.1++
+        resu.1 += 1
       }
     }
     return resu
@@ -566,10 +566,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   
-  @IBAction func changeMode(sender: AnyObject) {
+  @IBAction func changeMode(_ sender: AnyObject) {
     if myTabEtudians.count >= 1 {
       myHistoryMode = !myHistoryMode
-      myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , forState: UIControlState.Normal)
+      myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , for: UIControlState())
       if !myHistoryMode {
         myCurrentDisplayStudent = 0
         myIsEditing = true
@@ -586,36 +586,36 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func checkOKSaving() -> Bool {
-    return myNameField.text != "" && myLastNameField.text != "" && myTownField != "" && myClassePickView.selectedRowInComponent(0) != 0 && myClassePickView.selectedRowInComponent(1) != 0;
+    return myNameField.text != "" && myLastNameField.text != "" && myTownField.text != "" && myClassePickView.selectedRow(inComponent: 0) != 0 && myClassePickView.selectedRow(inComponent: 1) != 0;
   }
   
   
   
-  @IBAction func deleteSudent(sender: AnyObject){
-    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.Alert)
-    alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+  @IBAction func deleteSudent(_ sender: AnyObject){
+    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.alert)
+    alert.addTextField(configurationHandler: {(textField: UITextField!) in
       textField.placeholder = "Password"
-      textField.secureTextEntry = true
+      textField.isSecureTextEntry = true
       self.myPasswordTextField = textField
     })
-    presentViewController(alert, animated: true, completion: nil)
-    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: tryDeleteCurrentStudent))
-    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+    present(alert, animated: true, completion: nil)
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: tryDeleteCurrentStudent))
+    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
   }
   
   func deleteAll(){
-    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.Alert)
-    alert.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.alert)
+    alert.addTextField(configurationHandler: {(textField: UITextField!) in
       textField.placeholder = "Password"
-      textField.secureTextEntry = true
+      textField.isSecureTextEntry = true
       self.myPasswordTextField = textField
     })
-    presentViewController(alert, animated: true, completion: nil)
-    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: tryDelete))
-    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
+    present(alert, animated: true, completion: nil)
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: tryDelete))
+    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
   }
   
-  func tryDelete(alert: UIAlertAction!){
+  func tryDelete(_ alert: UIAlertAction!){
     if myPasswordTextField!.text == myPasswordDelete {
       myTabEtudians.removeAll()
       saveListEtud(myTabEtudians)
@@ -624,21 +624,21 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
   }
   
-  func tryDeleteCurrentStudent(alert: UIAlertAction!){
+  func tryDeleteCurrentStudent(_ alert: UIAlertAction!){
     if myPasswordTextField!.text == myPasswordDelete {
       if myTabEtudians.count == 1 {
-        myTabEtudians.removeAtIndex(myTabEtudians.count - myCurrentDisplayStudent)
+        myTabEtudians.remove(at: myTabEtudians.count - myCurrentDisplayStudent)
         myCurrentDisplayStudent = 0
         myIsEditing = true
         myHistoryMode = false
-        myHistoryButton.setTitle("history" , forState: UIControlState.Normal)
+        myHistoryButton.setTitle("history" , for: UIControlState())
         
         updateDisplayWithEtudiant(myCurrentStudent!)
         updateInterfaceState()
         return
       }
       
-      myTabEtudians.removeAtIndex(myTabEtudians.count - myCurrentDisplayStudent)
+      myTabEtudians.remove(at: myTabEtudians.count - myCurrentDisplayStudent)
       if myCurrentDisplayStudent != 1 {
         myCurrentDisplayStudent = myCurrentDisplayStudent - 1
       }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public class Etudiant: NSObject{
+open class Etudiant: NSObject{
   var myName: String
   var myLastName: String
   var myClass: String
@@ -28,10 +28,10 @@ public class Etudiant: NSObject{
   var myNewsLetter: Bool = false
   
   init(other: Etudiant ) {
-    myCreationDate = "\(NSDate().timeIntervalSince1970)"
-    let datef = NSDateFormatter()
+    myCreationDate = "\(Date().timeIntervalSince1970)"
+    let datef = DateFormatter()
     datef.dateFormat = "hh:ss"
-    myHeureCreation = "\(datef.stringFromDate(NSDate()))"
+    myHeureCreation = "\(datef.string(from: Date()))"
     myName = other.myName
     myLastName = other.myLastName
     myClass = other.myClass
@@ -51,10 +51,10 @@ public class Etudiant: NSObject{
   init(aName: String, aLastName: String, aClass: String, aSpe: String, aTown: String,
       aForumInscription: String, aDateInscription: String)
   {
-    let datef = NSDateFormatter()
+    let datef = DateFormatter()
     datef.dateFormat = "hh_ss"
-    myHeureCreation = "\(datef.stringFromDate(NSDate()))"
-    myCreationDate = "\(NSDate().timeIntervalSince1970)"
+    myHeureCreation = "\(datef.string(from: Date()))"
+    myCreationDate = "\(Date().timeIntervalSince1970)"
     myName = aName
     myLastName = aLastName
     myClass = aClass
