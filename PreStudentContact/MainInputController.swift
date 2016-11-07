@@ -35,6 +35,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myIsEditing = true
   let myColorActive = UIColor.white
   let myColorInActive = UIColor.lightGray
+  let myColorBGViewActive = UIColor(colorLiteralRed: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+  let myColorBGViewInActive = UIColor(colorLiteralRed: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)
   var myCurrentDisplayStudent = 0
   var myIsInHistory = false
   var myCurrentStudent: Etudiant?
@@ -45,7 +47,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myHistoryMode: Bool = false
   var myInterfaceIsShifted: Bool = false
   
-  
+  @IBOutlet var myInterfaceView: UIView!
   @IBOutlet var myNameField: UITextField!
   @IBOutlet weak var myLastNameField: UITextField!
   @IBOutlet weak var myOptionField: UITextField!
@@ -333,6 +335,9 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     mySaveModifs.isHidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.isHidden = myCurrentDisplayStudent == 0 || !myIsEditing
     myDeleteButton.isHidden =  myCurrentDisplayStudent == 0 || !myIsEditing
+    let colorBgView: UIColor = myIsEditing ? myColorBGViewActive : myColorBGViewInActive
+    myInterfaceView.backgroundColor = colorBgView
+
   }
   
   
