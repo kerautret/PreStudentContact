@@ -26,7 +26,7 @@ extension String{
 
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   
-  var myPasswordDelete = "Forum2015"
+  var myPasswordDelete = "Forum2016"
   var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
     ["--------","S","ES", "L", "STI","STI2D","STI2A", "STAV", "STG", "STT", "STI","STMG", "PRO", "DAEU", "BAC étranger"]]
   
