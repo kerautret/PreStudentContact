@@ -135,6 +135,7 @@
 						CreatedOnToolsVersion = 7.1.1;
 						DevelopmentTeam = VTT9S468WV;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -308,6 +309,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = appiut.PreStudentContact;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
