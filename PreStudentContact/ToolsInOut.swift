@@ -67,7 +67,7 @@ func getCurrentForumName(_ forumName: String) -> String{
 
 func exportListCSV(_ forumName: String) -> Data? {
   let path: String = "\(getPath(internFileSave)).plist"
-  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,date inscription,forum,news letter\n"
+  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,LP TAM,date inscription,forum,news letter\n"
   let Listkey = ["name","lastName","classe","specialite",
               "option","town","dept","email","numTel","integrationDUT","integrationLP","inscriptionDate","forumName", "NewsLetter" ]
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
@@ -108,6 +108,10 @@ func exportListCSV(_ forumName: String) -> Data? {
             if (etu[key] as! [String]).contains("LP A2I"){
               strResu += ",LP A2I"
             }else {strResu += ",--"}
+            if (etu[key] as! [String]).contains("LP TAM"){
+              strResu += ",LP TAM"
+            }else {strResu += ",--"}
+
           }else{
             if etu[key] != nil {
               strResu += ",\(etu[key]!)"

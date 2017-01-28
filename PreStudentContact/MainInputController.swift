@@ -90,10 +90,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myLPA2iButton: UIButton!
   @IBOutlet weak var myLPAtcTecamButton: UIButton!
   @IBOutlet weak var myLPAtcCdgButton: UIButton!
+  @IBOutlet weak var myLPTamButton: UIButton!
   
   @IBOutlet weak var myNewsLetterButton: UIButton!
   
   var myIsDUTInfoSel: Bool = false
+  var myIsLPTamSel: Bool = false
   var myIsDUTGeiiSel: Bool = false
   var myIsDUTMiiSel: Bool = false
   var myIsLPIsnSel: Bool = false
@@ -243,6 +245,9 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     if myIsLPAtcTecamSel {
       aStudent.myLPProject?.append("LP ATC/TECAMTV")
     }
+    if myIsLPTamSel {
+      aStudent.myLPProject?.append("LP TAM")
+    }
     aStudent.myNewsLetter = myIsNewLetterSel
     aStudent.myDateInscription = myDate!
     aStudent.myForumInscription = myForumName
@@ -264,6 +269,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsLPI2mSel = false
     myIsLPIsnSel = false
     myIsLPA2iSel = false
+    myIsLPTamSel = false
     myIsDUTMiiSel = false
     myIsDUTInfoSel = false
     myIsDUTGeiiSel = false
@@ -312,6 +318,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myDUTInfoButton.isEnabled = myIsEditing
     myDUTGeiiButton.isEnabled = myIsEditing
     myLPIsnButton.isEnabled = myIsEditing
+    myLPTamButton.isEnabled = myIsEditing
     myLPA2iButton.isEnabled = myIsEditing
     myLPAtcCdgButton.isEnabled = myIsEditing
     myLPAtcTecamButton.isEnabled = myIsEditing
@@ -378,7 +385,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsDUTMiiSel = unEtudiant.myDUTProject!.contains("DUT MMI")
     myIsDUTGeiiSel = unEtudiant.myDUTProject!.contains("DUT GEII")
     myIsDUTInfoSel = unEtudiant.myDUTProject!.contains("DUT INFO")
-    
+
+    myIsLPTamSel = unEtudiant.myLPProject!.contains("LP TAM")
     myIsLPA2iSel = unEtudiant.myLPProject!.contains("LP A2I")
     myIsLPI2mSel = unEtudiant.myLPProject!.contains("LP I2M")
     myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP ISN")
@@ -468,6 +476,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     return true
   }
   
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if textField.tag == 1 {
+      self.view.endEditing(true)
+      return true
+    }
+    return false
+  }
   
   func keyboardDidShow()
   {
@@ -518,6 +533,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsLPAtcTecamSel = !myIsLPAtcTecamSel
     updateOrientationButtonState()
   }
+ 
+  @IBAction func clickLPTAM(_ sender: Any) {
+    myIsLPTamSel = !myIsLPTamSel
+    updateOrientationButtonState()
+  }
+
+  
   
   @IBAction func clickDUTINFO(_ sender: AnyObject) {
     myIsDUTInfoSel = !myIsDUTInfoSel
@@ -539,6 +561,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBAction func clickNewsLetter(_ sender: AnyObject) {
     myIsNewLetterSel = !myIsNewLetterSel
     updateOrientationButtonState()
+    self.view.endEditing(true)
   }
   
   
@@ -549,6 +572,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), for: UIControlState())
     myLPAtcCdgButton.setImage(UIImage(named: myIsLPAtcCdgSel ? "checked.png" : "unChecked.png"), for: UIControlState())
     myLPAtcTecamButton.setImage(UIImage(named: myIsLPAtcTecamSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myLPTamButton.setImage(UIImage(named: myIsLPTamSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    
     myDUTInfoButton.setImage(UIImage(named: myIsDUTInfoSel ? "checked.png" : "unChecked.png"), for: UIControlState())
     myDUTGeiiButton.setImage(UIImage(named: myIsDUTGeiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
     myDUTMiiButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
