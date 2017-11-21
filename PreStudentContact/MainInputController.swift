@@ -35,8 +35,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myIsEditing = true
   let myColorActive = UIColor.white
   let myColorInActive = UIColor.lightGray
-  let myColorBGViewActive = UIColor(colorLiteralRed: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
-  let myColorBGViewInActive = UIColor(colorLiteralRed: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)
+  let myColorBGViewActive = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
+  let myColorBGViewInActive = UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1.0)
   var myCurrentDisplayStudent = 0
   var myIsInHistory = false
   var myCurrentStudent: Etudiant?
@@ -484,7 +484,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     return false
   }
   
-  func keyboardDidShow()
+  @objc func keyboardDidShow()
   {
     if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
@@ -497,7 +497,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
-  func keyboardDidHide()
+  @objc func keyboardDidHide()
   {
     if myInterfaceIsShifted {
       UIView.beginAnimations("registerScroll", context: nil)
@@ -680,7 +680,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
   }
   
-  func dismissKeyboard(){
+  @objc func dismissKeyboard(){
     myNameField.resignFirstResponder()
     myLastNameField.resignFirstResponder()
     myOptionField.resignFirstResponder()
