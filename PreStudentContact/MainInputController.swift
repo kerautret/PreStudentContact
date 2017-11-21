@@ -724,7 +724,28 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     return res
   }
   
-  
+    @IBAction func exportData(_ sender: Any) {
+        let data: Data? = exportListCSV(myForumName)
+        if data != nil {
+            let d = myDate!
+            let fileName = "listEtudiant_\(d).csv"
+            if let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName) {
+                do {
+                    try data?.write(to: path)
+                    
+                } catch {
+                    print("Failed to create file")
+                    print("\(error)")
+                }
+             let vc = UIActivityViewController(activityItems: [path], applicationActivities: [])
+             // important to not crash on iPad
+             vc.popoverPresentationController?.sourceView = self.view
+             present(vc, animated: true, completion: nil)
+            }
+        }
+        
+    }
+    
 }
 
 
