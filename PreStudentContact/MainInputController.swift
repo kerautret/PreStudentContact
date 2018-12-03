@@ -231,22 +231,22 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       aStudent.myDUTProject?.append("DUT MMI")
     }
     if myIsLPIsnSel {
-      aStudent.myLPProject?.append("LP ISN")
+      aStudent.myLPProject?.append("LP IG3D")
     }
     if myIsLPI2mSel {
-      aStudent.myLPProject?.append("LP I2M")
+      aStudent.myLPProject?.append("LP AMIO")
     }
     if myIsLPA2iSel {
-      aStudent.myLPProject?.append("LP A2I")
+      aStudent.myLPProject?.append("LP SARII")
     }
     if myIsLPAtcCdgSel {
-      aStudent.myLPProject?.append("LP ATC/CDG")
+      aStudent.myLPProject?.append("LP Cross Media")
     }
     if myIsLPAtcTecamSel {
-      aStudent.myLPProject?.append("LP ATC/TECAMTV")
+      aStudent.myLPProject?.append("LP TeCAM")
     }
     if myIsLPTamSel {
-      aStudent.myLPProject?.append("LP TAM")
+      aStudent.myLPProject?.append("LP Tourisme")
     }
     aStudent.myNewsLetter = myIsNewLetterSel
     aStudent.myDateInscription = myDate!
@@ -386,12 +386,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsDUTGeiiSel = unEtudiant.myDUTProject!.contains("DUT GEII")
     myIsDUTInfoSel = unEtudiant.myDUTProject!.contains("DUT INFO")
 
-    myIsLPTamSel = unEtudiant.myLPProject!.contains("LP TAM")
-    myIsLPA2iSel = unEtudiant.myLPProject!.contains("LP A2I")
-    myIsLPI2mSel = unEtudiant.myLPProject!.contains("LP I2M")
-    myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP ISN")
-    myIsLPAtcCdgSel = unEtudiant.myLPProject!.contains("LP ATC/CDG")
-    myIsLPAtcTecamSel = unEtudiant.myLPProject!.contains("LP ATC/TECAMTV")
+    myIsLPTamSel = unEtudiant.myLPProject!.contains("LP Tourisme")
+    myIsLPA2iSel = unEtudiant.myLPProject!.contains("LP SARII")
+    myIsLPI2mSel = unEtudiant.myLPProject!.contains("LP AMIO")
+    myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP IG3D")
+    myIsLPAtcCdgSel = unEtudiant.myLPProject!.contains("LP Cross Media")
+    myIsLPAtcTecamSel = unEtudiant.myLPProject!.contains("LP TeCAM")
     myIsNewLetterSel = unEtudiant.myNewsLetter
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
@@ -698,15 +698,15 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       if etu.myDateInscription == myDate || etu.myDateInscription == myDateM1 {
         var isInfo = false
         isInfo = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT INFO")
-        isInfo = isInfo || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP ISN") ||
-          etu.myLPProject!.contains("LP I2M")))
+        isInfo = isInfo || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP IG3D") ||
+          etu.myLPProject!.contains("LP AMIO")))
         var isGeii = false
         isGeii = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT GEII")
-        isGeii = isGeii || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP A2I")))
+        isGeii = isGeii || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP SARII")))
         var isMmi = false
         isMmi = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT MMI")
-        isMmi = isMmi || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP ATC/TECAMTV") ||
-          etu.myLPProject!.contains("LP ATC/CDG")))
+        isMmi = isMmi || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP TeCAM") ||
+          etu.myLPProject!.contains("LP Cross Media")))
         
         if etu.myDateInscription == myDate {
           res.0 += isInfo ? 1 : 0
