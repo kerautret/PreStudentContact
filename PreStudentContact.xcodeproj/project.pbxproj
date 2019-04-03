@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD54685B2254A41C00A7A75B /* gamagora.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = CD54685A2254A41C00A7A75B /* gamagora.jpeg */; };
+		CD54685D2254A4A100A7A75B /* Lyon2.png in Resources */ = {isa = PBXBuildFile; fileRef = CD54685C2254A4A100A7A75B /* Lyon2.png */; };
 		CD66D1C51BF4D13900193B03 /* Etudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1C41BF4D13900193B03 /* Etudiant.swift */; };
 		CD66D1CD1BF4DF6600193B03 /* ToolsInOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */; };
 		CD66D1CF1BF777A900193B03 /* SettingsInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CD54685A2254A41C00A7A75B /* gamagora.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gamagora.jpeg; sourceTree = "<group>"; };
+		CD54685C2254A4A100A7A75B /* Lyon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lyon2.png; sourceTree = "<group>"; };
 		CD66D1C41BF4D13900193B03 /* Etudiant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Etudiant.swift; sourceTree = "<group>"; };
 		CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsInOut.swift; sourceTree = "<group>"; };
 		CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInfoController.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 		CDD451CE1BF4BC2F00F76213 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD54685C2254A4A100A7A75B /* Lyon2.png */,
+				CD54685A2254A41C00A7A75B /* gamagora.jpeg */,
 				CD74F0471C0FA6B100F0AB81 /* unChecked.png */,
 				CD74F0451C0FA6AB00F0AB81 /* checked.png */,
 				CDD451CF1BF4BC3A00F76213 /* logo_UL.png */,
@@ -144,6 +150,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -162,12 +169,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD54685B2254A41C00A7A75B /* gamagora.jpeg in Resources */,
 				CDD451C71BF4BBF700F76213 /* LaunchScreen.storyboard in Resources */,
 				CDD451C41BF4BBF700F76213 /* Assets.xcassets in Resources */,
 				CDC730161BFE6B7300D65C3A /* emptyListStudent.plist in Resources */,
 				CD74F0481C0FA6B100F0AB81 /* unChecked.png in Resources */,
 				CD74F0461C0FA6AB00F0AB81 /* checked.png in Resources */,
 				CDD451C21BF4BBF700F76213 /* Main.storyboard in Resources */,
+				CD54685D2254A4A100A7A75B /* Lyon2.png in Resources */,
 				CDD451D01BF4BC3A00F76213 /* logo_UL.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
