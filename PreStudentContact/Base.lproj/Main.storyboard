@@ -39,8 +39,8 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Classe/spécialité:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uBA-Or-fjO">
-                                        <rect key="frame" x="55" y="299" width="181" height="27"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Formation Précédente" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uBA-Or-fjO">
+                                        <rect key="frame" x="55" y="299" width="210" height="27"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -241,7 +241,7 @@
                                             <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickDUTINFO:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hqs-ND-J7m"/>
+                                            <action selector="clickDUCCI1:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hqs-ND-J7m"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="mVW-GK-rm7">
@@ -261,7 +261,7 @@
                                             <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickDUTMMI:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ht3-BY-8qR"/>
+                                            <action selector="clickDUI3D:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ht3-BY-8qR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pb8-as-CiW">
@@ -271,7 +271,7 @@
                                             <color key="titleColor" red="0.72508285979999998" green="0.72508285979999998" blue="0.72508285979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickLPA2I:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XW7-nV-SPH"/>
+                                            <action selector="clickM2Info:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XW7-nV-SPH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aiw-aF-JA8">
@@ -281,7 +281,7 @@
                                             <color key="titleColor" red="0.72508285979999998" green="0.72508285979999998" blue="0.72508285979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickLPI2M:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hRc-0u-Vc7"/>
+                                            <action selector="clickM2CIM:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hRc-0u-Vc7"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;&gt;Restons en contact..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pv0-71-XwE">
@@ -396,7 +396,7 @@
                                             <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickDUTGEII:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U8H-Tx-DGZ"/>
+                                            <action selector="clickDUCCI2:" destination="BYZ-38-t0r" eventType="touchUpInside" id="U8H-Tx-DGZ"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M2 CIM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gfK-hm-vQo">
@@ -461,17 +461,17 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MaF-J3-9SK">
-                                        <rect key="frame" x="602" y="698" width="25" height="25"/>
+                                        <rect key="frame" x="596" y="698" width="25" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="DUT MMI" image="unChecked.png">
                                             <color key="titleColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="clickDUTMMI:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b97-w9-jh3"/>
+                                            <action selector="clickDULD:" destination="BYZ-38-t0r" eventType="touchUpInside" id="raY-h4-Ezj"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DU Level Design" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MbP-6V-QWV">
-                                        <rect key="frame" x="635" y="699" width="126" height="21"/>
+                                        <rect key="frame" x="625" y="699" width="126" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -502,9 +502,10 @@
                     <connections>
                         <outlet property="myCancelButton" destination="pQF-bM-Meq" id="wgN-JX-sJB"/>
                         <outlet property="myClassePickView" destination="GVh-gW-swl" id="yHR-dz-7zw"/>
-                        <outlet property="myDUTGeiiButton" destination="POo-nd-prD" id="SRP-Zq-OuF"/>
-                        <outlet property="myDUTInfoButton" destination="Zc7-XZ-QZm" id="skg-Nh-t1P"/>
-                        <outlet property="myDUTMiiButton" destination="hvs-YV-NaL" id="KYA-0Z-IZX"/>
+                        <outlet property="myDUCCI1Button" destination="Zc7-XZ-QZm" id="skg-Nh-t1P"/>
+                        <outlet property="myDUCCI2Button" destination="POo-nd-prD" id="SRP-Zq-OuF"/>
+                        <outlet property="myDUI3DButton" destination="hvs-YV-NaL" id="KYA-0Z-IZX"/>
+                        <outlet property="myDULDButton" destination="MaF-J3-9SK" id="Oec-oA-mjl"/>
                         <outlet property="myDeleteButton" destination="03F-Pg-j5l" id="olK-i1-ZUZ"/>
                         <outlet property="myDeptField" destination="h2T-Dq-mcc" id="sEZ-y3-Yrl"/>
                         <outlet property="myEditButton" destination="lzy-Bb-L4c" id="wiz-IE-1lm"/>
@@ -515,9 +516,9 @@
                         <outlet property="myIdStudent" destination="bSJ-yA-0q3" id="Q8H-Jl-Y8b"/>
                         <outlet property="myInscriptionDateLabel" destination="6jv-zY-wpD" id="5d6-ZI-uC5"/>
                         <outlet property="myInterfaceView" destination="Tsb-1B-aWD" id="FO1-c8-lg1"/>
-                        <outlet property="myLPA2iButton" destination="pb8-as-CiW" id="Gge-hs-isv"/>
-                        <outlet property="myLPI2mButton" destination="aiw-aF-JA8" id="5nl-NB-xWg"/>
                         <outlet property="myLastNameField" destination="r9A-VI-4Kg" id="3No-hF-JhO"/>
+                        <outlet property="myM2CIMButton" destination="aiw-aF-JA8" id="5nl-NB-xWg"/>
+                        <outlet property="myM2InfoButton" destination="pb8-as-CiW" id="Gge-hs-isv"/>
                         <outlet property="myNameField" destination="eoH-h5-aTZ" id="ckB-62-ZmB"/>
                         <outlet property="myNewsLetterButton" destination="mVW-GK-rm7" id="fac-8J-Reh"/>
                         <outlet property="myOptionField" destination="cO2-hZ-dao" id="pCG-cT-ZN4"/>

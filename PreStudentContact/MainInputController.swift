@@ -81,28 +81,26 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myDeleteButton: UIButton!
   
   @IBOutlet weak var myHistoryButton: UIButton!
-  @IBOutlet weak var myDUTInfoButton: UIButton!
-  @IBOutlet weak var myDUTGeiiButton: UIButton!
-  @IBOutlet weak var myDUTMiiButton: UIButton!
-  
-  @IBOutlet weak var myLPIsnButton: UIButton!
-  @IBOutlet weak var myLPI2mButton: UIButton!
-  @IBOutlet weak var myLPA2iButton: UIButton!
-  @IBOutlet weak var myLPAtcTecamButton: UIButton!
-  @IBOutlet weak var myLPAtcCdgButton: UIButton!
-  @IBOutlet weak var myLPTamButton: UIButton!
+  @IBOutlet weak var myDUCCI1Button: UIButton!
+  @IBOutlet weak var myDUCCI2Button: UIButton!
+  @IBOutlet weak var myDUI3DButton: UIButton!
+  @IBOutlet weak var myDULDButton: UIButton!
+
+  @IBOutlet weak var myM2CIMButton: UIButton!
+  @IBOutlet weak var myM2InfoButton: UIButton!
+ 
   
   @IBOutlet weak var myNewsLetterButton: UIButton!
   
-  var myIsDUTInfoSel: Bool = false
+  var myIsDUCCI1Sel: Bool = false
   var myIsLPTamSel: Bool = false
-  var myIsDUTGeiiSel: Bool = false
+  var myIsDUCCI2Sel: Bool = false
   var myIsDUTMiiSel: Bool = false
-  var myIsLPIsnSel: Bool = false
-  var myIsLPI2mSel: Bool = false
-  var myIsLPA2iSel: Bool = false
+  var myIsDUI3DSel: Bool = false
+  var myIsDULDSel: Bool = false
+  var myIsM2CIMSel: Bool = false
   var myIsLPAtcTecamSel: Bool = false
-  var myIsLPAtcCdgSel: Bool = false
+  var myIsM2InfoSel: Bool = false
   var myIsNewLetterSel: Bool = true
   
   func getIndex(_ aName: String)-> Int?{
@@ -221,33 +219,25 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myDUTProject?.removeAll()
     aStudent.myLPProject?.removeAll()
     
-    if myIsDUTInfoSel {
-      aStudent.myDUTProject?.append("DUT INFO")
+    if myIsDUCCI1Sel {
+      aStudent.myDUTProject?.append("DUCCI 1")
     }
-    if myIsDUTGeiiSel {
-      aStudent.myDUTProject?.append("DUT GEII")
+    if myIsDUCCI2Sel {
+      aStudent.myDUTProject?.append("DUCCI 2")
     }
-    if myIsDUTMiiSel {
-      aStudent.myDUTProject?.append("DUT MMI")
+    if myIsDUI3DSel {
+      aStudent.myLPProject?.append("DU I3D")
     }
-    if myIsLPIsnSel {
-      aStudent.myLPProject?.append("LP IG3D")
+    if myIsDULDSel {
+      aStudent.myLPProject?.append("DU LD")
     }
-    if myIsLPI2mSel {
-      aStudent.myLPProject?.append("LP AMIO")
+    if myIsM2CIMSel {
+      aStudent.myLPProject?.append("M2 CIM")
     }
-    if myIsLPA2iSel {
-      aStudent.myLPProject?.append("LP SARII")
+    if myIsM2InfoSel {
+      aStudent.myLPProject?.append("M2 Info")
     }
-    if myIsLPAtcCdgSel {
-      aStudent.myLPProject?.append("LP Cross Media")
-    }
-    if myIsLPAtcTecamSel {
-      aStudent.myLPProject?.append("LP TeCAM")
-    }
-    if myIsLPTamSel {
-      aStudent.myLPProject?.append("LP Tourisme")
-    }
+   
     aStudent.myNewsLetter = myIsNewLetterSel
     aStudent.myDateInscription = myDate!
     aStudent.myForumInscription = myForumName
@@ -265,14 +255,14 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myOptionField.text = ""
     myDeptField.text = ""
     myIsLPAtcTecamSel = false
-    myIsLPAtcCdgSel = false
-    myIsLPI2mSel = false
-    myIsLPIsnSel = false
-    myIsLPA2iSel = false
+    myIsM2InfoSel = false
+    myIsDULDSel = false
+    myIsDUI3DSel = false
+    myIsM2CIMSel = false
     myIsLPTamSel = false
     myIsDUTMiiSel = false
-    myIsDUTInfoSel = false
-    myIsDUTGeiiSel = false
+    myIsDUCCI1Sel = false
+    myIsDUCCI2Sel = false
     myIsNewLetterSel = true
     updateOrientationButtonState()
     myClassePickView.selectRow(0, inComponent: 0, animated: true)
@@ -314,16 +304,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myEmailField.isEnabled = myIsEditing
     myDeptField.isEnabled = myIsEditing
     myOptionField.isEnabled = myIsEditing
-    myDUTMiiButton.isEnabled = myIsEditing
-    myDUTInfoButton.isEnabled = myIsEditing
-    myDUTGeiiButton.isEnabled = myIsEditing
-    myLPIsnButton.isEnabled = myIsEditing
-    myLPTamButton.isEnabled = myIsEditing
-    myLPA2iButton.isEnabled = myIsEditing
-    myLPAtcCdgButton.isEnabled = myIsEditing
-    myLPAtcTecamButton.isEnabled = myIsEditing
+    myDUI3DButton.isEnabled = myIsEditing
+    myDUCCI1Button.isEnabled = myIsEditing
+    myDUCCI2Button.isEnabled = myIsEditing
+    myM2InfoButton.isEnabled = myIsEditing
+    myDULDButton.isEnabled = myIsEditing
     myNewsLetterButton.isEnabled = myIsEditing
-    myLPI2mButton.isEnabled = myIsEditing
+    myM2CIMButton.isEnabled = myIsEditing
     
     let colorBg: UIColor = myIsEditing ? myColorActive : myColorInActive
     myLastNameField.backgroundColor = colorBg
@@ -382,16 +369,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTotalSaved.text = "\(myTabEtudians.count)"
     let indexClass: Int? = getIndex(unEtudiant.myClass)
     let indexSpe: Int? = getIndex(unEtudiant.mySpe)
-    myIsDUTMiiSel = unEtudiant.myDUTProject!.contains("DUT MMI")
-    myIsDUTGeiiSel = unEtudiant.myDUTProject!.contains("DUT GEII")
-    myIsDUTInfoSel = unEtudiant.myDUTProject!.contains("DUT INFO")
+    myIsDUCCI2Sel = unEtudiant.myDUTProject!.contains("DUCCI 2")
+    myIsDUCCI1Sel = unEtudiant.myDUTProject!.contains("DUCCI 1")
 
-    myIsLPTamSel = unEtudiant.myLPProject!.contains("LP Tourisme")
-    myIsLPA2iSel = unEtudiant.myLPProject!.contains("LP SARII")
-    myIsLPI2mSel = unEtudiant.myLPProject!.contains("LP AMIO")
-    myIsLPIsnSel = unEtudiant.myLPProject!.contains("LP IG3D")
-    myIsLPAtcCdgSel = unEtudiant.myLPProject!.contains("LP Cross Media")
-    myIsLPAtcTecamSel = unEtudiant.myLPProject!.contains("LP TeCAM")
+    myIsM2CIMSel = unEtudiant.myLPProject!.contains("M2 CIM")
+    myIsDULDSel = unEtudiant.myLPProject!.contains("DU LD")
+    myIsDUI3DSel = unEtudiant.myLPProject!.contains("DU I3D")
+    myIsM2InfoSel = unEtudiant.myLPProject!.contains("M2 INFO")
     myIsNewLetterSel = unEtudiant.myNewsLetter
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
@@ -509,52 +493,36 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
   }
   
-  @IBAction func clickLPISN(_ sender: AnyObject) {
-    myIsLPIsnSel = !myIsLPIsnSel
+  @IBAction func clickM2CIM(_ sender: AnyObject) {
+    myIsM2CIMSel  = !myIsM2CIMSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickLPI2M(_ sender: AnyObject) {
-    myIsLPI2mSel = !myIsLPI2mSel
+  @IBAction func clickM2Info(_ sender: AnyObject) {
+    myIsM2InfoSel = !myIsM2InfoSel
     updateOrientationButtonState()
   }
   
-  @IBAction func clickLPA2I(_ sender: AnyObject) {
-    myIsLPA2iSel = !myIsLPA2iSel
-    updateOrientationButtonState()
-  }
   
-  @IBAction func clickLPATCCDG(_ sender: AnyObject) {
-    myIsLPAtcCdgSel = !myIsLPAtcCdgSel
-    updateOrientationButtonState()
-  }
-  
-  @IBAction func clickTACTECAMTV(_ sender: AnyObject) {
-    myIsLPAtcTecamSel = !myIsLPAtcTecamSel
-    updateOrientationButtonState()
-  }
- 
-  @IBAction func clickLPTAM(_ sender: Any) {
-    myIsLPTamSel = !myIsLPTamSel
-    updateOrientationButtonState()
-  }
-
-  
-  
-  @IBAction func clickDUTINFO(_ sender: AnyObject) {
-    myIsDUTInfoSel = !myIsDUTInfoSel
+  @IBAction func clickDUCCI1(_ sender: AnyObject) {
+    myIsDUCCI1Sel = !myIsDUCCI1Sel
     updateOrientationButtonState()
     
   }
   
-  @IBAction func clickDUTGEII(_ sender: AnyObject) {
-    myIsDUTGeiiSel = !myIsDUTGeiiSel
+  @IBAction func clickDUCCI2(_ sender: AnyObject) {
+    myIsDUCCI2Sel = !myIsDUCCI2Sel
     updateOrientationButtonState()
     
   }
   
-  @IBAction func clickDUTMMI(_ sender: AnyObject) {
-    myIsDUTMiiSel = !myIsDUTMiiSel
+  @IBAction func clickDUI3D(_ sender: AnyObject) {
+    myIsDUI3DSel = !myIsDUI3DSel
+    updateOrientationButtonState()
+  }
+  
+  @IBAction func clickDULD(_ sender: AnyObject) {
+    myIsDULDSel = !myIsDULDSel
     updateOrientationButtonState()
   }
   
@@ -566,17 +534,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func updateOrientationButtonState(){
-    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myLPI2mButton.setImage(UIImage(named: myIsLPI2mSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myLPA2iButton.setImage(UIImage(named: myIsLPA2iSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myLPIsnButton.setImage(UIImage(named: myIsLPIsnSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myLPAtcCdgButton.setImage(UIImage(named: myIsLPAtcCdgSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myLPAtcTecamButton.setImage(UIImage(named: myIsLPAtcTecamSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myLPTamButton.setImage(UIImage(named: myIsLPTamSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    
-    myDUTInfoButton.setImage(UIImage(named: myIsDUTInfoSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDUTGeiiButton.setImage(UIImage(named: myIsDUTGeiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDUTMiiButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myM2CIMButton.setImage(UIImage(named: myIsDULDSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myM2InfoButton.setImage(UIImage(named: myIsM2CIMSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUI3DButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDULDButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUCCI1Button.setImage(UIImage(named: myIsDUCCI1Sel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUCCI2Button.setImage(UIImage(named: myIsDUCCI2Sel ? "checked.png" : "unChecked.png"), for: UIControlState())
+  
     myNewsLetterButton.setImage(UIImage(named: myIsNewLetterSel ? "checked.png" : "unChecked.png"), for: UIControlState())
   }
   
