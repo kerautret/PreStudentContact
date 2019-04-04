@@ -68,7 +68,8 @@ func getCurrentForumName(_ forumName: String) -> String{
 func exportListCSV(_ forumName: String) -> Data? {
   let path: String = "\(getPath(internFileSave)).plist"
   var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUCCI1,DUCCI2,DUI3D,DULD,M2CIM, M2INFO,date inscription,forum,news letter\n"
-  let Listkey = ["name","lastName","classe","specialite","option","town","dept","email","numTel","inscriptionDate","forumName", "NewsLetter" ]
+
+  let Listkey = ["name","lastName","classe","specialite","option","town","dept","email","numTel","integrationDU","integrationM2","inscriptionDate","forumName", "NewsLetter" ]
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
     for (id, etu) in listeEtudiant {
       strResu += "\(id)"

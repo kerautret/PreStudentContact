@@ -97,13 +97,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myNewsLetterButton: UIButton!
   
   var myIsDUCCI1Sel: Bool = false
-  var myIsLPTamSel: Bool = false
   var myIsDUCCI2Sel: Bool = false
-  var myIsDUTMiiSel: Bool = false
   var myIsDUI3DSel: Bool = false
   var myIsDULDSel: Bool = false
   var myIsM2CIMSel: Bool = false
-  var myIsLPAtcTecamSel: Bool = false
   var myIsM2InfoSel: Bool = false
   var myIsNewLetterSel: Bool = true
   
@@ -225,22 +222,22 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myM2Project?.removeAll()
     
     if myIsDUCCI1Sel {
-      aStudent.myDUProject?.append("DUCCI 1")
+      aStudent.myDUProject?.append("DUCCI1")
     }
     if myIsDUCCI2Sel {
-      aStudent.myDUProject?.append("DUCCI 2")
+      aStudent.myDUProject?.append("DUCCI2")
     }
     if myIsDUI3DSel {
-      aStudent.myM2Project?.append("DU I3D")
+      aStudent.myDUProject?.append("DUI3D")
     }
     if myIsDULDSel {
-      aStudent.myM2Project?.append("DU LD")
+      aStudent.myDUProject?.append("DULD")
     }
     if myIsM2CIMSel {
-      aStudent.myM2Project?.append("M2 CIM")
+      aStudent.myM2Project?.append("M2CIM")
     }
     if myIsM2InfoSel {
-      aStudent.myM2Project?.append("M2 INFO")
+      aStudent.myM2Project?.append("M2INFO")
     }
    
     aStudent.myNewsLetter = myIsNewLetterSel
@@ -260,13 +257,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myPhoneField.text =  ""
     myOptionField.text = ""
     myDeptField.text = ""
-    myIsLPAtcTecamSel = false
     myIsM2InfoSel = false
     myIsDULDSel = false
     myIsDUI3DSel = false
     myIsM2CIMSel = false
-    myIsLPTamSel = false
-    myIsDUTMiiSel = false
     myIsDUCCI1Sel = false
     myIsDUCCI2Sel = false
     myIsNewLetterSel = true
@@ -374,13 +368,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTotalSaved.text = "\(myTabEtudians.count)"
     let indexClass: Int? = getIndex(unEtudiant.myClass)
     let indexSpe: Int? = getIndex(unEtudiant.mySpe)
-    myIsDUCCI2Sel = unEtudiant.myDUProject!.contains("DUCCI 2")
-    myIsDUCCI1Sel = unEtudiant.myDUProject!.contains("DUCCI 1")
+    myIsDUCCI2Sel = unEtudiant.myDUProject!.contains("DUCCI2")
+    myIsDUCCI1Sel = unEtudiant.myDUProject!.contains("DUCCI1")
 
-    myIsM2CIMSel = unEtudiant.myM2Project!.contains("M2 CIM")
-    myIsDULDSel = unEtudiant.myM2Project!.contains("DU LD")
-    myIsDUI3DSel = unEtudiant.myM2Project!.contains("DU I3D")
-    myIsM2InfoSel = unEtudiant.myM2Project!.contains("M2 INFO")
+    myIsM2CIMSel = unEtudiant.myM2Project!.contains("M2CIM")
+    myIsDULDSel = unEtudiant.myM2Project!.contains("DULD")
+    myIsDUI3DSel = unEtudiant.myM2Project!.contains("DUI3D")
+    myIsM2InfoSel = unEtudiant.myM2Project!.contains("M2INFO")
     myIsNewLetterSel = unEtudiant.myNewsLetter
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
