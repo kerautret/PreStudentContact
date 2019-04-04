@@ -30,8 +30,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myListOfClassesOptions = [["--------","DUT", "BTS", "Licence", "Autre"],
     ["--------","Informatique", "Langue,Communication",  "Medias", "Autres"]]
   
-  let myKeyboardShift = CGFloat(-70.0)
-  let myKeyboardLargeShift = CGFloat(-0.4*UIScreen.main.bounds.height)
+  let myKeyboardShift = CGFloat(-0.1*UIScreen.main.bounds.height)
+  let myKeyboardLargeShift = CGFloat(-0.3*UIScreen.main.bounds.height)
 
   var myTabEtudians = [Etudiant]()
   var myIsEditing = true
@@ -455,14 +455,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-    if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
       UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.8)
-      self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardLargeShift)
+    self.view.transform = CGAffineTransform(translationX: 0, y: UIApplication.shared.statusBarOrientation.isLandscape ? myKeyboardLargeShift: myKeyboardLargeShift*0.7)
       UIView.commitAnimations()
       myInterfaceIsShifted = true
-    }
+    
      return true
   }
   func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
