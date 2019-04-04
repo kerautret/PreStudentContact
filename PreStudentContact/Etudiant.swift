@@ -18,6 +18,7 @@ open class Etudiant: NSObject{
   var myDept: Int?
   var myTel: String?
   var myEmail: String?
+  var myRemarque: String?
   var myDUTProject: [String]?
   var myLPProject: [String]?
   var myForumInscription: String
@@ -33,6 +34,7 @@ open class Etudiant: NSObject{
     datef.dateFormat = "hh:ss"
     myHeureCreation = "\(datef.string(from: Date()))"
     myName = other.myName
+    myRemarque = other.myRemarque
     myLastName = other.myLastName
     myClass = other.myClass
     mySpe = other.mySpe

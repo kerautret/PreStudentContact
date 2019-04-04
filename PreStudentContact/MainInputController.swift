@@ -27,8 +27,8 @@ extension String{
 class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
   
   var myPasswordDelete = "Forum2016"
-  var myListOfClassesOptions = [["--------","Première", "Seconde", "Terminale"],
-    ["--------","S","ES", "L", "STI","STI2D","STI2A", "STAV", "STG", "STT", "STI","STMG", "PRO", "DAEU", "BAC étranger"]]
+  var myListOfClassesOptions = [["--------","DUT", "BTS", "Licence", "Autre"],
+    ["--------","Informatique", "Langue,Communication",  "Medias", "Autres"]]
   
   let myKeyboardShift = CGFloat(-70.0)
   var myTabEtudians = [Etudiant]()
@@ -70,6 +70,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myPhoneField: UITextField!
   @IBOutlet weak var mySaveButton: UIButton!
   @IBOutlet weak var myDeptField: UITextField!
+  @IBOutlet weak var myRemarqueField: UITextView!
+
   var myPasswordTextField: UITextField?
   
   @IBOutlet weak var myEditButton: UIButton!
@@ -141,7 +143,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myPhoneField.delegate = self
     myDeptField.delegate = self
     myEmailField.delegate = self
-    
+    myRemarqueField.delegate = self as? UITextViewDelegate
     let sharedDefault = UserDefaults.standard
     myForumName = sharedDefault.object(forKey: "FORUM_NAME") as! String
     myTabEtudians = recoverTableauEtudiant(myForumName)
@@ -214,6 +216,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     if myDeptField.text != ""{
       aStudent.myDept = (Int) (NSString(string: myDeptField.text!).intValue)
     }
+    aStudent.myRemarque = myRemarqueField.text
     aStudent.myEmail = myEmailField.text!.cleanPonctuation()
     aStudent.myTel = myPhoneField.text!.cleanPonctuation()
     aStudent.myDUTProject?.removeAll()
@@ -235,7 +238,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       aStudent.myLPProject?.append("M2 CIM")
     }
     if myIsM2InfoSel {
-      aStudent.myLPProject?.append("M2 Info")
+      aStudent.myLPProject?.append("M2 INFO")
     }
    
     aStudent.myNewsLetter = myIsNewLetterSel
@@ -251,6 +254,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myLastNameField.text = ""
     myTownField.text =  ""
     myEmailField.text = ""
+    myRemarqueField.text = ""
     myPhoneField.text =  ""
     myOptionField.text = ""
     myDeptField.text = ""
@@ -302,6 +306,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myPhoneField.isEnabled = myIsEditing
     myTownField.isEnabled = myIsEditing
     myEmailField.isEnabled = myIsEditing
+    myRemarqueField.isEditable = myIsEditing
     myDeptField.isEnabled = myIsEditing
     myOptionField.isEnabled = myIsEditing
     myDUI3DButton.isEnabled = myIsEditing
@@ -318,6 +323,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myPhoneField.backgroundColor = colorBg
     myTownField.backgroundColor = colorBg
     myEmailField.backgroundColor = colorBg
+    myRemarqueField.backgroundColor = colorBg
     myDeptField.backgroundColor = colorBg
     myOptionField.backgroundColor = colorBg
     mySaveButton.isHidden = !myIsEditing || myCurrentDisplayStudent != 0 || myHistoryMode || !checkOKSaving()
@@ -363,6 +369,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTownField.text = unEtudiant.myTown
     myDeptField.text = unEtudiant.myDept == nil ? "" : "\(unEtudiant.myDept!)"
     myEmailField.text = unEtudiant.myEmail
+    myRemarqueField.text = unEtudiant.myRemarque
     myPhoneField.text = unEtudiant.myTel
     myIdStudent.text = unEtudiant.myCreationDate
     myHeureCreation.text = unEtudiant.myHeureCreation
@@ -534,10 +541,10 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   func updateOrientationButtonState(){
-    myM2CIMButton.setImage(UIImage(named: myIsDULDSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myM2InfoButton.setImage(UIImage(named: myIsM2CIMSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDUI3DButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDULDButton.setImage(UIImage(named: myIsDUTMiiSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myM2CIMButton.setImage(UIImage(named: myIsM2CIMSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myM2InfoButton.setImage(UIImage(named: myIsM2InfoSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDUI3DButton.setImage(UIImage(named: myIsDUI3DSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myDULDButton.setImage(UIImage(named: myIsDULDSel ? "checked.png" : "unChecked.png"), for: UIControlState())
     myDUCCI1Button.setImage(UIImage(named: myIsDUCCI1Sel ? "checked.png" : "unChecked.png"), for: UIControlState())
     myDUCCI2Button.setImage(UIImage(named: myIsDUCCI2Sel ? "checked.png" : "unChecked.png"), for: UIControlState())
   
@@ -650,6 +657,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myOptionField.resignFirstResponder()
     myTownField.resignFirstResponder()
     myEmailField.resignFirstResponder()
+    myRemarqueField.resignFirstResponder()
     myDeptField.resignFirstResponder()
     myPhoneField.resignFirstResponder()
   }
