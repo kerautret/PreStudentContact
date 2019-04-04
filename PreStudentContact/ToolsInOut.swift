@@ -67,64 +67,55 @@ func getCurrentForumName(_ forumName: String) -> String{
 
 func exportListCSV(_ forumName: String) -> Data? {
   let path: String = "\(getPath(internFileSave)).plist"
-  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUT GEII,DUT MMI,DUT INFO,LP I2M,LP A2I,LP ATC/CDG, LP ATC/TECAMTV,LP A2I,LP TAM,date inscription,forum,news letter\n"
+  var strResu = "Id,Nom,Prénom,classe,spécialite,option,ville,departement,email,num téléphone,DUCCI1,DUCCI2,DUI3D,DULD,M2CIM, M2INFO,date inscription,forum,news letter\n"
   let Listkey = ["name","lastName","classe","specialite",
-              "option","town","dept","email","numTel","integrationDUT","integrationLP","inscriptionDate","forumName", "NewsLetter" ]
+                 "option","town","dept","email","numTel","integrationDU","integrationM2","inscriptionDate","forumName", "NewsLetter" ]
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String,  Dictionary<String, AnyObject > > {
-      for (id, etu) in listeEtudiant {
-        strResu += "\(id)"
-        for key in Listkey {
-          if key == "NewsLetter" {
-           if etu[key] as! Bool {
+    for (id, etu) in listeEtudiant {
+      strResu += "\(id)"
+      for key in Listkey {
+        if key == "NewsLetter" {
+          if etu[key] as! Bool {
             strResu += ",NewsLetter"
-           }else{
-            strResu += ",--"
-           }
-            
-          }else if key  == "integrationDUT" {
-            if (etu[key] as! [String]).contains("DUT GEII"){
-              strResu += ",DUT GEII"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("DUT MMI"){
-              strResu += ",DUT MMI"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("DUT INFO"){
-              strResu += ",DUT INFO"
-            }else {strResu += ",--"}
-          }
-          else if key  == "integrationLP" {
-            if (etu[key] as! [String]).contains("LP I2M"){
-              strResu += ",LP I2M"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("LP A2I"){
-              strResu += ",LP A2I"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("LP ATC/CDG"){
-              strResu += ",LP ATC/CDG"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("LP ATC/TECAMTV"){
-              strResu += ",LP ATC/TECAMTV"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("LP A2I"){
-              strResu += ",LP A2I"
-            }else {strResu += ",--"}
-            if (etu[key] as! [String]).contains("LP TAM"){
-              strResu += ",LP TAM"
-            }else {strResu += ",--"}
-
           }else{
-            if etu[key] != nil {
-              strResu += ",\(etu[key]!)"
-            }else{
-              strResu += ",--"
-            }
+            strResu += ",--"
+          }
+          
+        }else if key  == "integrationDU" {
+          if (etu[key] as! [String]).contains("DUCCI1"){
+            strResu += ",DUCCI 1"
+          }else {strResu += ",--"}
+          if (etu[key] as! [String]).contains("DUCCI2"){
+            strResu += ",DUCCI 2"
+          }else {strResu += ",--"}
+          if (etu[key] as! [String]).contains("DULD"){
+            strResu += ",DU LD"
+          }else {strResu += ",--"}
+          if (etu[key] as! [String]).contains("DUI3D"){
+            strResu += ",DU I3D"
+          }else {strResu += ",--"}
+        }
+        else if key  == "integrationM2" {
+          if (etu[key] as! [String]).contains("M2CIM"){
+            strResu += ",M2 CIM"
+          }else {strResu += ",--"}
+          if (etu[key] as! [String]).contains("M2INFO"){
+            strResu += ",M2 INFO"
+          }else {strResu += ",--"}
+          
+        }else{
+          if etu[key] != nil {
+            strResu += ",\(etu[key]!)"
+          }else{
+            strResu += ",--"
           }
         }
-        strResu += "\n"
       }
-      try? strResu.data(using: String.Encoding.utf8)?.write(to: URL(fileURLWithPath: "\(getPath(internFileSave)).csv"), options: [.atomic])
-      return strResu.data(using: String.Encoding.utf8)
+      strResu += "\n"
     }
+    try? strResu.data(using: String.Encoding.utf8)?.write(to: URL(fileURLWithPath: "\(getPath(internFileSave)).csv"), options: [.atomic])
+    return strResu.data(using: String.Encoding.utf8)
+  }
   
   return nil
 }
@@ -146,17 +137,18 @@ func saveListEtud(_ tabEtu: [Etudiant]){
     dicoEtu["dept"] = unEtudiant.myDept as AnyObject?
     dicoEtu["email"] = unEtudiant.myEmail as AnyObject?
     dicoEtu["numTel"] = unEtudiant.myTel as AnyObject?
-    dicoEtu["integrationDUT"] = unEtudiant.myDUTProject as AnyObject?
-    dicoEtu["integrationLP"] = unEtudiant.myLPProject as AnyObject?
+    dicoEtu["integrationDU"] = unEtudiant.myDUProject as AnyObject?
+    dicoEtu["integrationM2"] = unEtudiant.myM2Project as AnyObject?
     dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription as AnyObject?
     dicoEtu["forumName"] = unEtudiant.myForumInscription as AnyObject?
     dicoEtu["heureCreation"] = unEtudiant.myHeureCreation as AnyObject?
     dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter as AnyObject?
-
+    dicoEtu["remarque"] = unEtudiant.myRemarque as AnyObject?
+    
     listeEtudiant["\(unEtudiant.myCreationDate)"] = dicoEtu
   }
   (listeEtudiant as NSDictionary).write(toFile: path, atomically: true)
-
+  
 }
 
 
@@ -169,7 +161,7 @@ func addEtudiant(_ unEtudiant: Etudiant){
   if listeEtudiant == nil {
     listeEtudiant = Dictionary<String,  Dictionary<String, AnyObject > >()
   }
-
+  
   var dicoEtu = Dictionary<String, AnyObject > ()
   dicoEtu["name"] = unEtudiant.myName as AnyObject?
   dicoEtu["lastName"] = unEtudiant.myLastName as AnyObject?
@@ -180,13 +172,14 @@ func addEtudiant(_ unEtudiant: Etudiant){
   dicoEtu["dept"] = unEtudiant.myDept as AnyObject?
   dicoEtu["email"] = unEtudiant.myEmail as AnyObject?
   dicoEtu["numTel"] = unEtudiant.myTel as AnyObject?
-  dicoEtu["integrationDUT"] = unEtudiant.myDUTProject as AnyObject?
-  dicoEtu["integrationLP"] = unEtudiant.myLPProject as AnyObject?
+  dicoEtu["integrationDU"] = unEtudiant.myDUProject as AnyObject?
+  dicoEtu["integrationM2"] = unEtudiant.myM2Project as AnyObject?
   dicoEtu["inscriptionDate"] = unEtudiant.myDateInscription as AnyObject?
   dicoEtu["forumName"] = unEtudiant.myForumInscription as AnyObject?
   dicoEtu["heureCreation"] = unEtudiant.myHeureCreation as AnyObject?
   dicoEtu["NewsLetter"] = unEtudiant.myNewsLetter as AnyObject?
-
+  dicoEtu["remarque"] = unEtudiant.myRemarque as AnyObject?
+  
   listeEtudiant!["\(unEtudiant.myCreationDate)"] = dicoEtu
   (listeEtudiant! as NSDictionary).write(toFile: path, atomically: true)
 }
@@ -202,55 +195,60 @@ func recoverTableauEtudiant(_ forum: String) ->[Etudiant] {
   print("path:::\(path)")
   if let listeEtudiant = NSDictionary(contentsOfFile: path) as? Dictionary<String, AnyObject > {
     let sortedListe = listeEtudiant.sorted { Double($0.0) < Double($1.0) }
-
+    
     for (key, etu) in sortedListe {
-        let name = etu["name"]! as! String
-        let lastName = etu["lastName"]! as! String
-        let classe = etu["classe"]! as! String
-        let specialite = etu["specialite"]! as! String
-        let town = etu["town"]! as! String
-        let dept = etu["dept"]! as? Int
-        let numTel = etu["numTel"]! as? String
-        let email = etu["email"] as? String
-        let integrationDUT = etu["integrationDUT"] as? [String]
-        let integrationLP = etu["integrationLP"] as? [String]
-        let inscriptionDate = etu["inscriptionDate"] as? String
-        let forumName = etu["forumName"] as? String
-        let heureCreation = etu["heureCreation"] as? String
-        let option = etu["option"] as? String
-        let newsLetter = etu["NewsLetter"] as? Bool
-        let etudiant = Etudiant(aName: name, aLastName: lastName, aClass: classe, aSpe: specialite, aTown: town, aForumInscription: forumName!, aDateInscription: inscriptionDate!)
-        etudiant.myCreationDate = key
-        if email != nil
-        {
-          etudiant.myEmail = email
-        }
-        if dept != nil
-        {
-          etudiant.myDept = dept
-        }
-        if integrationDUT != nil
-        {
-          etudiant.myDUTProject = integrationDUT
-        }
-        if integrationLP != nil  {
-          etudiant.myLPProject   = integrationLP
-        }
-        if numTel != nil {
-          etudiant.myTel = numTel
-        }
-        if option != nil {
-          etudiant.myOption = option
-        }
+      let name = etu["name"]! as! String
+      let lastName = etu["lastName"]! as! String
+      let classe = etu["classe"]! as! String
+      let specialite = etu["specialite"]! as! String
+      let town = etu["town"]! as! String
+      let dept = etu["dept"]! as? Int
+      let numTel = etu["numTel"]! as? String
+      let email = etu["email"] as? String
+      let integrationDU = etu["integrationDU"] as? [String]
+      let integrationM2 = etu["integrationM2"] as? [String]
+      let inscriptionDate = etu["inscriptionDate"] as? String
+      let forumName = etu["forumName"] as? String
+      let heureCreation = etu["heureCreation"] as? String
+      let option = etu["option"] as? String
+      let remarque = etu["remarque"] as? String
+      let newsLetter = etu["NewsLetter"] as? Bool
+      let etudiant = Etudiant(aName: name, aLastName: lastName, aClass: classe, aSpe: specialite, aTown: town, aForumInscription: forumName!, aDateInscription: inscriptionDate!)
+      etudiant.myCreationDate = key
+      if email != nil
+      {
+        etudiant.myEmail = email
+      }
+      if dept != nil
+      {
+        etudiant.myDept = dept
+      }
+      if remarque != nil
+      {
+        etudiant.myRemarque = remarque
+      }
+      if integrationDU != nil
+      {
+        etudiant.myDUProject = integrationDU
+      }
+      if integrationM2 != nil  {
+        etudiant.myM2Project   = integrationM2
+      }
+      if numTel != nil {
+        etudiant.myTel = numTel
+      }
+      if option != nil {
+        etudiant.myOption = option
+      }
       if newsLetter != nil {
-          etudiant.myNewsLetter = newsLetter!
+        etudiant.myNewsLetter = newsLetter!
       }
       if heureCreation != nil {
         etudiant.myHeureCreation = heureCreation!
       }
       tabResu.append(etudiant)
-      }
     }
+  }
   
   return tabResu
   

@@ -24,13 +24,15 @@ extension String{
 }
 
 
-class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
+class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate, UITextViewDelegate {
   
   var myPasswordDelete = "Forum2016"
   var myListOfClassesOptions = [["--------","DUT", "BTS", "Licence", "Autre"],
     ["--------","Informatique", "Langue,Communication",  "Medias", "Autres"]]
   
   let myKeyboardShift = CGFloat(-70.0)
+  let myKeyboardLargeShift = CGFloat(-0.4*UIScreen.main.bounds.height)
+
   var myTabEtudians = [Etudiant]()
   var myIsEditing = true
   let myColorActive = UIColor.white
@@ -132,8 +134,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myClassePickView.delegate = self
     myCurrentStudent = Etudiant(aName: "--", aLastName: "--", aClass: "--", aSpe: "--", aTown: "--",
       aForumInscription: myForumName, aDateInscription: myDate!)
-    myCurrentStudent?.myLPProject = [String]()
-    myCurrentStudent?.myDUTProject = [String]()
+    myCurrentStudent?.myM2Project = [String]()
+    myCurrentStudent?.myDUProject = [String]()
     
     updateStudent(myCurrentStudent!)
     myNameField.delegate = self
@@ -143,7 +145,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myPhoneField.delegate = self
     myDeptField.delegate = self
     myEmailField.delegate = self
-    myRemarqueField.delegate = self as? UITextViewDelegate
+    myRemarqueField.delegate = self
     let sharedDefault = UserDefaults.standard
     myForumName = sharedDefault.object(forKey: "FORUM_NAME") as! String
     myTabEtudians = recoverTableauEtudiant(myForumName)
@@ -219,26 +221,26 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     aStudent.myRemarque = myRemarqueField.text
     aStudent.myEmail = myEmailField.text!.cleanPonctuation()
     aStudent.myTel = myPhoneField.text!.cleanPonctuation()
-    aStudent.myDUTProject?.removeAll()
-    aStudent.myLPProject?.removeAll()
+    aStudent.myDUProject?.removeAll()
+    aStudent.myM2Project?.removeAll()
     
     if myIsDUCCI1Sel {
-      aStudent.myDUTProject?.append("DUCCI 1")
+      aStudent.myDUProject?.append("DUCCI 1")
     }
     if myIsDUCCI2Sel {
-      aStudent.myDUTProject?.append("DUCCI 2")
+      aStudent.myDUProject?.append("DUCCI 2")
     }
     if myIsDUI3DSel {
-      aStudent.myLPProject?.append("DU I3D")
+      aStudent.myM2Project?.append("DU I3D")
     }
     if myIsDULDSel {
-      aStudent.myLPProject?.append("DU LD")
+      aStudent.myM2Project?.append("DU LD")
     }
     if myIsM2CIMSel {
-      aStudent.myLPProject?.append("M2 CIM")
+      aStudent.myM2Project?.append("M2 CIM")
     }
     if myIsM2InfoSel {
-      aStudent.myLPProject?.append("M2 INFO")
+      aStudent.myM2Project?.append("M2 INFO")
     }
    
     aStudent.myNewsLetter = myIsNewLetterSel
@@ -350,15 +352,11 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myScoreLabelMMI.text = "MMI: \(score.2) (\(score.5))"
     myScoreLabelInfo.textColor = score.0 >= score.1 && score.0 >= score.2 ? UIColor.blue : UIColor.gray
     myScoreLabelGEII.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blue : UIColor.gray
-    
     myScoreLabelMMI.textColor = score.2 >= score.0 && score.2 >= score.1 ? UIColor.blue : UIColor.gray
-    
-    
     myScoreLabelInfo.textColor = score.3 >= score.4 && score.3 >= score.5 ? UIColor.blue : UIColor.gray
     myScoreLabelGEII.textColor = score.4 >= score.3 && score.4 >= score.5 ? UIColor.blue : UIColor.gray
-    
     myScoreLabelMMI.textColor = score.5 >= score.3 && score.5 >= score.4 ? UIColor.blue : UIColor.gray
-    
+
   }
   
   
@@ -376,13 +374,13 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTotalSaved.text = "\(myTabEtudians.count)"
     let indexClass: Int? = getIndex(unEtudiant.myClass)
     let indexSpe: Int? = getIndex(unEtudiant.mySpe)
-    myIsDUCCI2Sel = unEtudiant.myDUTProject!.contains("DUCCI 2")
-    myIsDUCCI1Sel = unEtudiant.myDUTProject!.contains("DUCCI 1")
+    myIsDUCCI2Sel = unEtudiant.myDUProject!.contains("DUCCI 2")
+    myIsDUCCI1Sel = unEtudiant.myDUProject!.contains("DUCCI 1")
 
-    myIsM2CIMSel = unEtudiant.myLPProject!.contains("M2 CIM")
-    myIsDULDSel = unEtudiant.myLPProject!.contains("DU LD")
-    myIsDUI3DSel = unEtudiant.myLPProject!.contains("DU I3D")
-    myIsM2InfoSel = unEtudiant.myLPProject!.contains("M2 INFO")
+    myIsM2CIMSel = unEtudiant.myM2Project!.contains("M2 CIM")
+    myIsDULDSel = unEtudiant.myM2Project!.contains("DU LD")
+    myIsDUI3DSel = unEtudiant.myM2Project!.contains("DU I3D")
+    myIsM2InfoSel = unEtudiant.myM2Project!.contains("M2 INFO")
     myIsNewLetterSel = unEtudiant.myNewsLetter
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
     myClassePickView.selectRow(indexSpe != nil ? indexSpe! : 0, inComponent: 1, animated: true)
@@ -454,16 +452,52 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     textField.resignFirstResponder()
   }
   
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidShow),
-      name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+  
+  
+  func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+    if UIApplication.shared.statusBarOrientation.isLandscape {
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationDuration(0.8)
+      self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardLargeShift)
+      UIView.commitAnimations()
+      myInterfaceIsShifted = true
+    }
+     return true
+  }
+  func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+    if myInterfaceIsShifted {
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationDuration(0.8)
+      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
+      UIView.commitAnimations()
+      myInterfaceIsShifted = false
+    }
     return true
   }
-  
-  
+  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    if UIApplication.shared.statusBarOrientation.isLandscape {
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationDuration(0.2)
+      self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardShift)
+      UIView.commitAnimations()
+      myInterfaceIsShifted = true
+    }
+    return true
+  }
   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
-    self.view.endEditing(true)
+    if myInterfaceIsShifted {
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationDuration(0.2)
+      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
+      UIView.commitAnimations()
+      myInterfaceIsShifted = false
+    }
+    
+    
     return true
   }
   
@@ -475,13 +509,31 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     return false
   }
   
-  @objc func keyboardDidShow()
+  @objc func keyboardDidShow(source: Any?)
   {
     if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
       UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.2)
-      self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardShift)
+      if source is UITextField
+      {
+        self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardLargeShift)
+
+      }else{
+        self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardShift)
+
+      }
+      UIView.commitAnimations()
+      myInterfaceIsShifted = true
+    }
+  }
+  @objc func keyboardDidShowLargeShift()
+  {
+    if UIApplication.shared.statusBarOrientation.isLandscape {
+      UIView.beginAnimations("registerScroll", context: nil)
+      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationDuration(0.8)
+      self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardLargeShift)
       UIView.commitAnimations()
       myInterfaceIsShifted = true
     }
@@ -490,14 +542,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   @objc func keyboardDidHide()
   {
-    if myInterfaceIsShifted {
-      UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
-      UIView.setAnimationDuration(0.2)
-      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
-      UIView.commitAnimations()
-      myInterfaceIsShifted = false
-    }
+   
   }
   
   @IBAction func clickM2CIM(_ sender: AnyObject) {
@@ -669,16 +714,16 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     for etu in myTabEtudians {
       if etu.myDateInscription == myDate || etu.myDateInscription == myDateM1 {
         var isInfo = false
-        isInfo = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT INFO")
-        isInfo = isInfo || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP IG3D") ||
-          etu.myLPProject!.contains("LP AMIO")))
+        isInfo = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUT INFO")
+        isInfo = isInfo || (etu.myM2Project != nil && (etu.myM2Project!.contains("LP IG3D") ||
+          etu.myM2Project!.contains("LP AMIO")))
         var isGeii = false
-        isGeii = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT GEII")
-        isGeii = isGeii || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP SARII")))
+        isGeii = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUT GEII")
+        isGeii = isGeii || (etu.myM2Project != nil && (etu.myM2Project!.contains("LP SARII")))
         var isMmi = false
-        isMmi = etu.myDUTProject != nil &&  etu.myDUTProject!.contains("DUT MMI")
-        isMmi = isMmi || (etu.myLPProject != nil && (etu.myLPProject!.contains("LP TeCAM") ||
-          etu.myLPProject!.contains("LP Cross Media")))
+        isMmi = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUT MMI")
+        isMmi = isMmi || (etu.myM2Project != nil && (etu.myM2Project!.contains("LP TeCAM") ||
+          etu.myM2Project!.contains("LP Cross Media")))
         
         if etu.myDateInscription == myDate {
           res.0 += isInfo ? 1 : 0
