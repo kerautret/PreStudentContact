@@ -341,15 +341,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTotalSavedDay.text = "\(getNumberStudentToday().0)"
     myTotalSaveDayM1.text = "\(getNumberStudentToday().1)"
     let score = getScore()
-    myScoreLabelInfo.text = "INFO: \(score.0) (\(score.3))"
-    myScoreLabelGEII.text = "GEII: \(score.1) (\(score.4))"
-    myScoreLabelMMI.text = "MMI: \(score.2) (\(score.5))"
+    myScoreLabelInfo.text = "DU: \(score.0) (\(score.3))"
+    myScoreLabelMMI.text = "M2: \(score.1) (\(score.4))"
     myScoreLabelInfo.textColor = score.0 >= score.1 && score.0 >= score.2 ? UIColor.blue : UIColor.gray
-    myScoreLabelGEII.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blue : UIColor.gray
-    myScoreLabelMMI.textColor = score.2 >= score.0 && score.2 >= score.1 ? UIColor.blue : UIColor.gray
+    myScoreLabelMMI.textColor = score.1 >= score.0 && score.1 >= score.2 ? UIColor.blue : UIColor.gray
     myScoreLabelInfo.textColor = score.3 >= score.4 && score.3 >= score.5 ? UIColor.blue : UIColor.gray
-    myScoreLabelGEII.textColor = score.4 >= score.3 && score.4 >= score.5 ? UIColor.blue : UIColor.gray
-    myScoreLabelMMI.textColor = score.5 >= score.3 && score.5 >= score.4 ? UIColor.blue : UIColor.gray
+    myScoreLabelMMI.textColor = score.4 >= score.3 && score.4 >= score.5 ? UIColor.blue : UIColor.gray
 
   }
   
@@ -707,27 +704,20 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     for etu in myTabEtudians {
       if etu.myDateInscription == myDate || etu.myDateInscription == myDateM1 {
         var isInfo = false
-        isInfo = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUT INFO")
-        isInfo = isInfo || (etu.myM2Project != nil && (etu.myM2Project!.contains("LP IG3D") ||
-          etu.myM2Project!.contains("LP AMIO")))
+        isInfo = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUCCI1")
+        isInfo = isInfo || (etu.myM2Project != nil && (etu.myM2Project!.contains("DUCCI2") ||
+          etu.myM2Project!.contains("DULD") ||  etu.myM2Project!.contains("DUI3D")))
         var isGeii = false
-        isGeii = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUT GEII")
-        isGeii = isGeii || (etu.myM2Project != nil && (etu.myM2Project!.contains("LP SARII")))
-        var isMmi = false
-        isMmi = etu.myDUProject != nil &&  etu.myDUProject!.contains("DUT MMI")
-        isMmi = isMmi || (etu.myM2Project != nil && (etu.myM2Project!.contains("LP TeCAM") ||
-          etu.myM2Project!.contains("LP Cross Media")))
+        isGeii = etu.myDUProject != nil &&  etu.myDUProject!.contains("M2CIM")
+        isGeii = isGeii || (etu.myM2Project != nil && (etu.myM2Project!.contains("M2INFO")))
         
         if etu.myDateInscription == myDate {
           res.0 += isInfo ? 1 : 0
           res.1 += isGeii ? 1 : 0
-          res.2 += isMmi ? 1 : 0
           
         }else {
           res.3 += isInfo ? 1 : 0
           res.4 += isGeii ? 1 : 0
-          res.5 += isMmi ? 1 : 0
-          
         }
       }
     }
