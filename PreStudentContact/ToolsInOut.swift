@@ -80,8 +80,7 @@ func exportListCSV(_ forumName: String) -> Data? {
             strResu += ",--"
           }
         }
-          
-        
+        else if key  == "integrationDU" {
           if (etu[key] as! [String]).contains("DUCCI1"){
             strResu += ",DUCCI 1"
           }else {strResu += ",--"}
@@ -94,8 +93,8 @@ func exportListCSV(_ forumName: String) -> Data? {
           if (etu[key] as! [String]).contains("DUI3D"){
             strResu += ",DU I3D"
           }else {strResu += ",--"}
-        
-        
+        }
+        else if key  == "integrationM2" {
           if (etu[key] as! [String]).contains("M2CIM"){
             strResu += ",M2 CIM"
           }else {strResu += ",--"}
@@ -103,13 +102,13 @@ func exportListCSV(_ forumName: String) -> Data? {
             strResu += ",M2 INFO"
           }else {strResu += ",--"}
           
-        
+        }else{
           if etu[key] != nil {
             strResu += ",\(etu[key]!)"
           }else{
             strResu += ",--"
           }
-        
+        }
       }
       strResu += "\n"
     }
