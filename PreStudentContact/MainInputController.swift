@@ -31,7 +31,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     ["--------","Informatique", "Langue,Communication",  "Medias", "Autres"]]
   
   let myKeyboardShift = CGFloat(-0.1*UIScreen.main.bounds.height)
-  let myKeyboardLargeShift = CGFloat(-0.3*UIScreen.main.bounds.height)
+  let myKeyboardLargeShift = CGFloat(-0.4*UIScreen.main.bounds.height)
 
   var myTabEtudians = [Etudiant]()
   var myIsEditing = true
@@ -150,6 +150,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateInterfaceState()
     updateDisplayWithEtudiant(myCurrentStudent!)
     myForumLabel.text = myForumName
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
     
   }
   
@@ -449,7 +451,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       UIView.beginAnimations("registerScroll", context: nil)
       UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.8)
-    self.view.transform = CGAffineTransform(translationX: 0, y: UIApplication.shared.statusBarOrientation.isLandscape ? myKeyboardLargeShift: myKeyboardLargeShift*0.7)
+      self.view.transform = CGAffineTransform(translationX: 0, y: UIApplication.shared.statusBarOrientation.isLandscape ? myKeyboardLargeShift: myKeyboardLargeShift*0.7)
       UIView.commitAnimations()
       myInterfaceIsShifted = true
     
@@ -477,19 +479,19 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     return true
   }
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    if myInterfaceIsShifted {
-      UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
-      UIView.setAnimationDuration(0.2)
-      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
-      UIView.commitAnimations()
-      myInterfaceIsShifted = false
-    }
-    
-    
-    return true
-  }
+//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//    if myInterfaceIsShifted {
+//      UIView.beginAnimations("registerScroll", context: nil)
+//      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+//      UIView.setAnimationDuration(0.2)
+//      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
+//      UIView.commitAnimations()
+//      myInterfaceIsShifted = false
+//    }
+//
+//
+//    return true
+//  }
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField.tag == 1 {
@@ -530,9 +532,18 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   }
   
   
+  
   @objc func keyboardDidHide()
   {
-   
+    if myInterfaceIsShifted {
+            UIView.beginAnimations("registerScroll", context: nil)
+            UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+            UIView.setAnimationDuration(0.2)
+            self.view.transform = CGAffineTransform(translationX: 0, y: 0)
+            UIView.commitAnimations()
+            myInterfaceIsShifted = false
+          }
+    
   }
   
   @IBAction func clickM2CIM(_ sender: AnyObject) {
