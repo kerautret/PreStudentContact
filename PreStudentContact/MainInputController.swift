@@ -282,6 +282,12 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myTabEtudians.append(Etudiant(other: myCurrentStudent!))
     updateStudent(myCurrentStudent!)
     updateDisplayWithEtudiant(myCurrentStudent!)
+    myIsEditing = false
+    myIsAcceptSel = !myIsAcceptSel
+    myEditButton.isHidden = true
+    updateOrientationButtonState()
+    updateInterfaceState()
+
   }
   
   
@@ -628,17 +634,17 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   @IBAction func changeMode(_ sender: AnyObject) {
+    myIsAcceptSel = false
+    myIsEditing = false
     if myTabEtudians.count >= 1 {
       myHistoryMode = !myHistoryMode
       myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , for: UIControl.State())
       if !myHistoryMode {
         myCurrentDisplayStudent = 0
-        myIsEditing = true
         updateDisplayWithEtudiant(myCurrentStudent!)
       }else if myTabEtudians.count != 0{
         updateStudent(myCurrentStudent!)
         myCurrentDisplayStudent = 1
-        myIsEditing = false
         updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
       }
       updateInterfaceState()

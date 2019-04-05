@@ -12,6 +12,7 @@
 		CD66D1C51BF4D13900193B03 /* Etudiant.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1C41BF4D13900193B03 /* Etudiant.swift */; };
 		CD66D1CD1BF4DF6600193B03 /* ToolsInOut.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */; };
 		CD66D1CF1BF777A900193B03 /* SettingsInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */; };
+		CD6F45AF22577D42001B45E9 /* logo ICOM_Coul.gif in Resources */ = {isa = PBXBuildFile; fileRef = CD6F45AE22577D42001B45E9 /* logo ICOM_Coul.gif */; };
 		CD74F0461C0FA6AB00F0AB81 /* checked.png in Resources */ = {isa = PBXBuildFile; fileRef = CD74F0451C0FA6AB00F0AB81 /* checked.png */; };
 		CD74F0481C0FA6B100F0AB81 /* unChecked.png in Resources */ = {isa = PBXBuildFile; fileRef = CD74F0471C0FA6B100F0AB81 /* unChecked.png */; };
 		CDC730161BFE6B7300D65C3A /* emptyListStudent.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDC730151BFE6B7300D65C3A /* emptyListStudent.plist */; };
@@ -29,6 +30,7 @@
 		CD66D1C41BF4D13900193B03 /* Etudiant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Etudiant.swift; sourceTree = "<group>"; };
 		CD66D1CC1BF4DF6600193B03 /* ToolsInOut.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolsInOut.swift; sourceTree = "<group>"; };
 		CD66D1CE1BF777A900193B03 /* SettingsInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsInfoController.swift; sourceTree = "<group>"; };
+		CD6F45AE22577D42001B45E9 /* logo ICOM_Coul.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "logo ICOM_Coul.gif"; sourceTree = "<group>"; };
 		CD74F0451C0FA6AB00F0AB81 /* checked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checked.png; sourceTree = "<group>"; };
 		CD74F0471C0FA6B100F0AB81 /* unChecked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unChecked.png; sourceTree = "<group>"; };
 		CDC730151BFE6B7300D65C3A /* emptyListStudent.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = emptyListStudent.plist; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		CDD451CE1BF4BC2F00F76213 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CD6F45AE22577D42001B45E9 /* logo ICOM_Coul.gif */,
 				CD54685C2254A4A100A7A75B /* Lyon2.png */,
 				CD54685A2254A41C00A7A75B /* gamagora.jpeg */,
 				CD74F0471C0FA6B100F0AB81 /* unChecked.png */,
@@ -175,6 +178,7 @@
 				CD74F0481C0FA6B100F0AB81 /* unChecked.png in Resources */,
 				CD74F0461C0FA6AB00F0AB81 /* checked.png in Resources */,
 				CDD451C21BF4BBF700F76213 /* Main.storyboard in Resources */,
+				CD6F45AF22577D42001B45E9 /* logo ICOM_Coul.gif in Resources */,
 				CD54685D2254A4A100A7A75B /* Lyon2.png in Resources */,
 				CDD451D01BF4BC3A00F76213 /* logo_UL.png in Resources */,
 			);
