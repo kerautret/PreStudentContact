@@ -39,7 +39,7 @@
                                         <rect key="frame" x="43" y="148" width="577" height="82"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <string key="text">Les informations collectées seront utilisées à des fins de contacts et d'informations pour les inscriptions de formation de l'ICOM. Vous devez accepter pour continuer.</string>
+                                        <string key="text">Les informations collectées seront utilisées à des fins de contacts et d'informations pour les inscriptions dans des formations de l'ICOM. Vous devez accepter pour continuer.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <color key="textColor" name="systemBlueColor" catalog="System" colorSpace="catalog"/>
                                         <nil key="highlightedColor"/>
