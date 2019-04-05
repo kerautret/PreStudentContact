@@ -34,7 +34,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   let myKeyboardLargeShift = CGFloat(-0.4*UIScreen.main.bounds.height)
 
   var myTabEtudians = [Etudiant]()
-  var myIsEditing = true
+  var myIsEditing = false
   let myColorActive = UIColor.white
   let myColorInActive = UIColor.lightGray
   let myColorBGViewActive = UIColor(red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0)
@@ -48,6 +48,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   var myDateM1: String?
   var myHistoryMode: Bool = false
   var myInterfaceIsShifted: Bool = false
+  var myIsAcceptSel: Bool = false
   
   @IBOutlet var myInterfaceView: UIView!
   @IBOutlet var myNameField: UITextField!
@@ -90,6 +91,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBOutlet weak var myDUI3DButton: UIButton!
   @IBOutlet weak var myDULDButton: UIButton!
 
+  @IBOutlet weak var myAcceptButton: UIButton!
   @IBOutlet weak var myM2CIMButton: UIButton!
   @IBOutlet weak var myM2InfoButton: UIButton!
  
@@ -151,7 +153,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     updateDisplayWithEtudiant(myCurrentStudent!)
     myForumLabel.text = myForumName
     
-    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidHide), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(MainInputController.keyboardDidHide), name: UIResponder.keyboardDidHideNotification, object: nil)
     
   }
   
@@ -383,6 +385,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     updateInterfaceState()
     updateOrientationButtonState()
+    myEditButton.isHidden = true
+
   }
   
   func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -449,7 +453,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationCurve(UIView.AnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.8)
       self.view.transform = CGAffineTransform(translationX: 0, y: UIApplication.shared.statusBarOrientation.isLandscape ? myKeyboardLargeShift: myKeyboardLargeShift*0.7)
       UIView.commitAnimations()
@@ -460,7 +464,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
     if myInterfaceIsShifted {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationCurve(UIView.AnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.8)
       self.view.transform = CGAffineTransform(translationX: 0, y: 0)
       UIView.commitAnimations()
@@ -471,7 +475,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
     if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationCurve(UIView.AnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.2)
       self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardShift)
       UIView.commitAnimations()
@@ -505,7 +509,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   {
     if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationCurve(UIView.AnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.2)
       if source is UITextField
       {
@@ -523,7 +527,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   {
     if UIApplication.shared.statusBarOrientation.isLandscape {
       UIView.beginAnimations("registerScroll", context: nil)
-      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+      UIView.setAnimationCurve(UIView.AnimationCurve.easeInOut)
       UIView.setAnimationDuration(0.8)
       self.view.transform = CGAffineTransform(translationX: 0, y: myKeyboardLargeShift)
       UIView.commitAnimations()
@@ -537,7 +541,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   {
     if myInterfaceIsShifted {
             UIView.beginAnimations("registerScroll", context: nil)
-            UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
+            UIView.setAnimationCurve(UIView.AnimationCurve.easeInOut)
             UIView.setAnimationDuration(0.2)
             self.view.transform = CGAffineTransform(translationX: 0, y: 0)
             UIView.commitAnimations()
@@ -585,16 +589,26 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     self.view.endEditing(true)
   }
   
+  @IBAction func clickAccept(_ sender: Any) {
+    myIsEditing = !myIsEditing
+    updateOrientationButtonState()
+    myIsAcceptSel = !myIsAcceptSel
+    updateInterfaceState()
+    myEditButton.isHidden = true
+
+  }
+  
   
   func updateOrientationButtonState(){
-    myM2CIMButton.setImage(UIImage(named: myIsM2CIMSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myM2InfoButton.setImage(UIImage(named: myIsM2InfoSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDUI3DButton.setImage(UIImage(named: myIsDUI3DSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDULDButton.setImage(UIImage(named: myIsDULDSel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDUCCI1Button.setImage(UIImage(named: myIsDUCCI1Sel ? "checked.png" : "unChecked.png"), for: UIControlState())
-    myDUCCI2Button.setImage(UIImage(named: myIsDUCCI2Sel ? "checked.png" : "unChecked.png"), for: UIControlState())
-  
-    myNewsLetterButton.setImage(UIImage(named: myIsNewLetterSel ? "checked.png" : "unChecked.png"), for: UIControlState())
+    myM2CIMButton.setImage(UIImage(named: myIsM2CIMSel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+    myM2InfoButton.setImage(UIImage(named: myIsM2InfoSel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+    myDUI3DButton.setImage(UIImage(named: myIsDUI3DSel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+    myDULDButton.setImage(UIImage(named: myIsDULDSel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+    myDUCCI1Button.setImage(UIImage(named: myIsDUCCI1Sel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+    myDUCCI2Button.setImage(UIImage(named: myIsDUCCI2Sel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+    myAcceptButton.setImage(UIImage(named: myIsAcceptSel ? "checked.png" : "unChecked.png"), for: UIControl.State())
+
+    myNewsLetterButton.setImage(UIImage(named: myIsNewLetterSel ? "checked.png" : "unChecked.png"), for: UIControl.State())
   }
   
   
@@ -616,7 +630,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   @IBAction func changeMode(_ sender: AnyObject) {
     if myTabEtudians.count >= 1 {
       myHistoryMode = !myHistoryMode
-      myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , for: UIControlState())
+      myHistoryButton.setTitle(myHistoryMode ? "stop history" : "history" , for: UIControl.State())
       if !myHistoryMode {
         myCurrentDisplayStudent = 0
         myIsEditing = true
@@ -639,27 +653,27 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
   
   
   @IBAction func deleteSudent(_ sender: AnyObject){
-    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.alert)
+    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertController.Style.alert)
     alert.addTextField(configurationHandler: {(textField: UITextField!) in
       textField.placeholder = "Password"
       textField.isSecureTextEntry = true
       self.myPasswordTextField = textField
     })
     present(alert, animated: true, completion: nil)
-    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: tryDeleteCurrentStudent))
-    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: tryDeleteCurrentStudent))
+    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
   }
   
   func deleteAll(){
-    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertControllerStyle.alert)
+    let alert = UIAlertController(title: "pass needed", message: "enter password", preferredStyle: UIAlertController.Style.alert)
     alert.addTextField(configurationHandler: {(textField: UITextField!) in
       textField.placeholder = "Password"
       textField.isSecureTextEntry = true
       self.myPasswordTextField = textField
     })
     present(alert, animated: true, completion: nil)
-    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: tryDelete))
-    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: tryDelete))
+    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
   }
   
   func tryDelete(_ alert: UIAlertAction!){
@@ -678,7 +692,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
         myCurrentDisplayStudent = 0
         myIsEditing = true
         myHistoryMode = false
-        myHistoryButton.setTitle("history" , for: UIControlState())
+        myHistoryButton.setTitle("history" , for: UIControl.State())
         
         updateDisplayWithEtudiant(myCurrentStudent!)
         updateInterfaceState()

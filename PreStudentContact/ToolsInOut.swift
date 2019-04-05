@@ -113,7 +113,7 @@ func exportListCSV(_ forumName: String) -> Data? {
       }
       strResu += "\n"
     }
-    try? strResu.data(using: String.Encoding.utf8)?.write(to: URL(fileURLWithPath: "\(getPath(internFileSave)).csv"), options: [.atomic])
+    ((try? strResu.data(using: String.Encoding.utf8)?.write(to: URL(fileURLWithPath: "\(getPath(internFileSave)).csv"), options: [.atomic])) as ()??)
     return strResu.data(using: String.Encoding.utf8)
   }
   
