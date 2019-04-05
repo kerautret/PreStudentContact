@@ -379,8 +379,8 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     myIsDUCCI1Sel = unEtudiant.myDUProject!.contains("DUCCI1")
 
     myIsM2CIMSel = unEtudiant.myM2Project!.contains("M2CIM")
-    myIsDULDSel = unEtudiant.myM2Project!.contains("DULD")
-    myIsDUI3DSel = unEtudiant.myM2Project!.contains("DUI3D")
+    myIsDULDSel = unEtudiant.myDUProject!.contains("DULD")
+    myIsDUI3DSel = unEtudiant.myDUProject!.contains("DUI3D")
     myIsM2InfoSel = unEtudiant.myM2Project!.contains("M2INFO")
     myIsNewLetterSel = unEtudiant.myNewsLetter
     myClassePickView.selectRow(indexClass != nil ? indexClass! : 0, inComponent: 0, animated: true)
@@ -489,19 +489,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     }
     return true
   }
-//  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-//    if myInterfaceIsShifted {
-//      UIView.beginAnimations("registerScroll", context: nil)
-//      UIView.setAnimationCurve(UIViewAnimationCurve.easeInOut)
-//      UIView.setAnimationDuration(0.2)
-//      self.view.transform = CGAffineTransform(translationX: 0, y: 0)
-//      UIView.commitAnimations()
-//      myInterfaceIsShifted = false
-//    }
-//
-//
-//    return true
-//  }
+
   
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     if textField.tag == 1 {
