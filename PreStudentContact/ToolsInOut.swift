@@ -105,7 +105,7 @@ func exportListCSV(_ forumName: String) -> Data? {
           
         }else{
           if etu[key] != nil {
-            strResu += ",\(etu[key]!)"
+            strResu += ","+"\(etu[key]!)".cleanPonctuation()
           }else{
             strResu += ",--"
           }
