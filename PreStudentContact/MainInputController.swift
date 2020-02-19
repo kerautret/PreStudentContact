@@ -185,7 +185,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
       myCurrentDisplayStudent -= 1
       myIsEditing = false
       updateDisplayWithEtudiant(myTabEtudians[myTabEtudians.count - myCurrentDisplayStudent ])
-      myEditButton.isHidden = false
+      myEditButton.isHidden = !myHistoryMode
       myCancelButton.isHidden = false
       mySaveButton.isHidden = true
     }else{
@@ -337,7 +337,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
     
     myPrecButton.isHidden =  myCurrentDisplayStudent == myTabEtudians.count || myTabEtudians.count == 0 || !myHistoryMode
     mySuivButton.isHidden = myCurrentDisplayStudent <= 1 || myTabEtudians.count == 1 || !myHistoryMode
-    myEditButton.isHidden = myIsEditing
+    myEditButton.isHidden = myIsEditing || !myHistoryMode
     mySaveModifs.isHidden = !myIsEditing || myCurrentDisplayStudent == 0
     myCancelButton.isHidden = myCurrentDisplayStudent == 0 || !myIsEditing
     myDeleteButton.isHidden =  myCurrentDisplayStudent == 0 || !myIsEditing
