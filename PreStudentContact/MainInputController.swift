@@ -758,6 +758,7 @@ class MainInputController: UIViewController, UIPickerViewDataSource, UIPickerVie
                 }
              let vc = UIActivityViewController(activityItems: [path], applicationActivities: [])
              // important to not crash on iPad
+             vc.popoverPresentationController?.sourceRect = (sender as! UIButton).frame
              vc.popoverPresentationController?.sourceView = self.view
              present(vc, animated: true, completion: nil)
             }
