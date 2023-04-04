@@ -69,7 +69,7 @@ class SettingsInfoController: UIViewController, MFMailComposeViewControllerDeleg
   func showSendMailErrorAlert() {
     let sendMailErrorAlert = UIAlertController(title: "Could Not Send Email",
       message: "Your device could not send e-mail.  Please check e-mail configuration and try again.",
-      preferredStyle: UIAlertControllerStyle.alert )
+      preferredStyle: UIAlertController.Style.alert )
      self.present(sendMailErrorAlert, animated: true, completion: nil)
     
   }
